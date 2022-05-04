@@ -45,40 +45,40 @@ class IncomeCycle
                 if (isset($key_filter['conditions']->shouldContain)) {
                     if (!empty($key_filter['conditions']->shouldContain)) {
                         $value = $key_filter['conditions']->shouldContain;
-                        $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
                 if (isset($key_filter['conditions']->shouldEndWith)) {
                     if (!empty($key_filter['conditions']->shouldEndWith)) {
                         $value = $key_filter['conditions']->shouldEndWith;
-                        $post = (new shouldEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new shouldEndWith)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
                 if (isset($key_filter['conditions']->shouldBe)) {
                     if (!empty($key_filter['conditions']->shouldBe)) {
                         $value = $key_filter['conditions']->shouldBe;
-                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
 //                if ($key_filter['conditions']->shouldMatchRegEx !== null) {
 //                     $value = $key_filter['conditions']->shouldMatchRegEx;
-//                    $post = (new shouldMatchRegEx)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+//                    $post = (new shouldMatchRegEx)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
 //                }
 
                 if (isset($key_filter['conditions']->shouldNotContain)) {
                     if (!empty($key_filter['conditions']->shouldNotContain)) {
                         $value = $key_filter['conditions']->shouldNotContain;
-                        $post = (new shouldNotContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new shouldNotContain)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
                 if (isset($key_filter['conditions']->shouldNotEndWith)) {
                     if ($key_filter['conditions']->shouldNotEndWith !== null) {
                         $value = $key_filter['conditions']->shouldNotEndWith;
-                        $post = (new ShouldNotEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldNotEndWith)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
             }

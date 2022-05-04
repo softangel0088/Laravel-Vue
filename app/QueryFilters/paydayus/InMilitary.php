@@ -47,14 +47,14 @@ class InMilitary
                 if (isset($key_filter['conditions']->shouldBeAnyOf)) {
                     if (!empty($key_filter['conditions']->shouldBeAnyOf)) {
                         $value = $key_filter['conditions']->shouldBeAnyOf;
-                        $post = (new ShouldBeAnyOf)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldBeAnyOf)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
                 if (isset($key_filter['conditions']->shouldBe)) {
                     if (!empty($key_filter['conditions']->shouldBe)) {
                         $value = $key_filter['conditions']->shouldBe;
-                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
             }

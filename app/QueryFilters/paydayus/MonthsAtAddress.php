@@ -54,26 +54,26 @@ class MonthsAtAddress
                 if (isset($key_filter['conditions']->shouldBeGreaterThan)) {
                     if ($key_filter['conditions']->shouldBeGreaterThan !== null) {
                         $value = $key_filter['conditions']->shouldBeGreaterThan;
-                        $post = (new ShouldBeGreaterThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldBeGreaterThan)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
                 if (isset($key_filter['conditions']->shouldBeLessThan)) {
                     if ($key_filter['conditions']->shouldBeLessThan !== null) {
                         $value = $key_filter['conditions']->shouldBeLessThan;
-                        $post = (new ShouldBeLessThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldBeLessThan)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
                 if (isset($key_filter['conditions']->shouldBeBetween1) && isset($key_filter['conditions']->shouldBeBetween2)) {
                     if ($key_filter['conditions']->shouldBeBetween1 !== null && $key_filter['conditions']->shouldBeBetween2 !== null) {
                         $values[] = $key_filter['conditions']->shouldBeBetween1;
                         $values[] = $key_filter['conditions']->shouldBeBetween2;
-                        $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                        $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
                 if (isset($key_filter['conditions']->shouldBe)) {
                     if ($key_filter['conditions']->shouldBe !== null) {
                         $values = $key_filter['conditions']->shouldBe;
-                        $post = (new ShouldBe)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                        $post = (new ShouldBe)->applyFilters($post, $values, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
             }

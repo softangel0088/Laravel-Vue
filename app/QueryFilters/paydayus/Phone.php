@@ -50,7 +50,7 @@ class Phone
                 if (isset($key_filter['conditions']->shouldNotMatch)) {
                     if ($key_filter['conditions']->shouldNotMatch !== null) {
                     $value = $key_filter['conditions']->shouldNotMatch;
-                    $post = (new ShouldNotMatch)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    $post = (new ShouldNotMatch)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                 }
                 }
             }

@@ -42,7 +42,7 @@ class BankAccountType
                 if (isset($key_filter['conditions']->shouldContain)) {
                     if (!empty($key_filter['conditions']->shouldContain)) {
                         $value = $key_filter['conditions']->shouldContain;
-                        $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                        $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['buyer_setup_id'], $filter_type);
                     }
                 }
 
