@@ -8,8 +8,8 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
@@ -93,6 +93,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'StellaMaris\\Clock\\' => 18,
         ),
         'R' => 
         array (
@@ -130,6 +131,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         ),
         'L' => 
         array (
+            'League\\Uri\\' => 11,
             'League\\OAuth2\\Server\\' => 21,
             'League\\OAuth1\\Client\\' => 21,
             'League\\MimeTypeDetection\\' => 25,
@@ -367,6 +369,10 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
+        'StellaMaris\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stella-maris/clock/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -443,6 +449,11 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'League\\Uri\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            1 => __DIR__ . '/..' . '/league/uri/src',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -3269,6 +3280,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'Laravel\\Passport\\Http\\Middleware\\CheckScopes' => __DIR__ . '/..' . '/laravel/passport/src/Http/Middleware/CheckScopes.php',
         'Laravel\\Passport\\Http\\Middleware\\CreateFreshApiToken' => __DIR__ . '/..' . '/laravel/passport/src/Http/Middleware/CreateFreshApiToken.php',
         'Laravel\\Passport\\Http\\Rules\\RedirectRule' => __DIR__ . '/..' . '/laravel/passport/src/Http/Rules/RedirectRule.php',
+        'Laravel\\Passport\\Http\\Rules\\UriRule' => __DIR__ . '/..' . '/laravel/passport/src/Http/Rules/UriRule.php',
         'Laravel\\Passport\\Passport' => __DIR__ . '/..' . '/laravel/passport/src/Passport.php',
         'Laravel\\Passport\\PassportServiceProvider' => __DIR__ . '/..' . '/laravel/passport/src/PassportServiceProvider.php',
         'Laravel\\Passport\\PassportUserProvider' => __DIR__ . '/..' . '/laravel/passport/src/PassportUserProvider.php',
@@ -3595,6 +3607,15 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'League\\CommonMark\\Extension\\DescriptionList\\Renderer\\DescriptionTermRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DescriptionList/Renderer/DescriptionTermRenderer.php',
         'League\\CommonMark\\Extension\\DisallowedRawHtml\\DisallowedRawHtmlExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DisallowedRawHtml/DisallowedRawHtmlExtension.php',
         'League\\CommonMark\\Extension\\DisallowedRawHtml\\DisallowedRawHtmlRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DisallowedRawHtml/DisallowedRawHtmlRenderer.php',
+        'League\\CommonMark\\Extension\\Embed\\Bridge\\OscaroteroEmbedAdapter' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/Bridge/OscaroteroEmbedAdapter.php',
+        'League\\CommonMark\\Extension\\Embed\\DomainFilteringAdapter' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/DomainFilteringAdapter.php',
+        'League\\CommonMark\\Extension\\Embed\\Embed' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/Embed.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedAdapterInterface' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedAdapterInterface.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedExtension.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedParser' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedParser.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedProcessor' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedProcessor.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedRenderer.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedStartParser' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedStartParser.php',
         'League\\CommonMark\\Extension\\ExtensionInterface' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExtensionInterface.php',
         'League\\CommonMark\\Extension\\ExternalLink\\ExternalLinkExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExternalLink/ExternalLinkExtension.php',
         'League\\CommonMark\\Extension\\ExternalLink\\ExternalLinkProcessor' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExternalLink/ExternalLinkProcessor.php',
@@ -3742,6 +3763,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'League\\CommonMark\\Renderer\\Block\\DocumentRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Block/DocumentRenderer.php',
         'League\\CommonMark\\Renderer\\Block\\ParagraphRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Block/ParagraphRenderer.php',
         'League\\CommonMark\\Renderer\\ChildNodeRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/ChildNodeRendererInterface.php',
+        'League\\CommonMark\\Renderer\\DocumentRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/DocumentRendererInterface.php',
         'League\\CommonMark\\Renderer\\HtmlDecorator' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/HtmlDecorator.php',
         'League\\CommonMark\\Renderer\\HtmlRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/HtmlRenderer.php',
         'League\\CommonMark\\Renderer\\Inline\\NewlineRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Inline/NewlineRenderer.php',
@@ -3926,6 +3948,38 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'League\\OAuth2\\Server\\ResponseTypes\\BearerTokenResponse' => __DIR__ . '/..' . '/league/oauth2-server/src/ResponseTypes/BearerTokenResponse.php',
         'League\\OAuth2\\Server\\ResponseTypes\\RedirectResponse' => __DIR__ . '/..' . '/league/oauth2-server/src/ResponseTypes/RedirectResponse.php',
         'League\\OAuth2\\Server\\ResponseTypes\\ResponseTypeInterface' => __DIR__ . '/..' . '/league/oauth2-server/src/ResponseTypes/ResponseTypeInterface.php',
+        'League\\Uri\\Contracts\\AuthorityInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/AuthorityInterface.php',
+        'League\\Uri\\Contracts\\DataPathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/DataPathInterface.php',
+        'League\\Uri\\Contracts\\DomainHostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/DomainHostInterface.php',
+        'League\\Uri\\Contracts\\FragmentInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/FragmentInterface.php',
+        'League\\Uri\\Contracts\\HostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/HostInterface.php',
+        'League\\Uri\\Contracts\\IpHostInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/IpHostInterface.php',
+        'League\\Uri\\Contracts\\PathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/PathInterface.php',
+        'League\\Uri\\Contracts\\PortInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/PortInterface.php',
+        'League\\Uri\\Contracts\\QueryInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/QueryInterface.php',
+        'League\\Uri\\Contracts\\SegmentedPathInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/SegmentedPathInterface.php',
+        'League\\Uri\\Contracts\\UriComponentInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/UriComponentInterface.php',
+        'League\\Uri\\Contracts\\UriException' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/UriException.php',
+        'League\\Uri\\Contracts\\UriInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/UriInterface.php',
+        'League\\Uri\\Contracts\\UserInfoInterface' => __DIR__ . '/..' . '/league/uri-interfaces/src/Contracts/UserInfoInterface.php',
+        'League\\Uri\\Exceptions\\FileinfoSupportMissing' => __DIR__ . '/..' . '/league/uri-interfaces/src/Exceptions/FileinfoSupportMissing.php',
+        'League\\Uri\\Exceptions\\IdnSupportMissing' => __DIR__ . '/..' . '/league/uri-interfaces/src/Exceptions/IdnSupportMissing.php',
+        'League\\Uri\\Exceptions\\IdnaConversionFailed' => __DIR__ . '/..' . '/league/uri-interfaces/src/Exceptions/IdnaConversionFailed.php',
+        'League\\Uri\\Exceptions\\SyntaxError' => __DIR__ . '/..' . '/league/uri-interfaces/src/Exceptions/SyntaxError.php',
+        'League\\Uri\\Exceptions\\TemplateCanNotBeExpanded' => __DIR__ . '/..' . '/league/uri/src/Exceptions/TemplateCanNotBeExpanded.php',
+        'League\\Uri\\Http' => __DIR__ . '/..' . '/league/uri/src/Http.php',
+        'League\\Uri\\HttpFactory' => __DIR__ . '/..' . '/league/uri/src/HttpFactory.php',
+        'League\\Uri\\Idna\\Idna' => __DIR__ . '/..' . '/league/uri-interfaces/src/Idna/Idna.php',
+        'League\\Uri\\Idna\\IdnaInfo' => __DIR__ . '/..' . '/league/uri-interfaces/src/Idna/IdnaInfo.php',
+        'League\\Uri\\Uri' => __DIR__ . '/..' . '/league/uri/src/Uri.php',
+        'League\\Uri\\UriInfo' => __DIR__ . '/..' . '/league/uri/src/UriInfo.php',
+        'League\\Uri\\UriResolver' => __DIR__ . '/..' . '/league/uri/src/UriResolver.php',
+        'League\\Uri\\UriString' => __DIR__ . '/..' . '/league/uri/src/UriString.php',
+        'League\\Uri\\UriTemplate' => __DIR__ . '/..' . '/league/uri/src/UriTemplate.php',
+        'League\\Uri\\UriTemplate\\Expression' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/Expression.php',
+        'League\\Uri\\UriTemplate\\Template' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/Template.php',
+        'League\\Uri\\UriTemplate\\VarSpecifier' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/VarSpecifier.php',
+        'League\\Uri\\UriTemplate\\VariableBag' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/VariableBag.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
@@ -5815,6 +5869,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'StellaMaris\\Clock\\ClockInterface' => __DIR__ . '/..' . '/stella-maris/clock/src/ClockInterface.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
         'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
@@ -6712,6 +6767,7 @@ class ComposerStaticInita60943ee769f1e89aa5444e953ec7f69
         'Symfony\\Contracts\\HttpClient\\Test\\HttpClientTestCase' => __DIR__ . '/..' . '/symfony/http-client-contracts/Test/HttpClientTestCase.php',
         'Symfony\\Contracts\\HttpClient\\Test\\TestHttpServer' => __DIR__ . '/..' . '/symfony/http-client-contracts/Test/TestHttpServer.php',
         'Symfony\\Contracts\\Service\\Attribute\\Required' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/Required.php',
+        'Symfony\\Contracts\\Service\\Attribute\\SubscribedService' => __DIR__ . '/..' . '/symfony/service-contracts/Attribute/SubscribedService.php',
         'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ResetInterface.php',
         'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceLocatorTrait.php',
         'Symfony\\Contracts\\Service\\ServiceProviderInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceProviderInterface.php',
