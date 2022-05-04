@@ -583,13 +583,13 @@ class PostLeadToBuyersUS implements ShouldQueue
      */
     private function lender_accepted($lender_response, object $post)
     {
-        if (!empty($this->partner_detail->margin)) {
+        if (!empty($this->partner_detail['margin'])) {
             if ($post->tier === 0) {
                 $price =
-                    $lender_response['post_price'] - ($lender_response['post_price'] * ($this->partner_detail->margin / 100));
+                    $lender_response['post_price'] - ($lender_response['post_price'] * ($this->partner_detail['margin'] / 100));
             } else {
                 $price =
-                    $lender_response['post_price'] - ($lender_response['post_price'] * ($this->partner_detail->margin / 100));
+                    $lender_response['post_price'] - ($lender_response['post_price'] * ($this->partner_detail['margin'] / 100));
             }
         } else {
 
@@ -719,13 +719,13 @@ class PostLeadToBuyersUS implements ShouldQueue
      * @param $response
      * @return int
      */
-    private function accumulate_cpa_offers($thresholdAmount, $offer_id, $response)
+    private function accumulate_cpa_offers($thresholdAmount, $offer_id, $response): int
     {
         if ($thresholdAmount > 0) {
             if ($offer_id == 3) {
-                $accumulatorAmount = 0 + $this->partner_detail->accuCPLus20;
+                $accumulatorAmount = 0 + $this->partner_detail['accuCPLus20'];
             } elseif ($offer_id == 4) {
-                $accumulatorAmount = 0 + $this->partner_detail->accuCPAus100;
+                $accumulatorAmount = 0 + $this->partner_detail['accuCPAus100'];
             }
             $accumulatorAmount = $accumulatorAmount + $response['price'];
 
@@ -740,12 +740,12 @@ class PostLeadToBuyersUS implements ShouldQueue
 
             if ($offer_id == 4) {
                 $lead_data = array(
-                    'id' => $this->partner_detail->id,
+                    'id' => $this->partner_detail['id'],
                     'accuCPAus100' => $accumulatorAmount
                 );
             } elseif ($offer_id == 3) {
                 $lead_data = array(
-                    'id' => $this->partner_detail->id,
+                    'id' => $this->partner_detail['id'],
                     'accuCPLus20' => $accumulatorAmount
                 );
             }
@@ -761,7 +761,7 @@ class PostLeadToBuyersUS implements ShouldQueue
      */
     private function currency_type(array $partner_detail, array $response)
     {
-        if (!empty($this->partner_detail) && $this->partner_detail->currencyType != "USD") {
+        if (!empty($this->partner_detail) && $this->partner_detail['currencyType'] != "USD") {
             $rate = USLead::GetDailyRate();
             $response['price'] = $response['price'] * $rate['usd'];
         }

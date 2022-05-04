@@ -47,8 +47,8 @@ class Microbilt extends Model
     /**
      * @param $dlnumber
      * @param $dlnumberstate
-     * @param $firstname
-     * @param $lastname
+     * @param string $firstname
+     * @param string $lastname
      * @return bool
      */
     public function verify_driving_license_number($dlnumber, $dlnumberstate, $firstname, $lastname)
