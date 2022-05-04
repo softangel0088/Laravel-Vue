@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'dd6fdc3e53ec7caf26705836a09a5e3bf6b4f559',
+        'reference' => '30827883aba79bcbb0c1aab603ed83ba6bda8236',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+            'dev_requirement' => false,
+        ),
+        'clue/stream-filter' => array(
+            'pretty_version' => 'v1.6.0',
+            'version' => '1.6.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../clue/stream-filter',
+            'aliases' => array(),
+            'reference' => 'd6169430c7731d8509da7aecd0af756a5747b78e',
             'dev_requirement' => false,
         ),
         'cordoval/hamcrest-php' => array(
@@ -220,6 +229,15 @@
             'reference' => '8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
             'dev_requirement' => true,
         ),
+        'http-interop/http-factory-guzzle' => array(
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../http-interop/http-factory-guzzle',
+            'aliases' => array(),
+            'reference' => '8f06e92b95405216b237521cc64c804dd44c4a81',
+            'dev_requirement' => false,
+        ),
         'illuminate/auth' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -406,6 +424,15 @@
                 0 => 'v8.83.11',
             ),
         ),
+        'jean85/pretty-package-versions' => array(
+            'pretty_version' => '2.0.5',
+            'version' => '2.0.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jean85/pretty-package-versions',
+            'aliases' => array(),
+            'reference' => 'ae547e455a3d8babd07b96966b17d7fd21d9c6af',
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -436,7 +463,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'dd6fdc3e53ec7caf26705836a09a5e3bf6b4f559',
+            'reference' => '30827883aba79bcbb0c1aab603ed83ba6bda8236',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -760,11 +787,47 @@
                 0 => '*',
             ),
         ),
+        'php-http/client-common' => array(
+            'pretty_version' => '2.5.0',
+            'version' => '2.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/client-common',
+            'aliases' => array(),
+            'reference' => 'd135751167d57e27c74de674d6a30cef2dc8e054',
+            'dev_requirement' => false,
+        ),
         'php-http/client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
                 0 => '*',
             ),
+        ),
+        'php-http/discovery' => array(
+            'pretty_version' => '1.14.1',
+            'version' => '1.14.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/discovery',
+            'aliases' => array(),
+            'reference' => 'de90ab2b41d7d61609f504e031339776bc8c7223',
+            'dev_requirement' => false,
+        ),
+        'php-http/httplug' => array(
+            'pretty_version' => '2.3.0',
+            'version' => '2.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/httplug',
+            'aliases' => array(),
+            'reference' => 'f640739f80dfa1152533976e3c112477f69274eb',
+            'dev_requirement' => false,
+        ),
+        'php-http/message' => array(
+            'pretty_version' => '1.13.0',
+            'version' => '1.13.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/message',
+            'aliases' => array(),
+            'reference' => '7886e647a30a966a1a8d1dad1845b71ca8678361',
+            'dev_requirement' => false,
         ),
         'php-http/message-factory' => array(
             'pretty_version' => 'v1.0.2',
@@ -773,6 +836,21 @@
             'install_path' => __DIR__ . '/../php-http/message-factory',
             'aliases' => array(),
             'reference' => 'a478cb11f66a6ac48d8954216cfed9aa06a501a1',
+            'dev_requirement' => false,
+        ),
+        'php-http/message-factory-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '1.0',
+            ),
+        ),
+        'php-http/promise' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/promise',
+            'aliases' => array(),
+            'reference' => '4c4c1f9b7289a2ec57cde7f1e9762a5789506f88',
             'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-common' => array(
@@ -950,6 +1028,7 @@
             'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
+                1 => '^1.0',
             ),
         ),
         'psr/http-message' => array(
@@ -979,8 +1058,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1184,6 +1263,33 @@
             'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
             'dev_requirement' => true,
         ),
+        'sentry/sdk' => array(
+            'pretty_version' => '3.1.1',
+            'version' => '3.1.1.0',
+            'type' => 'metapackage',
+            'install_path' => NULL,
+            'aliases' => array(),
+            'reference' => '2de7de3233293f80d1e244bd950adb2121a3731c',
+            'dev_requirement' => false,
+        ),
+        'sentry/sentry' => array(
+            'pretty_version' => '3.4.0',
+            'version' => '3.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sentry/sentry',
+            'aliases' => array(),
+            'reference' => 'a92443883df6a55cbe7a062f76949f23dda66772',
+            'dev_requirement' => false,
+        ),
+        'sentry/sentry-laravel' => array(
+            'pretty_version' => '2.12.0',
+            'version' => '2.12.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sentry/sentry-laravel',
+            'aliases' => array(),
+            'reference' => '35b8807019e4ca300e4530c2b784517475296fca',
+            'dev_requirement' => false,
+        ),
         'stella-maris/clock' => array(
             'pretty_version' => '0.1.4',
             'version' => '0.1.4.0',
@@ -1340,6 +1446,15 @@
             'reference' => 'af49bc163ec3272f677bde3bc44c0d766c1fd662',
             'dev_requirement' => false,
         ),
+        'symfony/options-resolver' => array(
+            'pretty_version' => 'v6.0.3',
+            'version' => '6.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/options-resolver',
+            'aliases' => array(),
+            'reference' => '51f7006670febe4cbcbae177cbffe93ff833250d',
+            'dev_requirement' => false,
+        ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.25.0',
             'version' => '1.25.0.0',
@@ -1437,6 +1552,15 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-php81',
             'aliases' => array(),
             'reference' => '5de4ba2d41b15f9bd0e19b2ab9674135813ec98f',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-uuid' => array(
+            'pretty_version' => 'v1.25.0',
+            'version' => '1.25.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-uuid',
+            'aliases' => array(),
+            'reference' => '7529922412d23ac44413d0f308861d50cf68d3ee',
             'dev_requirement' => false,
         ),
         'symfony/process' => array(
