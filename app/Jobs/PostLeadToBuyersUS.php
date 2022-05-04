@@ -717,7 +717,7 @@ class PostLeadToBuyersUS implements ShouldQueue
      * @param $thresholdAmount
      * @param $offer_id
      * @param $response
-     * @return int
+     * @return int|array
      */
     private function accumulate_cpa_offers($thresholdAmount, $offer_id, $response)
     {
