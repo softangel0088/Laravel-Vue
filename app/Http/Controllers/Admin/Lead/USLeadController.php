@@ -151,6 +151,7 @@ class USLeadController extends Controller
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);
+        $lead_quality = 0;
 
         // Decode the Application
         $post = json_decode($request->getContent());
