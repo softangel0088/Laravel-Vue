@@ -127,6 +127,6 @@ class LeadValidate extends Model
     private function future_pay_date($applicant)
     {
         $date = Carbon::now();
-//        dd($date);
+        dd($date);
     }
 }

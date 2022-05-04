@@ -177,6 +177,7 @@ class PostLeadToBuyersUS implements ShouldQueue
     public function BuyerPost($post)
     {
 
+        dd($post);
         // Get Buyers
         $post = USLead::getBuyers($post);
 

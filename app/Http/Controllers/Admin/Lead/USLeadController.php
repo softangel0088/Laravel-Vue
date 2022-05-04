@@ -144,7 +144,7 @@ class USLeadController extends Controller
      */
     public function post(LeadPostRequestUS $request)
     {
-//        $validated = (new LeadValidate)->validate_data($request); TODO
+        $validated = (new LeadValidate)->validate_data($request);
 
         // Is application valid, if not return errors
 //        $valid_app = $this->application_validate($validated);

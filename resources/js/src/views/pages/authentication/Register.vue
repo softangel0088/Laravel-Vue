@@ -253,6 +253,7 @@ export default {
   mixins: [togglePasswordVisibility],
   data() {
     return {
+      referrer_id: '',
       status: '',
       username: '',
       name: '',
@@ -291,6 +292,10 @@ export default {
               email: this.email,
               password: this.password,
               confirmation_password: this.confirmation_password,
+              referrer_id: this.$route.query.referrer_id,
+
+                //const urlParams = new URLSearchParams(window.location.search);
+                // this.name = urlParams.get("name");
             })
             .then(response => {
               this.$router.push('/login')
