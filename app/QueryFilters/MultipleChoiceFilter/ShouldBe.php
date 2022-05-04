@@ -68,6 +68,7 @@ class ShouldBe extends Filter
 
         $newQuery = $query->get()->toArray();
 
+
         if (!empty($newQuery)) {
 
             return $post;

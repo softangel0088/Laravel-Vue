@@ -24,10 +24,10 @@ class DateOfBirth
         $buyer_list['row'] = $post->buyer_list;
         Log::debug('BUYER LIST1::', (array)$buyer_list['row']);
 
-        if ($post->istest == true ) {
+        if ($post->istest == true) {
             return $post;
         }
-        if($buyer_list['row']->isEmpty()) {
+        if ($buyer_list['row']->isEmpty()) {
             return $post;
         }
 
@@ -44,10 +44,12 @@ class DateOfBirth
                 $key_filter['conditions'] = json_decode($key_filter['conditions']);
 
 
-                if ($key_filter['conditions']->shouldBeBetween1 !== null && $key_filter['conditions']->shouldBeBetween2 !== null) {
-                    $values[] = $key_filter['conditions']->shouldBeBetween1;
-                    $values[] = $key_filter['conditions']->shouldBeBetween2;
-                    $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['buyer_setup_id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBeBetween1) && isset($key_filter['conditions']->shouldBeBetween2)) {
+                    if ($key_filter['conditions']->shouldBeBetween1 !== null && $key_filter['conditions']->shouldBeBetween2 !== null) {
+                        $values[] = $key_filter['conditions']->shouldBeBetween1;
+                        $values[] = $key_filter['conditions']->shouldBeBetween2;
+                        $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['buyer_setup_id'], $filter_type);
+                    }
                 }
             }
         }

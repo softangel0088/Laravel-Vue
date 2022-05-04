@@ -21,10 +21,10 @@ class Email
 
         $buyer_list['row'] = $post->buyer_list;
 
-        if ($post->istest == true ) {
+        if ($post->istest == true) {
             return $post;
         }
-        if($buyer_list['row']->isEmpty()) {
+        if ($buyer_list['row']->isEmpty()) {
             return $post;
         }
 
@@ -41,29 +41,39 @@ class Email
                 $filter_type = 'Email';
                 $key_filter['conditions'] = json_decode($key_filter['conditions']);
 
-                if (!empty($key_filter['conditions']->shouldContain)) {
-                    $value = $key_filter['conditions']->shouldContain;
-                    $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldContain)) {
+                    if (!empty($key_filter['conditions']->shouldContain)) {
+                        $value = $key_filter['conditions']->shouldContain;
+                        $post = (new ShouldContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if (!empty($key_filter['conditions']->shouldEndWith)) {
-                     $value = $key_filter['conditions']->shouldEndWith;
-                    $post = (new shouldEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldEndWith)) {
+                    if (!empty($key_filter['conditions']->shouldEndWith)) {
+                        $value = $key_filter['conditions']->shouldEndWith;
+                        $post = (new shouldEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if (!empty($key_filter['conditions']->shouldBe)) {
-                     $value = $key_filter['conditions']->shouldBe;
-                    $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBe)) {
+                    if (!empty($key_filter['conditions']->shouldBe)) {
+                        $value = $key_filter['conditions']->shouldBe;
+                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if (!empty($key_filter['conditions']->shouldNotContain)) {
-                     $value = $key_filter['conditions']->shouldNotContain;
-                    $post = (new shouldNotContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldNotContain)) {
+                    if (!empty($key_filter['conditions']->shouldNotContain)) {
+                        $value = $key_filter['conditions']->shouldNotContain;
+                        $post = (new shouldNotContain)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if ($key_filter['conditions']->shouldNotEndWith !== null) {
-                     $value = $key_filter['conditions']->shouldNotEndWith;
-                    $post = (new ShouldNotEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldNotEndWith)) {
+                    if ($key_filter['conditions']->shouldNotEndWith !== null) {
+                        $value = $key_filter['conditions']->shouldNotEndWith;
+                        $post = (new ShouldNotEndWith)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
             }
         }

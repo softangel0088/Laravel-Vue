@@ -19,10 +19,10 @@ class LoanTerms
 
         $buyer_list['row'] = $post->buyer_list;
 
-        if ($post->istest == true ) {
+        if ($post->istest == true) {
             return $post;
         }
-        if($buyer_list['row']->isEmpty()) {
+        if ($buyer_list['row']->isEmpty()) {
             return $post;
         }
 
@@ -38,22 +38,30 @@ class LoanTerms
                 $filter_type = 'LoanTerms';
                 $key_filter['conditions'] = json_decode($key_filter['conditions']);
 
-                if ($key_filter['conditions']->shouldBeGreaterThan !== null) {
-                    $value = $key_filter['conditions']->shouldBeGreaterThan;
-                    $post = (new ShouldBeGreaterThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBeGreaterThan)) {
+                    if ($key_filter['conditions']->shouldBeGreaterThan !== null) {
+                        $value = $key_filter['conditions']->shouldBeGreaterThan;
+                        $post = (new ShouldBeGreaterThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
-                if ($key_filter['conditions']->shouldBeLessThan !== null) {
-                    $value = $key_filter['conditions']->shouldBeLessThan;
-                    $post = (new ShouldBeLessThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBeLessThan)) {
+                    if ($key_filter['conditions']->shouldBeLessThan !== null) {
+                        $value = $key_filter['conditions']->shouldBeLessThan;
+                        $post = (new ShouldBeLessThan)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
-                if ($key_filter['conditions']->shouldBeBetween1 !== null && $key_filter['conditions']->shouldBeBetween2 !== null) {
-                    $values[] = $key_filter['conditions']->shouldBeBetween1;
-                    $values[] = $key_filter['conditions']->shouldBeBetween2;
-                    $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBeBetween1) && isset($key_filter['conditions']->shouldBeBetween2)) {
+                    if ($key_filter['conditions']->shouldBeBetween1 !== null && $key_filter['conditions']->shouldBeBetween2 !== null) {
+                        $values[] = $key_filter['conditions']->shouldBeBetween1;
+                        $values[] = $key_filter['conditions']->shouldBeBetween2;
+                        $post = (new ShouldBeBetween)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                    }
                 }
-                if ($key_filter['conditions']->shouldBe !== null) {
-                    $values = $key_filter['conditions']->shouldBe;
-                    $post = (new ShouldBe)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBe)) {
+                    if ($key_filter['conditions']->shouldBe !== null) {
+                        $values = $key_filter['conditions']->shouldBe;
+                        $post = (new ShouldBe)->applyFilters($post, $values, $key_filter['id'], $filter_type);
+                    }
                 }
             }
         }

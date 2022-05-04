@@ -24,12 +24,12 @@ class Phone
 
         $buyer_list['row'] = $post->buyer_list;
 
-//        if ($post->istest == true ) {
-//            return $post;
-//        }
-//        if($buyer_list['row']->isEmpty()) {
-//            return $post;
-//        }
+        if ($post->istest == true) {
+            return $post;
+        }
+        if ($buyer_list['row']->isEmpty()) {
+            return $post;
+        }
 
 //        dd($buyer_list);
 
@@ -39,7 +39,7 @@ class Phone
         // Get the filter of each buyer using the tier id.
         $filters = BuyerFilterUS::getBuyerFilters($buyerTierID);
 
-        /* Loop through the filters and grab conditions & values.  */
+        /* Loop through the filters and grab conditions & values */
         foreach ($filters as $key_filter) {
             if ($key_filter['filter_type'] === 'Phone') {
                 $filter_type = 'Phone';
@@ -47,9 +47,11 @@ class Phone
 
 
 
-                if ($key_filter['conditions']->shouldNotMatch !== null) {
+                if (isset($key_filter['conditions']->shouldNotMatch)) {
+                    if ($key_filter['conditions']->shouldNotMatch !== null) {
                     $value = $key_filter['conditions']->shouldNotMatch;
                     $post = (new ShouldNotMatch)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                }
                 }
             }
         }

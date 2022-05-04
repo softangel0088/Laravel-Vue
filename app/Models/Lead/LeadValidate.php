@@ -25,36 +25,36 @@ class LeadValidate extends Model
         $lastName = $request->applicant['lastName'];
         $ssn = $request->applicant['ssn'];
 
-//        $validate_email = IPQS::verify_email($email);
-//        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
-//        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
+        $validate_email = IPQS::verify_email($email);
+        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
+        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
         $validate_ssn = $this->verify_ssn($ssn);
-//        $validated_bank_details = $this->validate_bank($request->bank);
+        $validated_bank_details = $this->validate_bank($request->bank);
 
 
 //        dd($validate_lead);
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }
-//        if ($validate_email == false) {
-//            return 'Invalid Email';
-//        }
-//        elseif ($validate_ssn == false) {
+        if ($validate_email == false) {
+            return 'Invalid Email';
+        }
+        elseif ($validate_ssn == false) {
             return 'Invalid SSN';
-//        }
-//        elseif ($validate_driving_license !== true) {
-//            return 'Invalid Driving License';
-//        }
-//        elseif ($validated_bank_details !== true) {
-//            return $validated_bank_details;
+        }
+        elseif ($validate_driving_license !== true) {
+            return 'Invalid Driving License';
+        }
+        elseif ($validated_bank_details !== true) {
+            return $validated_bank_details;
         } elseif (
 //            $validate_lead == $valid &&
             $validate_email == $valid &&
             $validate_phone == $valid &&
             $validate_ssn == $valid
-//            &&
-//            $validate_driving_license == $valid &&
-//            $validated_bank_details == $valid
+            &&
+            $validate_driving_license == $valid &&
+            $validated_bank_details == $valid
         ) {
             return true;
         }

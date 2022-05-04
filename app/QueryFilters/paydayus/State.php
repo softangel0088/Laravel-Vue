@@ -25,10 +25,10 @@ class State
 
         $buyer_list['row'] = $post->buyer_list;
 
-        if ($post->istest == true ) {
+        if ($post->istest == true) {
             return $post;
         }
-        if($buyer_list['row']->isEmpty()) {
+        if ($buyer_list['row']->isEmpty()) {
             return $post;
         }
 
@@ -44,20 +44,25 @@ class State
                 $filter_type = 'State';
                 $key_filter['conditions'] = json_decode($key_filter['conditions']);
 
-                if (!empty($key_filter['conditions']->shouldBeAnyOf)) {
-                    $value = $key_filter['conditions']->shouldBeAnyOf;
-                    $post = (new ShouldBeAnyOf)->applyFilters($post, $value, $key_filter['id'], $filter_type);
-                    dd(111);
+                if (isset($key_filter['conditions']->shouldBeAnyOf)) {
+                    if (!empty($key_filter['conditions']->shouldBeAnyOf)) {
+                        $value = $key_filter['conditions']->shouldBeAnyOf;
+                        $post = (new ShouldBeAnyOf)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if (!empty($key_filter['conditions']->shouldBe)) {
-                    $value = $key_filter['conditions']->shouldBe;
-                    $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldBe)) {
+                    if (!empty($key_filter['conditions']->shouldBe)) {
+                        $value = $key_filter['conditions']->shouldBe;
+                        $post = (new shouldBe)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
 
-                if (!empty($key_filter['conditions']->shouldNotBeAnyOf)) {
-                    $value = $key_filter['conditions']->shouldNotBeAnyOf;
-                    $post = (new ShouldNotBeAnyOf)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                if (isset($key_filter['conditions']->shouldNotBeAnyOf)) {
+                    if (!empty($key_filter['conditions']->shouldNotBeAnyOf)) {
+                        $value = $key_filter['conditions']->shouldNotBeAnyOf;
+                        $post = (new ShouldNotBeAnyOf)->applyFilters($post, $value, $key_filter['id'], $filter_type);
+                    }
                 }
             }
         }

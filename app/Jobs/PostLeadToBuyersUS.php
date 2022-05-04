@@ -184,6 +184,7 @@ class PostLeadToBuyersUS implements ShouldQueue
 
         // Buyer Filters
         $post = BuyerFilterUS::allBuyerFilters($post);
+        dd($post);
 
 
         // Check Pingtree EPLs
