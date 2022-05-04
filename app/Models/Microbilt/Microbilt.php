@@ -139,7 +139,7 @@ class Microbilt extends Model
             'client_secret' => $MICROBILT_API_CLIENT_SECRET
         ];
         $oauth = Http::post($MICROBILT_API_OAUTH_URL, $params);
-        Log::debug('DEBUG:: Microbilt API: oAuth response: ' . print_r($oauth, true));
+//        Log::debug('DEBUG:: Microbilt API: oAuth response: ' . print_r($oauth, true));
 
         $result = $oauth->object();
 
@@ -170,7 +170,7 @@ class Microbilt extends Model
         ];
 
         $response = Http::withToken($this->access_token)->post($MICROBILT_API_VERIFICATION_URL, $bank);
-        Log::debug('DEBUG:: Microbilt API: ABAAcctVerification response: ', (array)$response);
+//        Log::debug('DEBUG:: Microbilt API: ABAAcctVerification response: ', (array)$response);
         $result = $response->object();
 
         if ($result->MsgRsHdr->Status->StatusCode == 0) {
