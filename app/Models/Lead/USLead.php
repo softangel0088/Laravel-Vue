@@ -156,7 +156,7 @@ class USLead extends Model
         if (isset($data['lead_id'])) {
             $res = $query->where('lead_id', $data['lead_id'])
                 ->updateOrInsert($data);
-            Log::debug('INSERTED LOG::', (array)$res);
+//            Log::debug('INSERTED LOG::', (array)$res);
 
         }
 

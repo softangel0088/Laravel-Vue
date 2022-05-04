@@ -661,11 +661,10 @@ class PostLeadToBuyersUS implements ShouldQueue
             'leadStatus' => '1',
             'id' => $lead->id
         );
-        $resp = (new USLead)->add($data);
-        Log::debug('LEAD::', (array)$resp);
+        //        Log::debug('LEAD::', (array)$resp);
 
 
-        return $resp;
+        return (new USLead)->add($data);
     }
 
 
@@ -721,13 +720,15 @@ class PostLeadToBuyersUS implements ShouldQueue
      */
     private function accumulate_cpa_offers($thresholdAmount, $offer_id, $response)
     {
+//        $accumulator = 0;
+
         if ($thresholdAmount > 0) {
             if ($offer_id == 3) {
-                $accumulatorAmount = 0 + $this->partner_detail['accuCPLus20'];
+                $accumulator = 0 + $this->partner_detail['accuCPLus20'];
             } elseif ($offer_id == 4) {
-                $accumulatorAmount = 0 + $this->partner_detail['accuCPAus100'];
+                $accumulator = 0 + $this->partner_detail['accuCPAus100'];
             }
-            $accumulatorAmount = $accumulatorAmount + $response['price'];
+            $accumulatorAmount = $accumulator + $response['price'];
 
             Log::debug('THRESHOLD::', (array)$thresholdAmount);
 
@@ -749,10 +750,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                     'accuCPLus20' => $accumulatorAmount
                 );
             }
-
-             $accumulator_updated = Partner::AddLeadType($lead_data);
-            Log::debug('Accumulator::', (array)$accumulator_updated);
-            return $accumulator_updated;
+            return Partner::AddLeadType($lead_data);
         }
     }
 

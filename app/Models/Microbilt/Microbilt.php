@@ -144,14 +144,7 @@ class Microbilt extends Model
         $result = $oauth->object();
 
         if (isset($result->access_token)) {
-//            $this->_CI->db->set('generated_at', 'NOW()', false);
-//            $this->_CI->db->set('expired', 'false', false);
-//            $this->_CI->db->insert($this->table_name, [
-//                'access_token' => $oauth['res']->access_token,
-//                'expires_in' => $oauth['res']->expires_in,
-//                'token_type' => $oauth['res']->token_type,
-//                'status' => $oauth['res']->status
-//            ]);
+
             $this->access_token = $result->access_token;
             return true;
         } else {
@@ -206,7 +199,7 @@ class Microbilt extends Model
 //        dd($license);
 
         $response = Http::withToken($this->access_token)->post($MICROBILT_API_VERIFICATION_URL, $license);
-        Log::debug('DEBUG:: Microbilt API: Driving License response: ', (array)$response);
+//        Log::debug('DEBUG:: Microbilt API: Driving License response: ', (array)$response);
         $result = $response->object();
 //        dd($result);
 
@@ -233,13 +226,13 @@ class Microbilt extends Model
         ];
 
         $response = Http::withToken($this->access_token)->post($MICROBILT_API_VERIFICATION_URL, $ssn);
-        Log::debug('DEBUG:: Microbilt API: SSN Verify response: ', (array)$response);
+//        Log::debug('DEBUG:: Microbilt API: SSN Verify response: ', (array)$response);
         $result = $response->object();
 
         if ($result->MsgRsHdr->Status->StatusCode == 0) {
                 return true;
             } else {
-            dd(333);
+//            dd(333);
                 Log::debug('VERIFY SSN RESP::', (array) $result);
                 $result = $result->Status->StatusDesc;
                 return $result;
