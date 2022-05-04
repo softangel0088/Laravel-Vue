@@ -290,6 +290,7 @@ class Partner extends Model
 
             $response->update($data);
             Log::debug('Threshold:: updated successfully');
+            Log::debug('Threshold RESP::', (array) $response->get()->first());
 
             return $response->get()->first();
         }

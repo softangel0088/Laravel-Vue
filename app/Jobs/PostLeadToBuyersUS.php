@@ -717,6 +717,7 @@ class PostLeadToBuyersUS implements ShouldQueue
      * @param $thresholdAmount
      * @param $offer_id
      * @param $response
+     * @return int
      */
     private function accumulate_cpa_offers($thresholdAmount, $offer_id, $response)
     {
@@ -749,7 +750,9 @@ class PostLeadToBuyersUS implements ShouldQueue
                 );
             }
 
-            return $accumulator_updated = Partner::AddLeadType($lead_data);
+             $accumulator_updated = Partner::AddLeadType($lead_data);
+            Log::debug('Accumulator::', (array)$accumulator_updated);
+            return $accumulator_updated;
         }
     }
 
