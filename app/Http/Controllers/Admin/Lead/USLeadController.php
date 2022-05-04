@@ -144,10 +144,10 @@ class USLeadController extends Controller
      */
     public function post(LeadPostRequestUS $request)
     {
-        $validated = (new LeadValidate)->validate_data($request);
+//        $validated = (new LeadValidate)->validate_data($request);
 
         // Is application valid, if not return errors
-        $valid_app = $this->application_validate($validated);
+//        $valid_app = $this->application_validate($validated);
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);

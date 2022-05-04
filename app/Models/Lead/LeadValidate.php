@@ -25,8 +25,8 @@ class LeadValidate extends Model
         $lastName = $request->applicant['lastName'];
         $ssn = $request->applicant['ssn'];
 
-        $validate_email = IPQS::verify_email($email);
-        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
+//        $validate_email = IPQS::verify_email($email);
+//        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
 //        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
         $validate_ssn = $this->verify_ssn($ssn);
 //        $validated_bank_details = $this->validate_bank($request->bank);
@@ -36,10 +36,10 @@ class LeadValidate extends Model
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }
-        if ($validate_email == false) {
-            return 'Invalid Email';
-        }
-        elseif ($validate_ssn == false) {
+//        if ($validate_email == false) {
+//            return 'Invalid Email';
+//        }
+//        elseif ($validate_ssn == false) {
             return 'Invalid SSN';
 //        }
 //        elseif ($validate_driving_license !== true) {
