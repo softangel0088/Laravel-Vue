@@ -16,7 +16,7 @@ return [
 
     'mailgun' => [
         'domain' => env('mail.uping.co.uk'),
-        'secret' => env('c7f5f3e965d87b891aa6156cff8b2ccd-1f1bd6a9-f76eb138'),
+        'secret' => env('f73272a794cdc975dc56e18ee980d2e2-fe066263-a7649568'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
