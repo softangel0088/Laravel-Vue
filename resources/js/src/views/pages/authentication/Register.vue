@@ -292,7 +292,7 @@ export default {
               email: this.email,
               password: this.password,
               confirmation_password: this.confirmation_password,
-              referrer_id: this.$route.query.referrer_id,
+              ref: this.$route.query.ref,
 
                 //const urlParams = new URLSearchParams(window.location.search);
                 // this.name = urlParams.get("name");

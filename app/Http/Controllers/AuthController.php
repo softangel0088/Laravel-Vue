@@ -187,7 +187,7 @@ class AuthController extends Controller
             $user->status = 1;
             $user->is_admin = 0;
             $user->role = 'Partner';
-            $user->referrer_id = $request['referrer_id'] ?? '';
+            $user->referrer_id = $request['ref'] ?? '';
             $user->save();
 
 
