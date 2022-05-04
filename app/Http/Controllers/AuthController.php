@@ -69,7 +69,7 @@ class AuthController extends Controller
 
         try {
 
-            Log::debug('Mail::');
+            Log::debug('Reset Email Sent::', (array) $user->email);
             //Here send the link with CURL with an external email API
              Mail::to($user->email)->send(new ResetPassword($token, $link, $user));
 
@@ -82,7 +82,7 @@ class AuthController extends Controller
     {
         //Retrieve the user from the database
         $user = DB::table('users')->where('email', $email)->select('name', 'email')->first();
-        //Generate, the password reset link. The token generated is embedded in the link
+
 
         try {
 

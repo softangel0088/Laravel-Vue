@@ -11,7 +11,7 @@ class ResetPasswordSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public object $user;
 
     /**
      * Create a new message instance.
@@ -31,7 +31,7 @@ class ResetPasswordSuccess extends Mailable
     public function build()
     {
         return $this->view('emails.mail-reset-password-success')
-                ->subject('Password Changed- UPING')
+                ->subject('Password Changed - UPING')
                 ->with(['user' => $this->user]);
     }
 }
