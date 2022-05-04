@@ -139,14 +139,19 @@ class PostLeadToBuyersUS implements ShouldQueue
             $partner = Partner::where('vendor_id', $post['vid'])->first();
             $mappings = Mapping::where('partner_id', $partner->id)->get()->toArray();
 
-            foreach ($mappings as $mapping) {
-                $buyer_list = BuyerSetup::where('model_type', 'Pingtree')
-                    ->where('id', $mapping['buyer_setup_id'])
-                    ->where('rotate', 1)
-                    ->where('status', 1)
-                    ->get();
+            if (!empty($mappings)) {
+                foreach ($mappings as $mapping) {
+                    $buyer_list = BuyerSetup::where('model_type', 'Pingtree')
+                        ->where('id', $mapping['buyer_setup_id'])
+                        ->where('rotate', 1)
+                        ->where('status', 1)
+                        ->get();
+                }
+                $post['buyer_list'] = $buyer_list;
+            } else {
+                $post['buyer_list'] = array();
             }
-            $post['buyer_list'] = $buyer_list;
+
             return $post;
         } else {
             return $post;
@@ -183,10 +188,10 @@ class PostLeadToBuyersUS implements ShouldQueue
 
         // Check Pingtree EPLs
 //        $pingtree_tracker_response = $this->GetPingtreeTracker($post);
-//        dd($pingtree_tracker_response);
+
         // Check affiliate limits on channel settings - pingtree traffic
 //        $network_channel_response = $this->network_channel_settings($post);
-//        dd($network_channel_response);
+
 
         // Assign buyer list
         $buyer_list = $post->buyer_list;
@@ -201,7 +206,6 @@ class PostLeadToBuyersUS implements ShouldQueue
                 $row = (object)$value;
 
                 $filename = app_path("Buyerapis/paydayus/" . strtolower($row->buyername) . ".php");
-                Log::debug('BuyerFile::', (array)$filename);
 
                 if (file_exists($filename)) {
                     require_once($filename);
