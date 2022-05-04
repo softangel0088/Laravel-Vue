@@ -114,6 +114,7 @@ class BuyerFilterUS extends Model
         $post = (new BankAccountType)->applyFilters($post);
         $post = (new Phone)->applyFilters($post);
 
+
         return $post;
 
     }
