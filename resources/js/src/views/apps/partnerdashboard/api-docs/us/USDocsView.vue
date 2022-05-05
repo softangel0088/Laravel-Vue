@@ -582,7 +582,7 @@
 
             <!-- Consent -->
             <b-col
-                id="blogComment"
+                id="willywonka"
                 cols="12"
                 class="mt-2"
             >
@@ -1527,28 +1527,28 @@
                         Description: 'Re-marketing Email',
                         DataType: 'Boolean',
                         Constraints: 'Must be one of the following:',
-                        Required: 1,
+                        Required: 0,
                     },
                     {
                         field: 'consentThirdPartySMS',
                         Description: 'Re-marketing SMS',
                         DataType: 'Boolean',
                         Constraints: 'Must be one of the following:',
-                        Required: 1,
+                        Required: 0,
                     },
                     {
                         field: 'consentThirdPartyPhone',
                         Description: 'Re-marketing Phone',
                         DataType: 'Boolean',
                         Constraints: 'Must be one of the following:',
-                        Required: 1,
+                        Required: 0,
                     },
                     {
                         field: 'consentThirdPartyPost',
                         Description: 'Re-marketing Post',
                         dataType: 'Boolean',
                         Constraints: 'Must be one of the following:',
-                        Required: 1,
+                        Required: 0,
                     },
                 ],
                 bankItems: [

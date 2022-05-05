@@ -26,6 +26,8 @@ use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -170,7 +172,7 @@ class USLead extends Model
      * This function will take the post data passed from the controller
      * if id is present, then it will do an update, else an insert.
      * @param $data
-     * @return Model|\Illuminate\Database\Query\Builder|object|null
+     * @return Model|Builder|object|null
      */
     public static function update_log_partner( $data )
     {
@@ -243,7 +245,6 @@ class USLead extends Model
      */
     public function UpdateRedirectUrl($search)
     {
-//        dd($search);
         $query = DB::table('us_leads');
 
         if (isset($search['id']) && !empty($search['id'])) {
@@ -280,9 +281,9 @@ class USLead extends Model
     /**
      * This function updates the lead logs
      * @param $data
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
-    public function UpdateLog($data)
+    public function UpdateLog($data): Builder
     {
         $res = DB::table('lmsleadlogs');
 
@@ -299,13 +300,13 @@ class USLead extends Model
 
     /**
      * Find the partner Log ID
-     * @param $leadid
-     * @return \Illuminate\Support\Collection
+     * @param $lead_id
+     * @return Collection
      */
-    public static function FindPartnerLogId($leadid)
+    public static function FindPartnerLogId($lead_id): Collection
     {
          $res = DB::table('lms_lead_log')
-            ->where('leadid', $leadid)
+            ->where('leadid', $lead_id)
             ->get();
 
          return $res;
