@@ -107,15 +107,19 @@ export default [
 // *--------- Iframe  ---------------------------------------*
 // *===============================================---*
     {
-        header: 'Channel',
+        header: 'Channels',
     },
     {
         title: 'Channels',
         icon: 'LayersIcon',
         children: [
+            // {
+            //     title: 'List',
+            //     route: 'apps-partner-channel-list',
+            // },
             {
-                title: 'List',
-                route: 'apps-partner-channel-list',
+                title: 'Iframe',
+                route: 'apps-partner-iframe-list',
             },
         ],
     },

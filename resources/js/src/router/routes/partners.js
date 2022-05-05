@@ -229,6 +229,17 @@ export default [
         }
     },
 
+    // POSTBACKS
+    {
+        path: '/partner/iframe/list',
+        name: 'apps-partner-iframe-list',
+        component: () => import('@/views/apps/partnerdashboard/channels/channel-list/ChannelList.vue'),
+        meta: {
+            requiresAuth: true,
+            partnerAuth: true
+        }
+    },
+
     // Profile
     {
             path: '/partner/account-setting',

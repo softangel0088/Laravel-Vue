@@ -100,7 +100,7 @@ export default {
       this.$toast({
         component: ToastificationContent,
         props: {
-          title: 'Text copied',
+          title: 'Link copied',
           icon: 'BellIcon',
           variant: 'success'
         },
