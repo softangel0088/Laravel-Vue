@@ -213,12 +213,13 @@ class USLead extends Model
      * @param $data
      * @return bool
      */
-    public static function AddLog($data)
+    public static function AddLog($data): bool
     {
         if (!empty($data)) {
             $res = DB::table('lmsleadlogsus')->insert($data);
+
+            return $res;
         }
-        return $res;
     }
 
     /**

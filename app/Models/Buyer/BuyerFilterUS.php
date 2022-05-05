@@ -120,6 +120,10 @@ class BuyerFilterUS extends Model
     }
 
 
+    /**
+     * @param $lead
+     * @return mixed
+     */
     public function quote_boost($lead)
     {
 

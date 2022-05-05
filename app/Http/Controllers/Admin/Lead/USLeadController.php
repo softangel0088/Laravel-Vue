@@ -52,7 +52,7 @@ class USLeadController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $perPage = $request->input("perPage");
         $vendor_id = $request->input("vendor_id");
@@ -112,13 +112,12 @@ class USLeadController extends Controller
         return Response::json(['leads' => $leads]);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): JsonResponse
     {
         $lead = USLead::with([
             'source',
@@ -137,17 +136,15 @@ class USLeadController extends Controller
 
 
     /**
-     * This function accepts applications and posts/maps them to the DB.
-     *
+     * This function accepts applications and sends it to the job for processing.
      * @param LeadPostRequestUS $request
-     * @return void
      */
     public function post(LeadPostRequestUS $request)
     {
         $validated = (new LeadValidate)->validate_data($request);
 
         // Is application valid, if not return errors
-//        $valid_app = $this->application_validate($validated);
+        $this->application_validate($validated);
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);

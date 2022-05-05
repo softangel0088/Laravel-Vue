@@ -128,6 +128,7 @@ Route::group([
         Route::get('/getUserData/{id}', [PartController::class, 'getUserData']);
         Route::get('/getPartnerStatusUK/{id}', [PartController::class, 'getPartnerStatusUK']);
         Route::get('/getPartnerStatusUS/{id}', [PartController::class, 'getPartnerStatusUS']);
+        Route::get('/getPartnerReferralLink/{id}', [PartController::class, 'getPartnerReferralLink']);
         Route::patch('/updateAccountInfo/{id}', [PartController::class, 'updateAccountInfo']);
         Route::patch('/updateAccountPassword/{id}', [PartController::class, 'updateAccountPassword']);
         Route::patch('/updateCompany/{id}', [PartController::class, 'updateCompany']);

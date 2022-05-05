@@ -77,33 +77,21 @@ class PostLeadToBuyersUS implements ShouldQueue
 
 
         $buyer_response = $this->BuyerPost($post);
+        $buyer_response['leadid'] = $this->post['uuid'];
         Log::debug('DEBUG RESP::', (array)$buyer_response);
 
+        $offer_detail = Offer::get($post['oid']);
 
-        $buyer_response['leadid'] = $this->post['uuid'];
-        if (!is_null($buyer_response) && $buyer_response['leadStatus'] == "1" || $buyer_response['leadStatus'] == "3") {
-            // Parse buyer response
-            $offer_detail = Offer::get($post['oid']);
 
-            if ($buyer_response['leadStatus'] == "1") {
-                $status = 1;
-                $response = $this->buyer_response($buyer_response, $status);
-
-            } else {
-                $status = 3;
-                $response = $this->buyer_response($buyer_response, $status);
-            }
-
-            $accumulator = $this->update_accumulator($offer_detail, $response);
+        if (!is_null($buyer_response)) {
+            $response = $this->prepare_response($buyer_response, $offer_detail);
         } else {
             $status = 2;
-
             $response = $this->buyer_response($buyer_response, $status);
         }
 
-        Log::debug('Response array: ' . json_encode($response));
-
         // Store Lead Log
+//        Log::debug('Response array: ' . json_encode($response));
         $logs = USLead::getlog($response['leadid']);
 
         // get check status response
@@ -118,7 +106,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $post_time = $etime - $startTime;
 
         // Update partner log
-        $partner_log = $this->update_partner_log($partner_log_id, $response, $post_response, $post_time);
+        $this->update_partner_log($partner_log_id, $response, $post_response, $post_time);
 
         // response is ready to return, marking job as completed.
         $this->status_check->resp = $post_response;
@@ -134,11 +122,11 @@ class PostLeadToBuyersUS implements ShouldQueue
      */
     public function quality_score_tracker($post)
     {
-
         if ($post['quality_score'] >= 80) {
             $partner = Partner::where('vendor_id', $post['vid'])->first();
             $mappings = Mapping::where('partner_id', $partner->id)->get()->toArray();
 
+            $buyer_list = [];
             if (!empty($mappings)) {
                 foreach ($mappings as $mapping) {
                     $buyer_list = BuyerSetup::where('model_type', 'Pingtree')
@@ -148,14 +136,10 @@ class PostLeadToBuyersUS implements ShouldQueue
                         ->get();
                 }
                 $post['buyer_list'] = $buyer_list;
-            } else {
-                $post['buyer_list'] = array();
             }
-
-            return $post;
-        } else {
-            return $post;
         }
+
+        return $post;
     }
 
     public function network_channel_settings($post)
@@ -170,14 +154,12 @@ class PostLeadToBuyersUS implements ShouldQueue
     /**
      *  This function checks active buyers for enabled filters
      *  if so, the lead is filtered against the buyer filters.
-     *
      * @param $post
      * @return array
      */
-    public function BuyerPost($post)
+    public function BuyerPost($post): array
     {
 
-        dd($post);
         // Get Buyers
         $post = USLead::getBuyers($post);
 
@@ -218,10 +200,8 @@ class PostLeadToBuyersUS implements ShouldQueue
 
                     $lender_response = $obj->returnresponse();
 
+                    $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
-
-                    $res = $this->add_post_log($post, $row, $lender_response);
-
 
                     $lead = USLead::where('uuid', $post->uuid)->first();
                     Log::debug('LEAD ID::', (array)$lead);
@@ -237,10 +217,10 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $price = $this->lender_accepted($lender_response, $post);
 
                         // check if lead has referrer - if so, add commission to referrer.
-                        $referrer = $this->check_lead_referrer($post, $lender_response, $price);
+                        $this->check_lead_referrer($post, $lender_response, $price);
 
                         // Update lead status/info
-                        $lead_updated = $this->update_lead_status($lender_response, $row, $lead, $price);
+                        $this->update_lead_status($lender_response, $row, $lead, $price);
 
                         // Accepted Response Data
                         return $accepted_data = $this->lead_response($lead, $row, $price, $lead_status);
@@ -252,20 +232,18 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $lead_status = 3;
 
                         // Update lead status/info
-                        $lead_updated = $this->update_lead_status($lender_response, $row, $lead, $price);
+                        $this->update_lead_status($lender_response, $row, $lead, $price);
 
                         // Conditional Response Data
                         return $conditional_data = $this->lead_response($lead, $row, $price, $lead_status);
 
-                        // Lead Declined By BUYER
+                    // Lead Declined By BUYER
                     } elseif (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
 
                         $lead_status = 2;
                         $price = '0.00';
 
-
                         $decline_response = $this->lead_response($lead, $row, $price, $lead_status);
-
 
                         $index++;
                         if ($index >= $length) {
@@ -282,34 +260,6 @@ class PostLeadToBuyersUS implements ShouldQueue
                     }
                 }
             }
-//                } else {
-//                    if ($buyer_list > 1) {
-//                        try {
-//                            $index++;
-//                        } catch (Exception $e) {
-//                            Log::debug($e);
-//
-//                            $lead_status = 2;
-//                            $price = '0.00';
-//
-//
-//
-//                            $data_response = $this->lead_response($lead, $row, $price, $lead_status);
-//
-//                            return $data_response;
-//                        }
-//                    } else {
-//                        $lead_status = 2;
-//                        $price = '0.00';
-//
-//                        $data_response = $this->lead_response($lead, $row, $price, $lead_status);
-//
-//                        return $data_response;
-//                    }
-//                    Log::debug('Buyer file not found: ' . $filename);
-//                }
-//            }
-            // When no buyers are Found Or Lead has Not Sols - Decline the Lead
         } else {
             // No buyers found - lead not sold.
 
@@ -507,10 +457,10 @@ class PostLeadToBuyersUS implements ShouldQueue
         return $row;
     }
 
-    /*
-     * This function handles the redirection url
+    /**
+     * @param $id
+     * @return string
      */
-
     public function redirecturl_encrypt($id)
     {
         return $secure = rand(10, 99) . $id . rand(10, 99);
@@ -519,10 +469,8 @@ class PostLeadToBuyersUS implements ShouldQueue
     /**
      * @param $post
      * @return int
-     *
-     *
      */
-    public function GetVidRedirectRate($post)
+    public function GetVidRedirectRate($post): int
     {
         if ($post->tier === "0") {
             $query = USLead::where('vid', '=', $post->vid)->whereDate('created_at', '>', Carbon::today()->subDays(14));
@@ -561,9 +509,9 @@ class PostLeadToBuyersUS implements ShouldQueue
      * @param $lender_response
      * @return bool
      */
-    private function add_post_log(object $post, object $row, $lender_response)
+    private function add_post_log(object $post, object $row, $lender_response): bool
     {
-        $datalogo = array(
+        $data = array(
             'lead_id' => $post->lead_id,
             'vendor_id' => $post->vid,
             'buyer_id' => $row->buyer_id,
@@ -577,9 +525,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             'lender_found' => $lender_response['LenderFound'] ?? "",
             'created_at' => date('Y-m-d H:i:s')
         );
-        $res = USLead::AddLog($datalogo);
-
-        return $res;
+        return $res = USLead::AddLog($data);
     }
 
     /**
@@ -923,21 +869,38 @@ class PostLeadToBuyersUS implements ShouldQueue
      * @param object $post
      * @return array
      */
-    private function no_lender_found(object $post)
+    private function no_lender_found(object $post): array
     {
-
         $data = array(
             'id' => $post->lead_id,
             'leadStatus' => '2',
             'model_type' => '2',
             'reason' => $lender_response['reason'] ?? 'All Buyers rejected.',
-//            'price' => '0.00'
-
         );
 
-        $res = (new USLead)->add($data);
+        (new USLead)->add($data);
         Log::debug('No Buyer found');
 
         return $data;
+    }
+
+    /**
+     * @param array $buyer_response
+     * @param Offer $offer_detail
+     * @return array
+     */
+    private function prepare_response(array $buyer_response, Offer $offer_detail): array
+    {
+        // Parse buyer response
+        if ($buyer_response['leadStatus'] == "1") {
+            $status = 1;
+            $response = $this->buyer_response($buyer_response, $status);
+        } else {
+            $status = 3;
+            $response = $this->buyer_response($buyer_response, $status);
+        }
+        $this->update_accumulator($offer_detail, $response);
+
+        return $response;
     }
 }

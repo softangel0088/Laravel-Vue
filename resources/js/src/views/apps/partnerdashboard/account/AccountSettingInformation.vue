@@ -231,7 +231,6 @@
                 </b-col>
             </b-row>
         </b-form>
-
     </b-card>
 </template>
 
@@ -266,8 +265,6 @@
         props: {
             userData: {
                 type: Object,
-                default: () => {
-                },
             },
         },
         setup(props) {
@@ -280,12 +277,8 @@
 
                 // loading.value = true;
 
-                // console.log(this.userData.user.company)
-                // debugger
                 this.$http.patch(`/partner/updateCompany/${props.userData.user.id}`, this.userData.user.company)
                     .then((res) => {
-                        // console.log(res)
-                        // debugger
                         this.$toast({
                             component: ToastificationContent,
                             props: {
@@ -315,7 +308,6 @@
                         }
                     });
             }
-
 
 
             return {

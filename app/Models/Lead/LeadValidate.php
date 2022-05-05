@@ -8,7 +8,9 @@ use App\Models\Microbilt\Microbilt;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 
 class LeadValidate extends Model
 {
@@ -19,8 +21,8 @@ class LeadValidate extends Model
         $valid = true;
 
 
-        $next_pay_date = $this->future_pay_date($request['employer']);
 
+        $next_pay_date = $this->future_pay_date($request['employer']);
 //        $email = $request->applicant['email'];
 //        $cellPhoneNumber = $request->applicant['cellPhoneNumber'];
 //        $dlnumber = $request->applicant['drivingLicenseNumber'];
@@ -36,7 +38,9 @@ class LeadValidate extends Model
 //        $validated_bank_details = $this->validate_bank($request['bank']);
 
 
-//        dd($validate_lead);
+        if ($next_pay_date == true) {
+            return $valid;
+        }
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }
@@ -122,11 +126,25 @@ class LeadValidate extends Model
     }
 
     /**
-     * @param $applicant
+     * @param array $applicant
+     * @return bool|JsonResponse
      */
     private function future_pay_date($applicant)
     {
-        $date = Carbon::now();
-        dd($date);
+
+        $next_pay_date = Carbon::createFromDate($applicant['nextPayDateDay'] . '/' . $applicant['nextPayDateMonth'] . '/' . $applicant['nextPayDateYear']);
+        $following_pay_date = Carbon::createFromDate($applicant['followingPayDateDay'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateYear']);
+        $next_pay_date = $next_pay_date->isPast();
+        $following_pay_date = $following_pay_date->isPast();
+
+        if ($next_pay_date === true) {
+            echo json_encode(['Errors' => 'Next Pay Date Should Be In The Future']);
+            die();
+        } else if ($following_pay_date === true) {
+            echo json_encode(['Errors' => 'Following Pay Date Should Be In The Future']);
+            die();
+        } elseif ($next_pay_date == false && $following_pay_date == false) {
+            return true;
+        }
     }
 }

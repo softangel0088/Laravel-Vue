@@ -18,15 +18,6 @@
 
             <b-media-body class="mt-75 ml-75">
                 <!-- upload button -->
-<!--                <b-button-->
-<!--                    v-ripple.400="'rgba(255, 255, 255, 0.15)'"-->
-<!--                    variant="primary"-->
-<!--                    size="sm"-->
-<!--                    class="mb-75 mr-75"-->
-<!--                    @click="$refs.refInputEl.click()"-->
-<!--                >-->
-<!--                    Update Avatar-->
-<!--                </b-button>-->
                 <b-form-file
                     ref="refInputEl"
                     type="file"
@@ -213,16 +204,12 @@
             function updateAccountSettingsForm(ev) {
                 ev.preventDefault();
                 console.log(ev)
-                // debugger
 
                 // loading.value = true;
 
-                // console.log(props.userData.user)
-                // debugger
-                this.$http.patch(`/admin/updateAccountInfo/${props.userData.user.id}`, props.userData)
+                this.$http.patch(`/partner/updateAccountInfo/${props.userData.user.id}`, props.userData)
                     .then((res) => {
                         console.log(res)
-                        // debugger
                         this.$toast({
                             component: ToastificationContent,
                             props: {
