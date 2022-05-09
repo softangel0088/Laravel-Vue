@@ -24,7 +24,8 @@
         "sentry/sentry-laravel": "^2.12",
         "symfony/http-client": "^6.0",
         "symfony/mailgun-mailer": "^6.0",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+      "ext-simplexml": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

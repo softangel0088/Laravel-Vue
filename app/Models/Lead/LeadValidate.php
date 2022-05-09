@@ -132,8 +132,8 @@ class LeadValidate extends Model
     private function future_pay_date($applicant)
     {
 
-        $next_pay_date = Carbon::createFromDate($applicant['nextPayDateDay'] . '/' . $applicant['nextPayDateMonth'] . '/' . $applicant['nextPayDateYear']);
-        $following_pay_date = Carbon::createFromDate($applicant['followingPayDateDay'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateYear']);
+        $next_pay_date = Carbon::createFromDate($applicant['nextPayDateYear'] , $applicant['nextPayDateMonth'] , $applicant['nextPayDateDay']);
+        $following_pay_date = Carbon::createFromDate($applicant['followingPayDateYear'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateDay']);
         $next_pay_date = $next_pay_date->isPast();
         $following_pay_date = $following_pay_date->isPast();
 

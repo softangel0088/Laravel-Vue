@@ -272,13 +272,7 @@ export default {
 
   setup() {
     const POSTBACK = 'app-postback'
-      const filterData = ref({});
-      // const postbackData = ref({
-      //     postback_name: '',
-      //     global: '',
-      //     affiliatePostbackUrl: '',
-      //     partner_id: '',
-      // });
+    const filterData = ref({});
 
     // Register module
     if (!store.hasModule(POSTBACK)) store.registerModule(POSTBACK, postbackStoreModule)
@@ -290,14 +284,12 @@ export default {
 
     const isAddNewPostbackSidebarActive = ref(false)
 
-
-
     const statusOptions = [
       { label: 'Pending', value: 2 },
       { label: 'Active', value: 1 },
       { label: 'Inactive', value: 0 },
     ]
-      function deletePostback(id) {
+     function deletePostback(id) {
           this.$swal({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",

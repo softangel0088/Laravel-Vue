@@ -24,21 +24,11 @@ use App\Http\Controllers\Controller;
 class ReportController extends Controller
 {
 
-//    public function index()
-//    {
-//        $report_data = [];
-//        $report_data['uk_data'] = $this->getUKReports();
-//        $report_data['us_data'] = $this->getUSReports();
-//        $report_data['offer_data'] = $this->getOfferReports();
-//        $report_data['referral_data'] = $this->getReferralReports();
-//        $report_data['postback_data'] = $this->getPostbackReports();
-//
-//        return Response::json(['report_data' => $report_data], 200);
-//
-//
-//    }
-
-    public function fetchFilterUKData(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function fetchFilterUKData(Request $request): JsonResponse
     {
         $filterData= [];
         $filterData['user_ids'] = User::groupBy('id')->whereNotNull('id')->get(['id', 'username']);

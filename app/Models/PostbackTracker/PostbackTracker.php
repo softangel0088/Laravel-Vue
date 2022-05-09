@@ -15,6 +15,8 @@ class PostbackTracker extends Model
 {
     use HasFactory;
 
+    protected $table = 'postback_trackers';
+
     public function click_tracker()
     {
         return $this->hasOne(ClickTracker::class);

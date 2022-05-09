@@ -199,6 +199,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $obj = new $classname($row, $post);
 
                     $lender_response = $obj->returnresponse();
+//                    dd($lender_response);
 
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);

@@ -52,15 +52,15 @@ class LeadPostRequestUS extends FormRequest
                 'required','min:2', 'regex:/^[a-zA-Z-\'" ]+$/',
                 Rule::notIn('Mr', 'Miss', 'Mrs', 'Ms'),
             ],
-//           add : + 18 years old
-            'applicant.dateOfBirthDay' => 'required', 'min:2',
-            'applicant.dateOfBirthMonth' => 'required', 'min:2',
-            'applicant.dateOfBirthYear' => 'required', 'min:4',
+
+            'applicant.dateOfBirthDay' =>  'min:2',
+            'applicant.dateOfBirthMonth' =>  'min:2',
+            'applicant.dateOfBirthYear' =>  'min:4',
             'applicant.ssn' => 'required', 'min:9',
             'applicant.email' => 'required', 'email:rfc, dns, spoof, filter',
-            'applicant.homePhoneNumber' => 'required', 'min:10',
-            'applicant.cellPhoneNumber' => 'required', 'min:10',
-            'applicant.workPhoneNumber' => 'required', 'min:10',
+            'applicant.homePhoneNumber' => 'min:10',
+            'applicant.cellPhoneNumber' =>  'min:10',
+            'applicant.workPhoneNumber' => 'min:10',
             'applicant.maritalStatus' => [
                 Rule::in(
                     'Single',
@@ -89,8 +89,8 @@ class LeadPostRequestUS extends FormRequest
                     'ActiveDuty'
                 ),
             ],
-            'applicant.drivingLicenseState' => 'required', 'min:2',
-            'applicant.drivingLicenseNumber' => 'required', 'min:4', 'max:20',
+            'applicant.drivingLicenseState' =>  'min:2',
+            'applicant.drivingLicenseNumber' =>  'min:4', 'max:20',
 
             // Residence
             'residence.houseNumber' => 'requiredIf:houseName,null',
@@ -108,7 +108,7 @@ class LeadPostRequestUS extends FormRequest
                 ),
             ],
             'residence.addressStreet1' => 'required', 'different:houseNumber', 'min:4', 'max:128',
-            'residence.city' => 'required', 'min2', 'max:32',
+            'residence.city' =>  'min:2', 'max:32',
             'residence.state' => 'required|string|min:2|max:2|size:2',
             'residence.zip' => [
                 'required', 'min:5',
@@ -168,12 +168,12 @@ class LeadPostRequestUS extends FormRequest
                 'required',
                 Rule::in('Cheque', 'Cash', 'RegionalDirectDeposit', 'NonRegionalDirectDeposit'),
             ],
-            'employer.nextPayDateDay' => 'required', 'min:2', 'max:2', 'size:2',
-            'employer.nextPayDateMonth' => 'required', 'min:2', 'max:2', 'size:2',
-            'employer.nextPayDateYear' => 'required', 'min:4', 'max:4', 'size:4',
-            'employer.followingPayDateDay' => 'required', 'min:2', 'max:2', 'size:2',
-            'employer.followingPayDateMonth' => 'required', 'min:2', 'max:2', 'size:2',
-            'employer.followingPayDateYear' => 'required', 'min:4', 'max:4', 'size:4',
+            'employer.nextPayDateDay' => 'min:2', 'max:2', 'size:2',
+            'employer.nextPayDateMonth' => 'min:2', 'max:2', 'size:2',
+            'employer.nextPayDateYear' => 'min:4', 'max:4', 'size:4',
+            'employer.followingPayDateDay' => 'min:2', 'max:2', 'size:2',
+            'employer.followingPayDateMonth' => 'min:2', 'max:2', 'size:2',
+            'employer.followingPayDateYear' => 'min:4', 'max:4', 'size:4',
 
 
             'bank.bankPhone' => 'min:10',
@@ -183,8 +183,8 @@ class LeadPostRequestUS extends FormRequest
                     Rule::in('Checking', 'Savings'),
         ],
 
-            'bank.bankAccountNumber' => 'required', 'min:4', 'max:30',
-            'bank.bankRoutingNumber' => 'required', 'digits:9',
+            'bank.bankAccountNumber' => 'min:4', 'max:30',
+            'bank.bankRoutingNumber' => 'digits:9',
             'bank.monthsAtBank' => [
                 'required',
                 Rule::in(12, 24, 36, 48, 60, 72, 84, 96),
@@ -193,8 +193,8 @@ class LeadPostRequestUS extends FormRequest
             ],
 //
 
-            'consent.consentFinancial' => 'required|boolean',
-            'consent.consentThirdPartyEmails' => 'required|boolean',
+            'consent.consentFinancial' => 'boolean',
+            'consent.consentThirdPartyEmails' => 'boolean',
 
 //            'combinedMonthlyHouseholdIncome' => 'requiredIf:maritalStatus, Married', 'required', '' [21]
         ];

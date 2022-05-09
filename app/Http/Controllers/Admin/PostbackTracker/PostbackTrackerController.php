@@ -205,17 +205,23 @@ class PostbackTrackerController extends Controller
     /**
      * Get Partner Postback URL
      * @param $request
+     * @param $partner_detail
      * @return mixed
      */
     public function get_partner_postback_data($request, $partner_detail)
     {
+//        dd($partner_detail);
+//        dd($request->input());
 
         $partner_id = $partner_detail->id ?? $request->partner_id;
         $offer_id = $request->offer_id;
+//        dd($partner_id);
 
         try {
-            $postback_data = PostbackTracker::where('partner_id', '=', $partner_id)->where('global', '=', 1)->first();
+            $postback_data = PostbackTracker::where('partner_id', $partner_id)->where('global', '=', 1)->first();
+//            dd($postback_data);
         } catch (\Exception $e) {
+//            dd($e);
             $postback_data = PostbackTracker::where('partner_id', '=', $partner_id)->where('offer_id', '=', $offer_id)->first();
         }
 
@@ -323,18 +329,20 @@ class PostbackTrackerController extends Controller
             echo 'Invalid Offer ID';
             die();
         }
+//        dd($request->input());
 
         // Check valid psotback
         if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
             $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
             $valid_lead = USLead::where('uuid', $request->lead_id)->first();
+//            dd($valid_lead);
 
-            $duplicate = collect($duplicate);
-            if ($duplicate->isNotEmpty()) {
-                echo 'Duplicate Postback';
-                Log::debug('DUPLICATE', (array) $duplicate);
-                die();
-            }
+//            $duplicate = collect($duplicate);
+//            if ($duplicate->isNotEmpty()) {
+//                echo 'Duplicate Postback';
+//                Log::debug('DUPLICATE', (array) $duplicate);
+//                die();
+//            }
 
             $valid_lead = collect($valid_lead);
             if ($valid_lead->isEmpty()) {
@@ -364,7 +372,6 @@ class PostbackTrackerController extends Controller
         $data = (new Postback\PostbackLogs)->store($request, $transaction_id, $offer);
         Log::debug('Postback:: Received');
 
-
         // Add revenue
         $newData = (new ConversionTracker)->add_revenue($data, $offer, $partner_detail);
         Log::debug('DEBUG::', (array)$newData);
@@ -385,10 +392,7 @@ class PostbackTrackerController extends Controller
 
         // Get conversion rate
 //        $data = Offer::get_conversion_rate($partner_detail, $data);
-
 //        $internal_offer = $this->check_internal_offer($offer, $partner_detail);
-
-
 
 //        if ($internal_offer === false) {
 //            Log::debug('INTERNAL OFFER::', (array) $internal_offer);
