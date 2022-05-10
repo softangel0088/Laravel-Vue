@@ -267,6 +267,7 @@ class PostbackTrackerController extends Controller
 
     /**
      * @param $postbackUrl
+     * @param $params
      * @return void
      */
     public function fire_postback($postbackUrl, $params)
@@ -276,7 +277,8 @@ class PostbackTrackerController extends Controller
             try {
                 $get_res = Http::post($postbackUrl, $params);
                 Log::debug('PB RES::', (array) $get_res);
-                Log::debug('PB RES::', (array) $get_res->status());
+                Log::debug('PB RES::', (array) $get_res->object());
+                Log::debug('PB RES::', (array) $get_res->body());
 
 
                 if ($get_res->status() == 200) {
@@ -303,13 +305,11 @@ class PostbackTrackerController extends Controller
     }
 
     /**
-     * Postback Logs
+     * Post-back Logs
      * @param Request $request
      */
     public function postback(Request $request)
     {
-
-
         Log::debug('POSTBACK RECEIVED:::', (array)$request->input());
         Log::debug('OFFER ID:::', (array)$request->offer_id);
 
@@ -329,13 +329,11 @@ class PostbackTrackerController extends Controller
             echo 'Invalid Offer ID';
             die();
         }
-//        dd($request->input());
 
-        // Check valid psotback
+        // Check valid psot-back
         if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
             $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
             $valid_lead = USLead::where('uuid', $request->lead_id)->first();
-//            dd($valid_lead);
 
 //            $duplicate = collect($duplicate);
 //            if ($duplicate->isNotEmpty()) {

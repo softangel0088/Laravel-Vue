@@ -91,7 +91,6 @@ class PostLeadToBuyersUS implements ShouldQueue
         }
 
         // Store Lead Log
-//        Log::debug('Response array: ' . json_encode($response));
         $logs = USLead::getlog($response['leadid']);
 
         // get check status response

@@ -186,10 +186,7 @@ class USLead extends Model
             $res = $query->insert($data);
         }
 
-        $result = $query->get()->first();
-//        dd($result);
-
-        return $result;
+        return $query->get()->first();
     }
 
 
