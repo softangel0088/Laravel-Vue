@@ -565,7 +565,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             $user = User::where('id', $partner->user_id)->first();
             Log::debug('REFERRER ID::', (array)$user->referrer_id);
 
-            if (isset($user->referrer_id) && $user->referrer_id !== null) {
+            if (isset($user->referrer_id) && $user->referrer_id !== null || $user->referrer_id !== "") {
 
                 $referrer_commission = $lender_response['post_price'] - ($lender_response['post_price'] * (95 / 100));
                 $affiliate_price = $price - $referrer_commission;
