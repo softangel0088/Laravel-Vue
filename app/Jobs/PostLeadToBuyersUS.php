@@ -563,6 +563,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         try {
             $partner = Partner::where('vendor_id', '=', $post->vid)->first();
             $user = User::where('id', $partner->user_id)->first();
+            Log::debug('REFERRER ID::', (array)$user->referrer_id);
 
             if (isset($user->referrer_id) && $user->referrer_id !== null) {
 
