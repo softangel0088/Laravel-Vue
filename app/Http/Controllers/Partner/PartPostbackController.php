@@ -33,6 +33,7 @@ class PartPostbackController extends Controller
 
         $partners = Partner::where('user_id', $id)->get();
 
+        $partner_ids = [];
         foreach ($partners as $partner) {
             $partner_ids[] = $partner->id;
         }

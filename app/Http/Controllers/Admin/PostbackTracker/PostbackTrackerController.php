@@ -210,18 +210,15 @@ class PostbackTrackerController extends Controller
      */
     public function get_partner_postback_data($request, $partner_detail)
     {
-//        dd($partner_detail);
-//        dd($request->input());
-
         $partner_id = $partner_detail->id ?? $request->partner_id;
         $offer_id = $request->offer_id;
-//        dd($partner_id);
+
 
         try {
             $postback_data = PostbackTracker::where('partner_id', $partner_id)->where('global', '=', 1)->first();
-//            dd($postback_data);
+
         } catch (\Exception $e) {
-//            dd($e);
+
             $postback_data = PostbackTracker::where('partner_id', '=', $partner_id)->where('offer_id', '=', $offer_id)->first();
         }
 
@@ -330,7 +327,7 @@ class PostbackTrackerController extends Controller
             die();
         }
 
-        // Check valid psot-back
+        // Check valid post-back
         if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
             $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
             $valid_lead = USLead::where('uuid', $request->lead_id)->first();
