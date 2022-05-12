@@ -122,8 +122,8 @@ class stopgonetworks
             'amount' => (integer) $post->Loan->loanAmount,
             'purpose' => (string) $post->Loan->loanPurpose,
 
-//            'firstName' => (string) $post->Applicant->firstName,
-            'firstName' => (string) 'Accept',
+            'firstName' => (string) $post->Applicant->firstName,
+//            'firstName' => (string) 'Accept',
             'lastName' =>(string) $post->Applicant->lastName,
             'email' => (string) $post->Applicant->email,
             'SSN' => (string)$post->Applicant->ssn,
