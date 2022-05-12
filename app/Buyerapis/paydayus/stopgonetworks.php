@@ -116,14 +116,13 @@ class stopgonetworks
             "aff" => (string)$client_detail->parameter1,
             "apiToken" => (string)$client_detail->parameter2,
             'subAff' => (string)$post->subid ?? 'UPING',
-            'timeAllowed' => (integer) $post->timeout,
-            'minPrice' => (integer) $post->minCommissionAmount,
+            'timeAllowed' => (integer) $post->timeout ?? '120',
+            'minPrice' => (integer) $post->minCommissionAmount ?? '0.00',
 
             'amount' => (integer) $post->Loan->loanAmount,
             'purpose' => (string) $post->Loan->loanPurpose,
 
             'firstName' => (string) $post->Applicant->firstName,
-//            'firstName' => (string) 'Accept',
             'lastName' =>(string) $post->Applicant->lastName,
             'email' => (string) $post->Applicant->email,
             'SSN' => (string)$post->Applicant->ssn,
@@ -180,18 +179,17 @@ class stopgonetworks
         $validation_result = true;
         if ($validation_result == true) {
 
-//            $api_creds = $lead['aff'] . ':' . $lead['apiToken'];
             $url = $this->response['post_url'];
             $timeout = $this->response['timeout'];
 
             $response = Http::asForm()->post($url, $lead);
-            Log::debug('RESP POST1::', (array)$response);
+            Log::debug('RESP SGN POST1::', (array)$response);
             $xml = $response->body();
-            Log::debug('RESP POST2::', (array)$xml);
+            Log::debug('RESP SGN  POST2::', (array)$xml);
             $res = simplexml_load_string($xml);
-            Log::debug('RESP POST3::', (array)$res);
+            Log::debug('RESP SGN POST3::', (array)$res);
 
-            Log::debug('RESP POST::', (array)$res);
+            Log::debug('RESP SGN POST::', (array)$res);
             $this->response['application_response'] = (array)$res;
             $this->response['post_time'] = (string)$res->post_time ?? '0';
 
