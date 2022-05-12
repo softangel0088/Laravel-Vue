@@ -185,7 +185,7 @@ class stopgonetworks
             $timeout = $this->response['timeout'];
 
             $response = Http::asForm()->post($url, $lead);
-            $response = $response->body();
+//            $response = $response->body();
             $res = simplexml_load_string($response);
 
             Log::debug('RESP POST::', (array)$res);
