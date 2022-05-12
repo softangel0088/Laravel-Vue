@@ -248,15 +248,13 @@ class CurlHelper
     }
 
 
-
-
-/**
+    /**
      * Curl post functionality, GET | POST
      *
      * @param $url
      * @param $fields_string
      * @param $header
-     * @param int $t1
+     * @param $timeout
      * @param string $userpwd
      * @return array
      */

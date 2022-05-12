@@ -207,10 +207,12 @@ class roundsky
             $header = '';
             $timeout = $this->response['timeout'];
 
-//            $client = new Client();
-//            $client->
 
-            $response = (new App\Helpers\CurlHelper)->curl_post($url, $params, $header, $timeout, $api_creds);
+            try {
+                $response = (new App\Helpers\CurlHelper)->curl_post($url, $params, $header, $timeout, $api_creds);
+            } catch (Exception $e) {
+                Log::debug('RS CURL ERROR::', (array) $e);
+            }
             $resp = json_decode($response['res'], true);
 
 
