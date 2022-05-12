@@ -186,9 +186,9 @@ class stopgonetworks
 
             $response = Http::asForm()->post($url, $lead);
             Log::debug('RESP POST1::', (array)$response);
-            $response = $response->body();
-            Log::debug('RESP POST2::', (array)$response);
-            $res = simplexml_load_string($response);
+            $xml = $response->body();
+            Log::debug('RESP POST2::', (array)$xml);
+            $res = simplexml_load_string($xml);
             Log::debug('RESP POST3::', (array)$res);
 
             Log::debug('RESP POST::', (array)$res);
