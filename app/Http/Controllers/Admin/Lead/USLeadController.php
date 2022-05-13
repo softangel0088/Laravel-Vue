@@ -126,9 +126,10 @@ class USLeadController extends Controller
             'residence',
             'expense',
             'bank',
-            'consent'])->where('id', $id)->first();
+            'consent'])
+            ->where('id', $id)->first();
 
-        $recentApplications = Applicant::with('uk_lead')->where('email', $lead->applicant->email)->paginate(10);
+        $recentApplications = Applicant::with('us_lead')->where('email', $lead->applicant->email)->paginate(10);
 
 
         return Response::json(['lead' => $lead, 'recentApplications' => $recentApplications]);
@@ -604,7 +605,7 @@ class USLeadController extends Controller
     public function getUsLeadLog(Request $request, $id)
     {
 
-        $leadlog = DB::table('lmsleadlogs')->where('lead_id', $id)->get();
+        $leadlog = DB::table('lmsleadlogsus')->where('lead_id', $id)->get();
 
         return Response::json(['leadlog' => $leadlog]);
 

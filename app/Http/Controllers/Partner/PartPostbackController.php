@@ -60,10 +60,10 @@ class PartPostbackController extends Controller
     }
     public function store(Request $request)
     {
-        Log::debug('PB::', (array)$request['postback']);
-        Log::debug('USER ID::', (array)$request['postback']['user_id']);
+//        Log::debug('PB::', (array)$request['postback']);
+//        Log::debug('USER ID::', (array)$request['postback']['user_id']);
         $partner = Partner::where('user_id', $request['postback']['user_id'])->first();
-        Log::debug('Partner::', (array)$partner);
+//        Log::debug('Partner::', (array)$partner);
 
         $postback = new PostbackTracker();
         $postback->partner_id = $partner->id;
