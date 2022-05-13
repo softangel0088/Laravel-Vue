@@ -287,10 +287,10 @@ class Partner extends Model
         if (isset($data['id']) && !empty($data['id'])) {
             $response = DB::table('lms_partner_leadtype')
                 ->where('id', $data['id']);
+            Log::debug('Threshold RESP:: ', (array) $response);
 
             $response->update($data);
             Log::debug('Threshold:: updated successfully');
-//            Log::debug('Threshold RESP::', (array) $response->get()->first());
 
             return $response->get()->first();
         }
