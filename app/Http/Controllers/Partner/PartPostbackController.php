@@ -62,7 +62,7 @@ class PartPostbackController extends Controller
     {
         Log::debug($request['postback']);
         $partner = Partner::where('user_id', $request['postback']['user_id'])->first();
-        Log::debug('Partner::', (array)$partner->toArray());
+        Log::debug('Partner::', (array)$partner);
 
         $postback = new PostbackTracker();
         $postback->partner_id = $partner->id;
