@@ -617,8 +617,6 @@ class PostLeadToBuyersUS implements ShouldQueue
             'leadStatus' => '1',
             'id' => $lead->id
         );
-        //        Log::debug('LEAD::', (array)$resp);
-
 
         return (new USLead)->add($data);
     }

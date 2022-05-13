@@ -244,6 +244,7 @@ class roundsky
             $this->response['post_status'] = '1';
             $this->response['redirect_url'] = $appResponse['URL'];
             $this->response['reason'] = $appResponse['MESSAGE'] ?? 'Not available';
+            $this->response['LenderFound'] = 'LenderFound';
             $this->response['post_time'] ?? '0.00';
 
 
@@ -252,6 +253,7 @@ class roundsky
             $this->response['post_status'] = '0';
             $this->response['post_price'] = '0.00';
             $this->response['post_time'] ?? '0.00';
+            $this->response['LenderFound'] = 'NoLenderFound';
             $this->response['reason'] = $appResponse['MESSAGE']  ?? 'Not available';;
 
         }

@@ -30,7 +30,7 @@
                        v-ripple.400="'rgba(113, 102, 240, 0.15)'"
                        v-b-modal.modal-post-us-lead
                        variant="light-primary"
-                  @click="modalUSLead(data.item.US_lead)">
+                       @click="modalUSLead(data.item.lead)">
                   View
               </b-badge>
           </template>
@@ -39,7 +39,7 @@
                        v-ripple.400="'rgba(113, 102, 240, 0.15)'"
                        v-b-modal.modal-post-source
                        variant="light-primary"
-                       @click="modalSource(data.item.source)">
+                       @click="modalSource(data.item.lead.source)">
 
                   View
               </b-badge>
