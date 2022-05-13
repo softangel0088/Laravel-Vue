@@ -26,7 +26,7 @@ class PartDashboardUSController extends Controller
 
 
         $partner = Partner::where('user_id', '=', $id)->where('lead_type', 2)->first();
-        Log::debug('PARTNER::', (array)$partner->vendor_id);
+//        Log::debug('PARTNER::', (array)$partner->vendor_id);
         $vendor_id = $partner->vendor_id;
 
         // CARDS

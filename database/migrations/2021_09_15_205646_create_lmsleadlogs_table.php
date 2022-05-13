@@ -8,7 +8,7 @@ class CreateLmsleadlogsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *database/migrations/2021_09_15_205646_create_lmsleadlogs_table.php
      * @return void
      */
     public function up()

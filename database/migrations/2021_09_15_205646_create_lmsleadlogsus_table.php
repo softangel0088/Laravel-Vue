@@ -8,7 +8,7 @@ class CreateLmsleadlogsusTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *master-uping-new/database/migrations/2021_09_15_205646_create_lmsleadlogsus_table.php
      * @return void
      */
     public function up()
