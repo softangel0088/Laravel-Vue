@@ -226,7 +226,8 @@ class PostLeadToBuyersUS implements ShouldQueue
                         return $accepted_data = $this->lead_response($lead, $row, $price, $lead_status);
 
                         // Lead Conditionally accepted By BUYER
-                    } elseif (isset($lender_response['accept']) && $lender_response['accept'] == 'CONDITIONAL') {
+                    }
+                    if (isset($lender_response['accept']) && $lender_response['accept'] == 'CONDITIONAL') {
 
                         $price = '0.00';
                         $lead_status = 3;
@@ -237,8 +238,10 @@ class PostLeadToBuyersUS implements ShouldQueue
                         // Conditional Response Data
                         return $conditional_data = $this->lead_response($lead, $row, $price, $lead_status);
 
+                    }
+
                     // Lead Declined By BUYER
-                    } elseif (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
+                if (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
 
                         $lead_status = 2;
                         $price = '0.00';
