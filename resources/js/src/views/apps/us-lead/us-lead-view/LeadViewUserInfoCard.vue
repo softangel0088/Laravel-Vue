@@ -38,7 +38,7 @@
                         </b-avatar>
                         <div class="ml-1">
                             <h5 class="mb-0">
-                                £ {{ leadData.lead.vidLeadPrice }}
+                                $ {{ leadData.lead.vidLeadPrice }}
                             </h5>
                             <small>Lead Price</small>
                         </div>
@@ -56,7 +56,7 @@
                         </b-avatar>
                         <div class="ml-1">
                             <h5 class="mb-0">
-                                £ {{ leadData.lead.buyerLeadPrice  - leadData.lead.vidLeadPrice }}
+                                $ {{ leadData.lead.buyerLeadPrice  - leadData.lead.vidLeadPrice }}
                             </h5>
                             <small>Profit</small>
                         </div>
