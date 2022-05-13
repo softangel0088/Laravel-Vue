@@ -10,6 +10,7 @@ use App\Models\Postback\Postback;
 use App\Models\PostbackTracker\PostbackTracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 
 class PartPostbackController extends Controller
@@ -59,7 +60,9 @@ class PartPostbackController extends Controller
     }
     public function store(Request $request)
     {
+        Log::debug($request['postback']);
         $partner = Partner::where('user_id', $request['postback']['user_id'])->first();
+        Log::debug('Partner::', (array)$partner->toArray());
 
         $postback = new PostbackTracker();
         $postback->partner_id = $partner->id;
