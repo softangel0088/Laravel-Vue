@@ -208,7 +208,7 @@
             }
 
             const onSubmit = () => {
-                store.dispatch('apps-partner-postback/addPostback', postbackData.value).then(() => {
+                store.dispatch('apps-partner-postback/addPostback', postbackData).then(() => {
                     emit('refetch-data')
                     emit('update:is-add-new-postback-sidebar-active', false)
                 })
