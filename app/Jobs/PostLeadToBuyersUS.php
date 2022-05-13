@@ -896,7 +896,12 @@ class PostLeadToBuyersUS implements ShouldQueue
         if ($buyer_response['leadStatus'] == "1") {
             $status = 1;
             $response = $this->buyer_response($buyer_response, $status);
-        } else {
+        }
+        if ($buyer_response['leadStatus'] == "2") {
+            $status = 2;
+            $response = $this->buyer_response($buyer_response, $status);
+        }
+         else {
             $status = 3;
             $response = $this->buyer_response($buyer_response, $status);
         }
