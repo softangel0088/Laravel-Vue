@@ -215,9 +215,7 @@ class USLead extends Model
     public static function AddLog($data): bool
     {
         if (!empty($data)) {
-            $res = DB::table('lmsleadlogsus')->insert($data);
-
-            return $res;
+            return DB::table('lmsleadlogsus')->insert($data);
         }
     }
 

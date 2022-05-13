@@ -198,7 +198,6 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $obj = new $classname($row, $post);
 
                     $lender_response = $obj->returnresponse();
-//                    dd($lender_response);
 
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
@@ -526,6 +525,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             'post_status' => $lender_response['post_status'] ?? "",
             'post_time' => $lender_response['post_time'] ?? "",
             'lender_found' => $lender_response['LenderFound'] ?? "",
+            'reason' => $lender_response['reason'] ?? "",
             'created_at' => date('Y-m-d H:i:s')
         );
         return $res = USLead::AddLog($data);
@@ -614,6 +614,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             'model_type' => $row->model_type,
             'buyerTierID' => $row->buyer_tier_id,
             'redirectUrl' => $lender_response['redirect_url'] ?? "",
+            'reason' => $lender_response['reason'] ?? "",
             'leadStatus' => '1',
             'id' => $lead->id
         );

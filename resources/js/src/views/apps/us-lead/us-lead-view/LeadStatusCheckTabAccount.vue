@@ -169,7 +169,7 @@
     import vSelect from 'vue-select'
     import {useInputImageRenderer} from '@core/comp-functions/forms/form-utils'
     import {ref} from '@vue/composition-api'
-    import useUKLeadsList from '../us-lead-list/useLeadList'
+    import useUSLeadsList from '../us-lead-list/useLeadList'
     import router from '@/router'
     import store from '@/store'
     import Ripple from 'vue-ripple-directive'
@@ -224,7 +224,7 @@
             const modalPostData = ref()
             const modalPostResp = ref()
 
-            const {resolveUserRoleVariant} = useUKLeadsList()
+            const {resolveUserRoleVariant} = useUSLeadsList()
 
             const roleOptions = [
                 {label: 'Admin', value: 'admin'},

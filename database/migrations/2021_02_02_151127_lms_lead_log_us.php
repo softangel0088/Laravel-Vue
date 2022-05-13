@@ -21,6 +21,7 @@ class LmsLeadLogUs extends Migration
             $table->text('post_response')->nullable();
             $table->float('post_time')->nullable();
             $table->integer('post_status')->nullable();
+//            $table->longText('reason')->nullable();
             $table->timestamps();
 
 //            $table->foreign('vendor_id')
