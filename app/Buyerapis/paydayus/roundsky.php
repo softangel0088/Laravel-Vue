@@ -17,10 +17,14 @@ class roundsky
     function __construct($client_detail, $post)
     {
 
-
         $dob_day = $post->Applicant->dateOfBirthDay;
         $dob_month = $post->Applicant->dateOfBirthMonth;
         $dob_year = $post->Applicant->dateOfBirthYear;
+
+        if ($dob_month > '12') {
+            $dob_day = $dob_month;
+            $dob_month = $dob_day;
+        }
         $dateOfBirth = $dob_year . '-' . $dob_month . '-' . $dob_day;
 
         $next_pay_date_day = $post->Employer->nextPayDateDay;
