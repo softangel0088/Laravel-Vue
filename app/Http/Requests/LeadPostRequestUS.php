@@ -104,6 +104,7 @@ class LeadPostRequestUS extends FormRequest
                     'CouncilTenant',
                     'LivingWithParents',
                     'LivingWithFriends',
+                    'LivingWithFamily',
                     'Other'
                 ),
             ],
