@@ -142,7 +142,9 @@ class USLeadController extends Controller
      */
     public function post(LeadPostRequestUS $request)
     {
+        Log::debug('LEAD PASSED INITIAL VALIDATION 1');
         $validated = (new LeadValidate)->validate_data($request);
+        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
 
         // Is application valid, if not return errors
         $this->application_validate($validated);
