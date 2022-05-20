@@ -83,7 +83,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $offer_detail = Offer::get($post['oid']);
 
 
-        if (!is_null($buyer_response)) {
+        if (!isset($buyer_response)) {
             $response = $this->prepare_response($buyer_response, $offer_detail);
         } else {
             $status = 2;
