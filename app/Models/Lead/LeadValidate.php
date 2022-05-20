@@ -138,10 +138,10 @@ class LeadValidate extends Model
         $following_pay_date = $following_pay_date->isPast();
 
         if ($next_pay_date === true) {
-            echo json_encode(['Errors' => 'Next Pay Date Should Be In The Future']);
+            echo json_encode(['errors' => 'Next Pay Date Should Be In The Future']);
             die();
         } else if ($following_pay_date === true) {
-            echo json_encode(['Errors' => 'Following Pay Date Should Be In The Future']);
+            echo json_encode(['errors' => 'Following Pay Date Should Be In The Future']);
             die();
         } elseif ($next_pay_date == false && $following_pay_date == false) {
             return true;
