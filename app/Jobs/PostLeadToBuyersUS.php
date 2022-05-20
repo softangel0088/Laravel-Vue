@@ -896,15 +896,17 @@ class PostLeadToBuyersUS implements ShouldQueue
     {
         // Parse buyer response
         if ($buyer_response['leadStatus'] == "1") {
+            Log::debug('Status:: 1');
             $status = 1;
             $response = $this->buyer_response($buyer_response, $status);
         }
         else if ($buyer_response['leadStatus'] == "2") {
-            $status = 2;
+            Log::debug('Status:: 2');    $status = 2;
             $response = $this->buyer_response($buyer_response, $status);
         }
          else if ($buyer_response['leadStatus'] == "3") {
-            $status = 3;
+             Log::debug('Status:: 3');
+             $status = 3;
             $response = $this->buyer_response($buyer_response, $status);
         }
         $this->update_accumulator($offer_detail, $response);
