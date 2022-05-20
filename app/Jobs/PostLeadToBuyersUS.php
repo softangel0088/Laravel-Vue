@@ -83,7 +83,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $offer_detail = Offer::get($post['oid']);
 
 
-        if (!isset($buyer_response)) {
+        if (isset($buyer_response)) {
             $response = $this->prepare_response($buyer_response, $offer_detail);
         } else {
             $status = 2;
@@ -901,7 +901,8 @@ class PostLeadToBuyersUS implements ShouldQueue
             $response = $this->buyer_response($buyer_response, $status);
         }
         else if ($buyer_response['leadStatus'] == "2") {
-            Log::debug('Status:: 2');    $status = 2;
+            Log::debug('Status:: 2');
+            $status = 2;
             $response = $this->buyer_response($buyer_response, $status);
         }
          else if ($buyer_response['leadStatus'] == "3") {
