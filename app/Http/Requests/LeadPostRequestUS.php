@@ -184,7 +184,7 @@ class LeadPostRequestUS extends FormRequest
         ],
 
             'bank.bankAccountNumber' => 'min:4', 'max:30',
-            'bank.bankRoutingNumber' => 'digits:9',
+            'bank.bankRoutingNumber' => 'min:9',
             'bank.monthsAtBank' => [
                 'required',
                 Rule::in(12, 24, 36, 48, 60, 72, 84, 96),
