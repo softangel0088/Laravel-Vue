@@ -90,6 +90,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             $response = $this->buyer_response($buyer_response, $status);
         }
 
+
         // Store Lead Log
         $logs = USLead::getlog($response['leadid']);
 
