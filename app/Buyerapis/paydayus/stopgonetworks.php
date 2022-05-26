@@ -102,12 +102,12 @@ class stopgonetworks
                 $post->Bank->bankAccountType = 'savings';
         }
 
-        switch ((string)$post->Consent->consentFinancial) {
+        switch ((string)$post->Consent->consentThirdParty) {
             case 'true':
-                $post->Consent->consentFinancial = 'Y';
+                $post->Consent->consentThirdParty = 'Y';
                 break;
             case 'false':
-                $post->Consent->consentFinancial = 'N';
+                $post->Consent->consentThirdParty = 'N';
                 break;
         }
 
@@ -118,7 +118,6 @@ class stopgonetworks
         } else {
             $referringUrl = $post->Source->referringUrl;
         }
-//        dd($post->minCommissionAmount);
 
         $lead = array(
             "aff" => (string)$client_detail->parameter1,
@@ -169,13 +168,12 @@ class stopgonetworks
             'userAgent' => (string) $post->Source->userAgent,
             'ipAddress' => (string)$post->Source->ipAddress,
 
-            'termsAgreed' => (string) $post->Consent->consentFinancial ? 'Y' : 'N', //ENUM
+            'termsAgreed' => (string) 'Y',
             'mailing' => (string) $post->Consent->consentThirdParty ? 'Y' : 'N', //ENUM
 
             "domain" => (string)$referringUrl,
             'creditScore' => (string) $creditScore,
         );
-//        dd($lead);
 
         Log::debug('POST DATA::', (array)$lead);
 
