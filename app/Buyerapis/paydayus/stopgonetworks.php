@@ -100,7 +100,15 @@ class stopgonetworks
                 $post->Bank->bankAccountType = 'checking';
             case 'Savings':
                 $post->Bank->bankAccountType = 'savings';
+        }
 
+        switch ((string)$post->Consent->consentFinancial) {
+            case 'true':
+                $post->Consent->consentFinancial = 'Y';
+                break;
+            case 'false':
+                $post->Consent->consentFinancial = 'N';
+                break;
         }
 
         if (Str::startsWith($post->Source->referringUrl, 'http')) {
@@ -161,8 +169,8 @@ class stopgonetworks
             'userAgent' => (string) $post->Source->userAgent,
             'ipAddress' => (string)$post->Source->ipAddress,
 
-            'termsAgreed' => (integer) $post->Consent->consentFinancial ? 'Y' : 'N', //ENUM
-            'mailing' => (integer) $post->Consent->consentThirdParty ? 'Y' : 'N', //ENUM
+            'termsAgreed' => (string) $post->Consent->consentFinancial ? 'Y' : 'N', //ENUM
+            'mailing' => (string) $post->Consent->consentThirdParty ? 'Y' : 'N', //ENUM
 
             "domain" => (string)$referringUrl,
             'creditScore' => (string) $creditScore,
