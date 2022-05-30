@@ -55,13 +55,32 @@ class stopgonetworks
                 $post->Employer->incomeCycle = 'weekly';
             case 'BiWeekly':
                 $post->Employer->incomeCycle = 'biWeekly';
+            case 'Fortnightly':
+                $post->Employer->incomeCycle = 'biWeekly';
             case 'TwiceMonthly':
                 $post->Employer->incomeCycle = 'twiceMonthly';
             case 'FourWeekly':
                 $post->Employer->incomeCycle = 'monthly';
             case 'Monthly':
                 $post->Employer->incomeCycle = 'monthly';
+            case 'LastDayMonth':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastWorkingDayMonth':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastFriday':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastThursday':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastWednesday':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastTuesday':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'LastMonday':
+                $post->Employer->incomeCycle = 'monthly';
+            case 'SpecificDayOfMonth':
+                $post->Employer->incomeCycle = 'monthly';
         }
+
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
                 $post->Employer->incomePaymentType = 'N';
@@ -90,6 +109,8 @@ class stopgonetworks
             case 'LivingWithParents':
                 $post->Residence->residentialStatus = 'rent';
             case 'LivingWithFriends':
+                $post->Residence->residentialStatus = 'rent';
+            case 'LivingWithFamily':
                 $post->Residence->residentialStatus = 'rent';
             case 'Other':
                 $post->Residence->residentialStatus = 'rent';
