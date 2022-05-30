@@ -397,7 +397,7 @@ import { ref, onUnmounted } from "@vue/composition-api";
 import { avatarText } from "@core/utils/filter";
 import USLeadsListFilters from "./LeadListFilters.vue";
 import useUSLeadsList from "./useLeadList";
-import ukLeadsStoreModule from "../LeadStoreModule";
+import usLeadsStoreModule from "../LeadStoreModule";
 import USLeadsListAddNew from "./LeadListAddNew.vue";
 
 import VueApexCharts from "vue-apexcharts";
@@ -496,7 +496,7 @@ export default {
 
     // Register module
     if (!store.hasModule(US_LEADS))
-      store.registerModule(US_LEADS, ukLeadsStoreModule);
+      store.registerModule(US_LEADS, usLeadsStoreModule);
 
     // UnRegister on leave
     onUnmounted(() => {
@@ -605,7 +605,7 @@ export default {
       buyerPriceFilter,
       leadQualityFilter,
       redirectionFilter,
-        filterData,
+      filterData,
     };
   },
 };

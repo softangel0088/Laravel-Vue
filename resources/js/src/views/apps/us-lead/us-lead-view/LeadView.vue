@@ -74,7 +74,7 @@ import {
 
 } from 'bootstrap-vue'
 import LeadLogList from '@/views/apps/LeadLog/LeadLog-list/LeadLogList.vue'
-import ukLeadStoreModule from '../LeadStoreModule'
+import usLeadStoreModule from '../LeadStoreModule'
 
 import LeadOverviewTabAccount from './LeadOverviewTabAccount.vue'
 import LeadViewUserInfoCard from './LeadViewUserInfoCard.vue'
@@ -109,7 +109,7 @@ export default {
     const US_LEADS = 'app-us-lead'
 
     // Register module
-    if (!store.hasModule(US_LEADS)) store.registerModule(US_LEADS, ukLeadStoreModule)
+    if (!store.hasModule(US_LEADS)) store.registerModule(US_LEADS, usLeadStoreModule)
 
     // UnRegister on leave
     onUnmounted(() => {

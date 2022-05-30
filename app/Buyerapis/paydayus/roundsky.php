@@ -176,6 +176,7 @@ class roundsky
                 "monthly_income" => (int)$post->Employer->monthlyIncome,
                 "direct_deposit" => $post->Employer->incomePaymentType,
                 "pay_period" => (string)$post->Employer->incomeCycle,
+                "company" => (string)$post->Employer->employerName,
                 "next_pay_date" => (string)$nextPayDate,
                 "second_pay_date" => (string)$followingPayDate,
                 "months_at_residence" => (int)$AddressMoveIn,
@@ -183,7 +184,7 @@ class roundsky
                 "income_type" => (string)$post->Employer->incomeSource,
                 "active_military" => (string)$post->Applicant->inMilitary,
                 "occupation" => (string)$post->Employer->jobTitle,
-                "employer" => (string)$post->Employer->employerName,
+//                "employer" => (string)$post->Employer->employerName,
                 "months_employed" => (int)$EmploymentStarted,
 
                 "bank_name" => (string)$post->Bank->bankName,

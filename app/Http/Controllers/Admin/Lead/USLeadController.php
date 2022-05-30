@@ -101,6 +101,7 @@ class USLeadController extends Controller
             'loan',
             'applicant',
             'residence',
+            'employer',
             'expense',
             'bank',
             'consent'
@@ -615,12 +616,12 @@ class USLeadController extends Controller
 
     /**
      * @param $vid
-     * @param int $leadtype
+     * @param int $leadType
      * @return mixed
      */
-    private function getPartnerDetails($vid, int $leadtype)
+    private function getPartnerDetails($vid, int $leadType)
     {
-        $partner_detail = Partner::GetPartnerFullDetail($vid, $leadtype);
+        $partner_detail = Partner::GetPartnerFullDetail($vid, $leadType);
 
         if ($partner_detail === null) {
             echo 'Partner Not Active';

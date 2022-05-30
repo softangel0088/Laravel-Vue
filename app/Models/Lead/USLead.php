@@ -48,35 +48,35 @@ class USLead extends Model
 
     public function source()
     {
-        return $this->hasOne(Source::class, 'id');
+        return $this->hasOne(Source::class);
     }
     public function loan()
     {
-        return $this->hasOne(Loan::class, 'id');
+        return $this->hasOne(Loan::class);
     }
     public function applicant()
     {
-        return $this->hasOne(Applicant::class, 'id');
+        return $this->hasOne(Applicant::class);
     }
     public function employer()
     {
-        return $this->hasOne(Employer::class, 'id');
+        return $this->hasOne(Employer::class);
     }
     public function residence()
     {
-        return $this->hasOne(Residence::class, 'id');
+        return $this->hasOne(Residence::class);
     }
     public function bank()
     {
-        return $this->hasOne(Bank::class, 'id');
+        return $this->hasOne(Bank::class);
     }
     public function consent()
     {
-        return $this->hasOne(Consent::class, 'id');
+        return $this->hasOne(Consent::class);
     }
     public function expense()
     {
-        return $this->hasOne(Expenses::class, 'id');
+        return $this->hasOne(Expenses::class);
     }
 
     /**
