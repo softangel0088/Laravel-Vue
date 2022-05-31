@@ -210,8 +210,6 @@ class PostLeadToBuyersUS implements ShouldQueue
 
                     Log::debug('LEAD ID::', (array)$post->lead_id);
 
-                    $lead_id_uuid = $post->Source->lead_id;
-
                     $lead = USLead::where('id', $post->lead_id)->first();
                     Log::debug('LEAD ID::', (array)$lead);
 
@@ -651,7 +649,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $data = array(
             'price' => $price,
             'leadStatus' => $lead_status,
-            'leadid' => $lead->Source->lead_id,
+            'leadid' => $lead->lead_id,
             'id' => $lead->id,
             'ModelType' => $row->model_type
         );
