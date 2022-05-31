@@ -174,7 +174,8 @@ class USLeadController extends Controller
 
         // Get Generated Lead ID
         $post['lead_id'] = $partner_log->lead_id;
-
+//        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
+        Log::debug('POST::', (array)$post);
         // Status Check Code
         $status_check = $this->CheckStatusStart($post);
 
