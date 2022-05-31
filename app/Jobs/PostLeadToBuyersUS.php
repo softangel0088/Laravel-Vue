@@ -77,7 +77,7 @@ class PostLeadToBuyersUS implements ShouldQueue
 
 
         $buyer_response = $this->BuyerPost($post);
-        $buyer_response['leadid'] = $this->post['uuid'];
+        $buyer_response['leadid'] = $this->post['lead_id'];
         Log::debug('DEBUG RESP::', (array)$buyer_response);
 
         $offer_detail = Offer::get($post['oid']);
@@ -203,7 +203,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
 
-                    $lead = USLead::where('uuid', $post->uuid)->first();
+                    $lead = USLead::where('lead_id', $post->lead_id)->first();
                     Log::debug('LEAD ID::', (array)$lead);
 
                     // Lead accepted By BUYER
@@ -590,7 +590,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                 if ($add_commission_response) {
                     return true;
                 } else {
-                    Log::debug('Unable to Add referrer Commission::', (array)$post->uuid);
+                    Log::debug('Unable to Add referrer Commission::', (array)$post->lead_id);
                 }
             }
         } catch (Exception $e) {
@@ -643,7 +643,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $data = array(
             'price' => $price,
             'leadStatus' => $lead_status,
-            'leadid' => $lead->uuid,
+            'leadid' => $lead->lead_id,
             'id' => $lead->id,
             'ModelType' => $row->model_type
         );

@@ -128,9 +128,12 @@ class USLeadController extends Controller
             'expense',
             'bank',
             'consent'])
-            ->where('id', $id)->first();
+            ->where('id', $id)
+            ->first();
 
-        $recentApplications = Applicant::with('us_lead')->where('email', $lead->applicant->email)->paginate(10);
+        $recentApplications = Applicant::with('us_lead')
+            ->where('email', $lead->applicant->email)
+            ->paginate(10);
 
 
         return Response::json(['lead' => $lead, 'recentApplications' => $recentApplications]);
@@ -193,7 +196,7 @@ class USLeadController extends Controller
     public function store($post, $lead_quality)
     {
         $data = new USLead();
-        $data->uuid = Str::uuid();
+        $data->lead_id = Str::uuid();
         $data->vid = $this->toString($post->vid);
         $data->subid = $this->toString($post->subid);
         $data->oid = $this->toString($post->oid);
@@ -218,7 +221,7 @@ class USLeadController extends Controller
 
         $data->Source = new Source();
         $data->Source->id = $data->Source->id;
-        $data->Source->lead_id = $data->uuid;
+        $data->Source->lead_id = $data->lead_id;
         $data->Source->ipAddress = $this->toString($post->source->ipAddress ?? '');
         $data->Source->userAgent = $this->toString($post->source->userAgent ?? '');
         $data->Source->creationUrl = $this->toString($post->source->creationUrl ?? '');
@@ -227,7 +230,7 @@ class USLeadController extends Controller
 
         $data->Loan = new Loan();
         $data->Loan->id = $data->Loan->id;
-        $data->Loan->lead_id = $data->uuid;
+        $data->Loan->lead_id = $data->lead_id;
         $data->Loan->loanPurpose = $this->toString($post->loan->loanPurpose ?? '');
         $data->Loan->loanAmount = $this->toString($post->loan->loanAmount ?? '');
         $data->Loan->loanTerms = $this->toString($post->loan->loanTerms ?? '');
@@ -236,7 +239,7 @@ class USLeadController extends Controller
 
         $data->Applicant = new Applicant();
         $data->Applicant->id = $data->Applicant->id;
-        $data->Applicant->lead_id = $data->uuid;
+        $data->Applicant->lead_id = $data->lead_id;
         $data->Applicant->nameTitle = $this->toString($post->applicant->nameTitle ?? '');
         $data->Applicant->firstName = $this->toString($post->applicant->firstName ?? '');
         $data->Applicant->lastName = $this->toString($post->applicant->lastName ?? '');
@@ -259,7 +262,7 @@ class USLeadController extends Controller
 
         $data->Residence = new Residence();
         $data->Residence->id = $data->Residence->id;
-        $data->Residence->lead_id = $data->uuid;
+        $data->Residence->lead_id = $data->lead_id;
         $data->Residence->houseNumber = $this->toString($post->residence->houseNumber ?? '');
         $data->Residence->houseName = $this->toString($post->residence->houseName ?? '');
         $data->Residence->flatNumber = $this->toString($post->residence->flatNumber ?? '');
@@ -277,7 +280,7 @@ class USLeadController extends Controller
 
         $data->Employer = new Employer();
         $data->Employer->id = $data->Employer->id;
-        $data->Employer->lead_id = $data->uuid;
+        $data->Employer->lead_id = $data->lead_id;
         $data->Employer->employerName = $this->toString($post->employer->employerName ?? '');
         $data->Employer->jobTitle = $this->toString($post->employer->jobTitle ?? '');
         $data->Employer->monthsAtEmployer = $this->toString($post->employer->monthsAtEmployer ?? '');
@@ -301,7 +304,7 @@ class USLeadController extends Controller
 
         $data->Bank = new Bank();
         $data->Bank->id = $data->Bank->id;
-        $data->Bank->lead_id = $data->uuid;
+        $data->Bank->lead_id = $data->lead_id;
         $data->Bank->bankName = $this->toString($post->bank->bankName ?? '');
         $data->Bank->bankCardType = $this->toString($post->bank->bankCardType ?? '');
         $data->Bank->bankAccountNumber = $this->toString($post->bank->bankAccountNumber ?? '');
@@ -314,7 +317,7 @@ class USLeadController extends Controller
 
         $data->Consent = new Consent();
         $data->Consent->id = $data->Consent->id;
-        $data->Consent->lead_id = $data->uuid;
+        $data->Consent->lead_id = $data->lead_id;
         $data->Consent->consentFinancial = $this->toString($post->consent->consentFinancial ?? '0');
         $data->Consent->consentCreditSearch = $this->toString($post->consent->consentCreditSearch ?? '0');
         $data->Consent->consentThirdPartyEmails = $this->toString($post->consent->consentThirdPartyEmails ?? '0');
@@ -540,7 +543,7 @@ class USLeadController extends Controller
     public function CheckStatusNew(Request $request, $correlationId)
     {
         $status_check = CheckStatus::where('correlationId', '=', $correlationId)->first();
-        $lead = USLead::where('uuid', '=', $status_check->lead_id)->first();
+        $lead = USLead::where('lead_id', '=', $status_check->lead_id)->first();
         $response_type = $lead->response_type;
 
         if (isset($response_type) && $response_type === 'xml') {
@@ -666,7 +669,7 @@ class USLeadController extends Controller
     private function CheckStatusStart($post)
     {
         $status_check = new CheckStatus();
-        $status_check->lead_id = $post->uuid;
+        $status_check->lead_id = $post->lead_id;
         $status_check->status = "pending";
         $status_check->percentage = 0;
         $status_check->correlationId = Str::uuid();

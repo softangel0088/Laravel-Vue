@@ -17,7 +17,7 @@ class CreateUsLeadsTable extends Migration
             $table->id();
 //            $table->uuid('id')->primary;
 //                $table->uuid('id')->primary();
-            $table->uuid('uuid')->unique();
+            $table->uuid('lead_id')->unique();
             $table->unsignedBigInteger('source_id')->nullable();
             $table->unsignedBigInteger('loan_id')->nullable();
             $table->unsignedBigInteger('applicant_id')->nullable();
