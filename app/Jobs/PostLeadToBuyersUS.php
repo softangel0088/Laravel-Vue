@@ -77,10 +77,11 @@ class PostLeadToBuyersUS implements ShouldQueue
 
 
         $buyer_response = $this->BuyerPost($post);
+        Log::debug('DEBUG RESP1::', (array)$buyer_response);
         $buyer_response['leadid'] = $this->post['lead_id'];
 
 
-        Log::debug('DEBUG RESP::', (array)$buyer_response);
+        Log::debug('DEBUG RESP2::', (array)$buyer_response);
 
         $offer_detail = Offer::get($post['oid']);
 
