@@ -206,7 +206,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
 
-                    Log::debug('LEAD ID::', (array)$post->lead_id);
+                    Log::debug('LEAD ID::', (array)$post->source->lead_id);
 
                     $lead = USLead::where('lead_id', $post->lead_id)->first();
                     Log::debug('LEAD ID::', (array)$lead);
