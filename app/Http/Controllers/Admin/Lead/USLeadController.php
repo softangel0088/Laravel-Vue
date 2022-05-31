@@ -171,7 +171,7 @@ class USLeadController extends Controller
 
         // Add Partner Log
         $partner_log = $this->prepare_log_data($post);
-
+        Log::debug('PARTNER LOG::', (array)$partner_log);
         // Get Generated Lead ID
         $post['lead_id'] = $partner_log->lead_id;
 //        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
