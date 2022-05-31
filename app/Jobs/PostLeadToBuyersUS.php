@@ -172,13 +172,8 @@ class PostLeadToBuyersUS implements ShouldQueue
         // Buyer Filters
         $post = BuyerFilterUS::allBuyerFilters($post);
 
-        Log::debug('POST::', (array)$post);
-
-
-
         // Check Pingtree EPLs
 //        $pingtree_tracker_response = $this->GetPingtreeTracker($post);
-
         // Check affiliate limits on channel settings - pingtree traffic
 //        $network_channel_response = $this->network_channel_settings($post);
 

@@ -48,7 +48,7 @@ class USLead extends Model
 
     public function source()
     {
-        return $this->hasOne(Source::class, 'lead_id');
+        return $this->hasOne(Source::class, 'lead_id', 'lead_id');
     }
     public function loan()
     {

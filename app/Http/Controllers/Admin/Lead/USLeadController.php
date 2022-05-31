@@ -54,6 +54,8 @@ class USLeadController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+
+//        $this->query()
         $perPage = $request->input("perPage");
         $vendor_id = $request->input("vendor_id");
         $sub_id = $request->input("sub_id");
@@ -91,7 +93,6 @@ class USLeadController extends Controller
         if ($status != null) {
             $wherelist[] = ['leadStatus', '=', $status];
         }
-
         if ($query != null) {
             $wherelist[] = ['', 'LIKE', '%' . $query . '%'];
         }
