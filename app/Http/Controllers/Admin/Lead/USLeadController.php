@@ -168,14 +168,14 @@ class USLeadController extends Controller
 
         // Mapping + Add Lead to Database
         $post = $this->store($post, $lead_quality);
-
+        Log::debug('POST1::', (array)$post);
         // Add Partner Log
         $partner_log = $this->prepare_log_data($post);
         Log::debug('PARTNER LOG::', (array)$partner_log);
         // Get Generated Lead ID
         $post['lead_id'] = $partner_log->lead_id;
 //        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
-        Log::debug('POST::', (array)$post);
+        Log::debug('POST2::', (array)$post);
         // Status Check Code
         $status_check = $this->CheckStatusStart($post);
 
