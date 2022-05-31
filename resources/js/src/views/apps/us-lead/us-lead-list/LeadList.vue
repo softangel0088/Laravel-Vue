@@ -163,7 +163,7 @@
           <template #cell(buyerTierID)="data">
               <b-media vertical-align="center">
                   <b-link
-                      :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+                      :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
                       class="font-weight-bold d-block text-nowrap"
                   >
                       <b-badge class="badge-light-primary" pill>
