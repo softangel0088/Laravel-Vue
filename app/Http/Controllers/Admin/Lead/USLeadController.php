@@ -543,6 +543,7 @@ class USLeadController extends Controller
     public function CheckStatusNew(Request $request, $correlationId)
     {
         $status_check = CheckStatus::where('correlationId', '=', $correlationId)->first();
+        Log::info('DEBUG:: Check Status', (array)$status_check);
         $lead = USLead::where('lead_id', '=', $status_check->lead_id)->first();
         $response_type = $lead->response_type;
 
