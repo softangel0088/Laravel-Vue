@@ -203,6 +203,8 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
 
+                    Log::debug('LEAD ID::', (array)$post->lead_id);
+
                     $lead = USLead::where('lead_id', $post->lead_id)->first();
                     Log::debug('LEAD ID::', (array)$lead);
 
@@ -212,7 +214,6 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $lender_response['accept'] == 'ACCEPTED') {
 
                         $lead_status = 1;
-
                         // Get lender price and sub margin.
                         $price = $this->lender_accepted($lender_response, $post);
 
@@ -225,8 +226,8 @@ class PostLeadToBuyersUS implements ShouldQueue
                         // Accepted Response Data
                         return $accepted_data = $this->lead_response($lead, $row, $price, $lead_status);
 
-                        // Lead Conditionally accepted By BUYER
                     }
+                    // Lead Conditionally accepted By BUYER
                     if (isset($lender_response['accept']) && $lender_response['accept'] == 'CONDITIONAL') {
 
                         $price = '0.00';
