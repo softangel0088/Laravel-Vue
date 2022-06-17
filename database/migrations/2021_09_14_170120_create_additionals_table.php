@@ -19,18 +19,9 @@ class CreateAdditionalsTable extends Migration
             $table->string('lead_id')->nullable();
 
             $table->char('bestTimeToCall');
-            $table->integer('creditScore');
-            $table->integer('isCarOwner');
+            $table->char('creditScore');
+            $table->char('isCarOwner');
             $table->char('bankruptcy');
-            $table->char('cosigner');
-            $table->char('ref_first_name_1');
-            $table->char('ref_last_name_1');
-            $table->char('ref_phone_1');
-            $table->char('ref_relation_1');
-            $table->char('ref_first_name_2');
-            $table->char('ref_last_name_2');
-            $table->char('ref_phone_2');
-            $table->char('ref_relation_2');
             $table->timestamps();
         });
     }

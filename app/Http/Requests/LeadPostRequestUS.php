@@ -39,6 +39,22 @@ class LeadPostRequestUS extends FormRequest
             'loan.loanTerms' => [
                 Rule::in(1, 3, 6, 12, 18, 24, 36, 48, 60),
             ],
+            'loan.loanPurpose' => [
+                'required',
+                Rule::in(
+                    [
+                        'Subsistence',
+                        'OneOffPurchase',
+                        'DebtConsolidation',
+                        'CarLoan',
+                        'PayBills',
+                        'PayOffLoan',
+                        'ShortTermCash',
+                        'HomeImprovements',
+                        'Other'
+                    ]
+                ),
+            ],
 
             'applicant.nameTitle' => [
                 'required',
@@ -77,7 +93,7 @@ class LeadPostRequestUS extends FormRequest
                     1,
                     2,
                     3,
-                    4,
+                    4
                 ),
             ],
             'applicant.inMilitary' => [
@@ -138,7 +154,7 @@ class LeadPostRequestUS extends FormRequest
                     'Retired',
                     'Unemployed',
                     'Student',
-                    'ArmedForces',
+                    'ArmedForces'
                 ),
             ],
             'employer.incomeCycle' => [
@@ -156,7 +172,7 @@ class LeadPostRequestUS extends FormRequest
                     'LastWednesday',
                     'LastTuesday',
                     'LastThursday',
-                    'LastMonday',
+                    'LastMonday'
                 ),
             ],
             'employer.monthlyIncome' => 'required', 'gte:100', 'lte:15000',

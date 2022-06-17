@@ -2,11 +2,8 @@
 
 namespace App\Models\Lead;
 
-use App\Models\Buyer;
-use App\CheckStatusLogger;
+use App\Models\Buyer\Buyer;
 use App\Http\Controllers\Admin\Lead\LeadTestController;
-use App\Lmsleadlog;
-use App\LmsPartnerLeadType;
 use App\Models\Buyer\BuyerFilter;
 use App\Models\Buyer\BuyerSetup;
 use App\Models\LeadLog\LeadLog;
@@ -21,8 +18,6 @@ use App\Models\LMSApplication\Source;
 use App\Models\Mapping\Mapping;
 use App\Models\Partner\Partner;
 use App\Models\User;
-use App\Pubbuyermapping;
-use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,12 +26,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use function Symfony\Component\String\b;
 
 
 class USLead extends Model
 {
     use HasFactory;
-//        Uuids;
 
     public $timestamps = true;
     public $incrementing = false;
@@ -81,7 +76,6 @@ class USLead extends Model
 
     /**
      * Date Format
-     *
      * @param $value
      * @return string
      */
@@ -115,14 +109,6 @@ class USLead extends Model
     {
         return $this->hasMany(BuyerSetup::class);
     }
-    public function checkstatuses()
-    {
-        return $this->hasMany(CheckStatusLogger::class);
-    }
-//    public function lms_partner_leadtypes()
-//    {
-//        return $this->hasMany(LmsPartnerLeadType::class);
-//    }
     public function lead_logs()
     {
         return $this->hasMany(LeadLog::class);
@@ -240,6 +226,7 @@ class USLead extends Model
      */
     public function UpdateRedirectUrl($search)
     {
+
         $query = DB::table('us_leads');
 
         if (isset($search['id']) && !empty($search['id'])) {
@@ -252,21 +239,14 @@ class USLead extends Model
 
             if (!empty($row->redirectUrl)) {
                 $data['id'] = $search['id'];
-                $data['isRedirected'] = '1';
 
-                $query->where('id', $data['id']);
-                $res = $query->update(['id' => $data['id'], 'isRedirected' => $data['isRedirected']]);
+                $query->where('id', $data['id'])
+                    ->update(['id' => $data['id'], 'isRedirected' => '1']);
 
                 $data_log['isRedirected'] = '1';
-                $query = DB::table('lmsleadlogsus');
-
-                $tier_id = BuyerSetup::where('buyer_tier_id', $row->buyerTierID)->first()->id;
+                $lead_log = $this->update_lead_log_redirect($row, $search, $data_log);
 
 
-                $query->where('lead_id', $search['id'])
-                    ->where('buyer_setup_id', $tier_id);
-
-                $res = $query->update(['isredirected' => $data_log['isRedirected']]);
                 return $row->redirectUrl;
             }
         }
@@ -391,17 +371,14 @@ class USLead extends Model
     {
         $post = USLead::preBuyerPost($post);
 
-
         if ($post['istest'] == true) {
             $testBuyer = (new LeadTestController)->getTestBuyerUS();
             $post['buyer_list'] = $testBuyer;
         } else {
-
             $search = $post['search'];
-
             $buyer_list = Mapping::GetBuyer($search, $post);
-            $post['buyer_list'] = $buyer_list;
 
+            $post['buyer_list'] = $buyer_list;
         }
 
         return $post;
@@ -483,6 +460,24 @@ class USLead extends Model
             ->get()->toArray();
 
         return $records;
+    }
+
+    /**
+     * @param $row
+     * @param $search
+     * @param $data_log
+     * @return int
+     */
+    private function update_lead_log_redirect($row, $search, $data_log)
+    {
+        $query = DB::table('lmsleadlogsus');
+
+        $tier_id = BuyerSetup::where('buyer_tier_id', $row->buyerTierID)->first()->id;
+
+        $query->where('lead_id', $search['id'])
+            ->where('buyer_setup_id', $tier_id);
+
+        return $query->update(['isredirected' => $data_log['isRedirected']]);
     }
 
 

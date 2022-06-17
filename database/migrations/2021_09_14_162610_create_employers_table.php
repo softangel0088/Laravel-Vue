@@ -18,6 +18,7 @@ class CreateEmployersTable extends Migration
             $table->string('lead_id')->nullable();
 
             $table->char('employerName')->nullable();
+            $table->char('employerPhoneNumber')->nullable();
             $table->char('jobTitle')->nullable();
             $table->char('monthsAtEmployer')->nullable();
             $table->char('employerIndustry')->nullable();

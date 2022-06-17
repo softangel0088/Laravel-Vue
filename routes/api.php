@@ -85,7 +85,7 @@ Route::post('application/usa/post', [USLeadController::class, 'post']);
 Route::post('application/ca/post', [CALeadController::class, 'post']);
 /**** REDIRECT Routes  ***/
 Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirecturl');
-Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirecturl');
+Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl');
 Route::get('/application/ca/redirecturl/{id}', 'Admin\Lead\CALeadController@redirecturl');
 /*** CheckStatus Route ***/
 Route::get('application/status/{correlationId}', [UKLeadController::class, 'CheckStatusNew'])->name('api-check-status');;

@@ -85,7 +85,6 @@ class PostLeadToBuyersUS implements ShouldQueue
 
         $offer_detail = Offer::get($post['oid']);
 
-
         if (!empty(($buyer_response))) {
             $response = $this->prepare_response($buyer_response, $offer_detail);
         } else {
@@ -195,7 +194,6 @@ class PostLeadToBuyersUS implements ShouldQueue
                 if (file_exists($filename)) {
                     require_once($filename);
 
-
                     $classname = strtolower($row->buyername);
                     $obj = new $classname($row, $post);
 
@@ -204,16 +202,15 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $this->add_post_log($post, $row, $lender_response);
                     Log::debug('Lender Response::', (array)$lender_response);
 
-//                    Log::debug('LEAD ID::', (array)$post->lead_id);
-
                     $lead = USLead::where('lead_id', $post->lead_id)->first();
 
                     // Lead accepted By BUYER
                     if (isset($lender_response['post_price']) &&
                         isset($lender_response['accept']) &&
-                        $lender_response['accept'] == 'ACCEPTED') {
 
+                        $lender_response['accept'] == 'ACCEPTED') {
                         $lead_status = 1;
+
                         // Get lender price and sub margin.
                         $price = $this->lender_accepted($lender_response, $post);
 
@@ -243,6 +240,8 @@ class PostLeadToBuyersUS implements ShouldQueue
 
                     // Lead Declined By BUYER
                 if (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
+
+                    // Monetize declines.
 
                         $lead_status = 2;
                         $price = '0.00';

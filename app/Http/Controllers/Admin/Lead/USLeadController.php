@@ -15,6 +15,7 @@ use App\Models\IPQS\IPQS;
 use App\Models\Lead\LeadValidate;
 use App\Models\Lead\UKLead;
 use App\Models\Lead\USLead;
+use App\Models\LMSApplication\Additional;
 use App\Models\LMSApplication\Applicant;
 use App\Models\LMSApplication\Bank;
 use App\Models\LMSApplication\Consent;
@@ -207,7 +208,8 @@ class USLeadController extends Controller
         if ($post->maxCommissionAmount == '') {
             $post->maxCommissionAmount = '0.00';
         }
-        $data->minCommissionAmount = $this->toString($post->maxCommissionAmount ?? '0.00');
+
+        $data->minCommissionAmount = $this->toString($post->minCommissionAmount ?? '0.00');
         $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount ?? '0.00');
         $data->timeout = $this->toString($post->timeout ?? null);
         $data->istest = $this->toString($post->istest ?? false);
@@ -280,6 +282,7 @@ class USLeadController extends Controller
         $data->Employer->id = $data->Employer->id;
         $data->Employer->lead_id = $data->lead_id;
         $data->Employer->employerName = $this->toString($post->employer->employerName ?? '');
+        $data->Employer->employerPhoneNumber = $this->toString($post->employer->employerPhoneNumber ?? '');
         $data->Employer->jobTitle = $this->toString($post->employer->jobTitle ?? '');
         $data->Employer->monthsAtEmployer = $this->toString($post->employer->monthsAtEmployer ?? '');
         $data->Employer->employerIndustry = $this->toString($post->employer->employerIndustry ?? '');
@@ -323,6 +326,15 @@ class USLeadController extends Controller
         $data->Consent->consentThirdPartyPhone = $this->toString($post->consent->consentThirdPartyPhone ?? '0');
         $data->Consent->save();
 
+        $data->Additional = new Additional();
+        $data->Additional->id = $data->Additional->id;
+        $data->Additional->lead_id = $data->lead_id;
+        $data->Additional->creditScore = $this->toString($post->additional->creditScore ?? '');
+        $data->Additional->bestTimeToCall = $this->toString($post->additional->bestTimeToCall ?? '');
+        $data->Additional->isCarOwner = $this->toString($post->additional->isCarOwner ?? '');
+        $data->Additional->bankruptcy = $this->toString($post->additional->bankruptcy ?? '');
+        $data->Additional->save();
+
 
         $data_update = USLead::latest()->first();
         $data_update->loan_id = $data->Loan->id;
@@ -332,8 +344,10 @@ class USLeadController extends Controller
         $data_update->employer_id = $data->Employer->id;
         $data_update->bank_id = $data->Bank->id;
         $data_update->consent_id = $data->Consent->id;
+        $data_update->additional_id = $data->Additional->id;
         $data_update->save();
 
+//        dd($data);
         return $data;
 
     }
@@ -441,11 +455,11 @@ class USLeadController extends Controller
      *
      * @param $id
      */
-    public function redirecturl($id)
+    public function redirectUrl($id)
     {
-
-        $CheckStatusLogger = new CheckStatusLogger;
-        $api_received_at = Carbon::now()->microsecond;
+//        dd($id);
+//        $CheckStatusLogger = new CheckStatusLogger;
+//        $api_received_at = Carbon::now()->microsecond;
 
 
         Log::debug('REDIRECT ID::', (array)$id);
@@ -454,6 +468,7 @@ class USLeadController extends Controller
 
         $data['created_at'] = date('Y-m-d H:i:s', strtotime('-15 minutes'));
         $redirecturl = (new USLead)->UpdateRedirectUrl($data);
+//        dd($redirecturl);
 
         if ($redirecturl) {
             header("location: " . $redirecturl);

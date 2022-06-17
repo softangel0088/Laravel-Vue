@@ -9,6 +9,8 @@ use App\Models\LeadLog\LeadLog;
 use App\Models\Partner\Partner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -44,6 +46,82 @@ class Mapping extends Model
         'status',
     ];
 
+
+
+
+    /**
+     * @param array $search
+     * @return Builder
+     */
+    private static function getBuyerTiers(array $search)
+    {
+        $query = DB::table('mappings')
+            ->select(
+                'mappings.*',
+                'buyer_setups.*',
+                'buyers.*'
+            )
+            ->leftJoin(
+                'buyer_setups',
+                'mappings.buyer_setup_id',
+                '=',
+                'buyer_setups.id')
+            ->leftJoin(
+                'buyers',
+                'mappings.buyer_id',
+                '=',
+                'buyers.id');
+
+
+
+        $query
+            ->where('mappings.leadtype', $search['leadtype'])
+            ->where('buyer_setups.status', 1)
+            ->where('mappings.status', 1)
+            ->where('buyers.status', 1)
+            ->where('mappings.partner_id', $search['vid']);
+
+        $buyers = $query->orderBy('buyer_setups.tier_price', 'DESC');
+
+        return $buyers;
+    }
+
+    /**
+     * @param array $search
+     * @param Builder $buyers
+     * @return Collection
+     */
+    private static function filterBuyers(array $search, Builder $buyers)
+    {
+        if (!empty($search['tier'])) {
+            if ($search['tier'] == '0') {
+                $buyers->orderBy('buyer_setups.tier_price', 'DESC');
+            } else {
+                if ($search['tier'] != '0') {
+                    $buyers->where('buyer_setups.buyer_tier_id', '=', $search['tier']);
+                }
+            }
+        }
+//        if (!empty($search['timeout'])) {
+//            $buyers->where('buyer_setups.timeout', '<=', $search['timeout']);
+//        }
+
+        if (!empty($search['min_price'])) {
+            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
+        }
+        if (!empty($search['max_price'])) {
+            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
+        }
+        if (!empty($search['mode'])) {
+            $buyers = $buyers->where('buyer_setups.mode', $search['mode']);
+        } else {
+            $buyers = $buyers->where('buyer_setups.mode', 1);
+        }
+
+        $buyers = $buyers->get();
+
+        return $buyers;
+    }
 
     /**
      *  Get Single Buyer
@@ -86,82 +164,29 @@ class Mapping extends Model
         }
     }
 
-
     /**
      * Get Buyer from Pub buyer table
      *
      * @param $search
      * @param $post
-     * @return \Illuminate\Support\Collection|void
+     * @return Collection|void
      */
     public static function GetBuyer($search, $post)
     {
-
-        $search = (array)$search;
-
         $vendor = Partner::where('vendor_id', '=', $post['vid'])->first();
         $post['vendor_id'] = $vendor->id;
 
-
-
+        $search = (array)$search;
         $search['vid'] = $post['vendor_id'];
-
-        $query = DB::table('mappings')
-            ->select(
-                'mappings.*',
-                'buyer_setups.*',
-                'buyers.*'
-            )
-            ->leftJoin(
-                'buyer_setups',
-                'mappings.buyer_setup_id',
-                '=',
-                'buyer_setups.id')
-            ->leftJoin(
-                'buyers',
-                'mappings.buyer_id',
-                '=',
-                'buyers.id');
+        $search['min_price'] = $post['minCommissionAmount'] ?? "0";
+        $search['max_price'] = $post['maxCommissionAmount'] ?? "0";
+        $search['timeout'] = $post['timeout'] ?? "210";
 
 
+        $buyers = Mapping::getBuyerTiers($search);
 
-        $query
-            ->where('mappings.leadtype', $search['leadtype'])
-            ->where('buyer_setups.status', 1)
-            ->where('mappings.status', 1)
-            ->where('buyers.status', 1)
-            ->where('mappings.partner_id', $search['vid']);
+        $buyers = Mapping::filterBuyers($search, $buyers);
 
-//        dd($query->get());
-        $buyers = $query->orderBy('buyer_setups.tier_price', 'DESC');
-
-        if (!empty($search['tier'])) {
-            if ($search['tier'] == '0') {
-                $buyers->orderBy('buyer_setups.tier_price', 'DESC');
-            } else {
-                if ($search['tier'] != '0') {
-                    $buyers->where('buyer_setups.buyer_tier_id', '=', $search['tier']);
-                }
-            }
-        }
-//        if (!empty($search['timeout'])) {
-//            $buyers->where('buyer_setups.timeout', '<=', $search['timeout']);
-//        }
-
-        if (!empty($search['min_price'])) {
-            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
-        }
-        if (!empty($search['max_price'])) {
-            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
-        }
-//        dd($buyers->get());
-        if (!empty($search['mode'])) {
-            $buyers = $buyers->where('buyer_setups.mode', $search['mode']);
-        } else {
-            $buyers = $buyers->where('buyer_setups.mode', 1);
-        }
-
-        $buyers = $buyers->get();
 
         if ($buyers->isEmpty()) {
             echo json_encode(['error' => 'Tier Not Found']);
