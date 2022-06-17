@@ -109,6 +109,7 @@ return array(
     'App\\Models\\IPQS\\IPQS' => $baseDir . '/app/Models/IPQS/IPQS.php',
     'App\\Models\\InvoiceProduct' => $baseDir . '/app/Models/InvoiceProduct.php',
     'App\\Models\\Invoice\\Invoice' => $baseDir . '/app/Models/Invoice/Invoice.php',
+    'App\\Models\\LMSApplication\\Additional' => $baseDir . '/app/Models/LMSApplication/Additional.php',
     'App\\Models\\LMSApplication\\Applicant' => $baseDir . '/app/Models/LMSApplication/Applicant.php',
     'App\\Models\\LMSApplication\\Bank' => $baseDir . '/app/Models/LMSApplication/Bank.php',
     'App\\Models\\LMSApplication\\Consent' => $baseDir . '/app/Models/LMSApplication/Consent.php',
