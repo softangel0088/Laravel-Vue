@@ -167,6 +167,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         // Get Buyers
         $post = USLead::getBuyers($post);
 
+        Log::debug('Get Buyers() called ::', (array)$post);
         // Check for high risk leads
         $post = $this->quality_score_tracker($post);
 

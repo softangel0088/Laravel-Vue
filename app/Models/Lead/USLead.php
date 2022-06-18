@@ -369,7 +369,10 @@ class USLead extends Model
      */
     public static function getBuyers($post)
     {
+        Log::debug('getBuyers() called ::', (array)$post);
+
         $post = USLead::preBuyerPost($post);
+        Log::debug('::preBuyerPost() called ::', (array)$post);
 
         if ($post['istest'] == true) {
             $testBuyer = (new LeadTestController)->getTestBuyerUS();
