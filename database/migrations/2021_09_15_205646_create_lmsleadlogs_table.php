@@ -8,7 +8,7 @@ class CreateLmsleadlogsTable extends Migration
 {
     /**
      * Run the migrations.
-     *database/migrations/2021_09_15_205646_create_lmsleadlogs_table.php
+     *
      * @return void
      */
     public function up()
@@ -27,7 +27,7 @@ class CreateLmsleadlogsTable extends Migration
             $table->float('post_time')->nullable();
             $table->enum('isredirected', ['0', '1'])->default('0');
             $table->char( 'lender_found')->nullable();
-            $table->longText('reason')->nullable() ?? '';
+            $table->longText('reason')->nullable();
 
             $table->timestamps();
 
