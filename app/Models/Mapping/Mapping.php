@@ -187,7 +187,6 @@ class Mapping extends Model
         Log::debug('search() called ::', (array)$search);
 
         $buyers = Mapping::getBuyerTiers($search);
-        dd($buyers->get());
         Log::debug('Mapping::getBuyerTiers() called ::', (array)$buyers);
         Log::debug('Mapping::getBuyerTiers()->get() called ::', (array)$buyers->get());
 
