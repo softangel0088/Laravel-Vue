@@ -636,6 +636,74 @@
 
             </b-col>
 
+            <!-- Additional -->
+            <b-col
+                    id="blogComment"
+                    cols="12"
+                    class="mt-2"
+            >
+                <h6 class="section-label">
+                    Consent
+                </h6>
+                <b-card-actions
+                        title="Additional"
+                        action-collapse
+                >
+
+                    <b-media no-body>
+                        <b-media-body>
+                            <small class="text-muted mr-50">by</small>
+                            <small>
+                                <b-link class="text-body">UPING</b-link>
+                            </small>
+                            <span class="text-muted ml-75 mr-50">|</span>
+                            <small class="text-muted">Mar 24, 2022</small>
+                        </b-media-body>
+                    </b-media>
+                    <div class="my-1 py-25">
+                        <b-link
+                                v-for="tag in blogDetail.blog.tags"
+                                :key="tag"
+                        >
+                            <b-badge
+                                    pill
+                                    class="mr-75"
+                                    :variant="tagsColor(tag)"
+                            >
+                                {{ tag }}
+                            </b-badge>
+                        </b-link>
+                    </div>
+                    <!-- eslint-disable vue/no-v-html -->
+                    <div
+                            class="blog-content"
+                    />
+                    <b-table
+                            responsive
+                            :items="additionalItems"
+                            :fields="fields"
+                            class="mb-0"
+                            :small="true"
+                            :striped="true"
+                            :bordered="true"
+                            :borderless="true"
+
+                    >
+                        <template #cell(required)="data">
+                            <b-badge v-if="data.item.Required == 1"
+                                     pill variant="primary"
+                                     class="badge-glow"> Required
+                            </b-badge>
+                            <b-badge v-else-if="data.item.Required == 2"
+                                     pill variant="secondary"
+                                     class="badge-glow"> Required If
+                            </b-badge>
+                        </template>
+                    </b-table>
+                </b-card-actions>
+
+            </b-col>
+
 
             <!-- POST -->
             <b-col
@@ -669,8 +737,8 @@
                             "vid": "AFF_111",
                             "subid": "12345",
                             "oid": "2",
-                            "minCommissionAmount": "",
-                            "maxCommissionAmount": "",
+                            "minCommissionAmount": "0.00",
+                            "maxCommissionAmount": "0.00",
                             "source": {
                             "ipAddress": "174.62.231.140",
                             "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.43",
@@ -713,6 +781,7 @@
                             },
                             "employer": {
                             "employerName": "1234 Ltd",
+                            "employerPhoneNumber": "71111111111",
                             "jobTitle": "Manager",
                             "employerIndustry": "HotelRestaurantAndLeisure",
                             "incomeSource": "SelfEmployed",
@@ -737,6 +806,10 @@
                             "consent": {
                             "consentFinancial": "1",
                             "consentThirdPartyEmails": "1"
+                            }
+                            "additional": {
+                            "bestTimeToCall": "anytime",
+                            "creditScore": "good"
                             }
                             }
 
@@ -1291,6 +1364,13 @@
                         Required: 1,
                     },
                     {
+                        field: 'employerPhoneNumber',
+                        Description: 'Employer',
+                        DataType: 'string',
+                        Constraints: 'Allowed string length: 1 - 128',
+                        Required: 1,
+                    },
+                    {
                         field: 'jobTitle',
                         Description: 'Job title',
                         DataType: 'string',
@@ -1482,6 +1562,22 @@
                         Description: 'Re-marketing Post',
                         dataType: 'Boolean',
                         Constraints: 'Must be one of the following:',
+                        Required: 1,
+                    },
+                ],
+                additionalItems: [
+                    {
+                        field: 'bestTimeToCall',
+                        Description: 'Credit check',
+                        DataType: 'Boolean',
+                        Constraints: 'Must be one of the following: anytime, morning, evening',
+                        Required: 1,
+                    },
+                    {
+                        field: 'creditScore',
+                        Description: 'Credit score of customer',
+                        DataType: 'Boolean',
+                        Constraints: 'Must be one of the following: excellent, good, fair, poor, notSure',
                         Required: 1,
                     },
                 ],

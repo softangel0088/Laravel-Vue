@@ -251,7 +251,7 @@ class itmedia
             $this->response['post_price'] = $appResponse['Price'];
             $this->response['post_status'] = '1';
             $this->response['redirect_url'] = $appResponse['Redirect'];
-            $this->response['reason'] = $appResponse['message'] ?? 'Not available';
+            $this->response['reason'] = $appResponse['Messages'] ?? 'Not available';
             $this->response['post_time'] = '0.00';
 
 
@@ -260,7 +260,7 @@ class itmedia
             $this->response['post_price'] = '0.00';
             $this->response['post_status'] = '1';
             $this->response['redirect_url'] = '';
-            $this->response['reason'] = json_encode($appResponse['Error']) ?? 'Not available';
+            $this->response['reason'] = json_encode($appResponse['Messages']) ?? 'Not available';
             $this->response['post_time'] = '0.00';
 
         }

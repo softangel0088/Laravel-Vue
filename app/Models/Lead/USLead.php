@@ -369,10 +369,8 @@ class USLead extends Model
      */
     public static function getBuyers($post)
     {
-        Log::debug('getBuyers() called ::', (array)$post);
 
         $post = USLead::preBuyerPost($post);
-        Log::debug('::preBuyerPost() called ::', (array)$post);
 
         if ($post['istest'] == true) {
             $testBuyer = (new LeadTestController)->getTestBuyerUS();
@@ -380,7 +378,6 @@ class USLead extends Model
         } else {
             $search = $post['search'];
             $buyer_list = Mapping::GetBuyer($search, $post);
-            Log::debug('Mapping::GetBuyer() called ::', (array)$buyer_list);
 
 
             $post['buyer_list'] = $buyer_list;
