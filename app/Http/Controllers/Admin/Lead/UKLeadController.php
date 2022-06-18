@@ -122,7 +122,6 @@ class UKLeadController extends Controller
         // Decode the Application
         $post = json_decode($request->getContent());
 
-//        dd($post);
 
         // Retrieve Partner Account Status if AFF ID present.
         $this->partner_detail = $this->getPartnerDetails($post->vid, $this->leadtype);

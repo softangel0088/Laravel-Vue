@@ -27,7 +27,6 @@ class LeadPostRequest extends FormRequest
         return [
             'vid' => 'required',
             'oid' => 'required',
-//            'tier' => 'required',
 
             'loan.loanPurpose' => [
                 'required',
@@ -69,7 +68,6 @@ class LeadPostRequest extends FormRequest
             ],
 
             // add : + 18 years old
-//            'dateOfBirth' => 'required', 'date_format:d/m/Y',
             'applicant.dateOfBirthDay' => 'required',
             'applicant.dateOfBirthMonth' => 'required',
             'applicant.dateOfBirthYear' => 'required',
@@ -78,9 +76,6 @@ class LeadPostRequest extends FormRequest
             'applicant.mobilePhoneNumber' => 'required|size:11|starts_with:07',
             'applicant.workPhoneNumber' => 'required|size:11',
 
-//            'employerName' => 'sometimes', 'required',
-//            'jobTitle' => 'sometimes', 'required',
-//
             'employer.employmentIndustry' => [
                 Rule::in(
                     'ConstructionManufacturing',
@@ -119,7 +114,7 @@ class LeadPostRequest extends FormRequest
 //
             'applicant.dependants' => [
                 'required',
-                Rule::in(0,1,2,3, 4),
+                Rule::in(0,1,2,3,4),
             ],
             'residence.residentialStatus' => [
                 'required',
@@ -166,7 +161,8 @@ class LeadPostRequest extends FormRequest
             ],
             'employer.incomeCycle' => [
                 'required',
-                Rule::in('SpecificDayOfMonth',
+                Rule::in(
+                    'SpecificDayOfMonth',
                     'Weekly',
                     'BiWeekly',
                     'Fortnightly',
@@ -189,8 +185,6 @@ class LeadPostRequest extends FormRequest
                     'RegionalDirectDeposit',
                     'NonRegionalDirectDeposit'
                 )],
-
-            //recentLoanAmount
 
             'employer.nextPayDateDay' => 'required','min:2', 'max:2',
             'employer.nextPayDateMonth' => 'required','min:2', 'max:2',
