@@ -215,7 +215,7 @@ class itmedia
         $this->response['post_data'] = $lead;
         $this->response['timeout'] = $client_detail->timeout;
 //        $this->response['post_url'] = ($client_detail->mode == '0') ? $client_detail->post_url_test : $client_detail->post_url_live;
-        $this->response['post_url'] = $client_detail->post_url_test;
+        $this->response['post_url'] = $client_detail->post_url_live;
 
 
         $validation_result = true;
