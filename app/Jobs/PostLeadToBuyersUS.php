@@ -75,6 +75,7 @@ class PostLeadToBuyersUS implements ShouldQueue
         $post = $this->post;
         $partner_log_id = $this->partner_log->id;
 
+        Log::debug('handle() called ::', (array)$post);
 
         $buyer_response = $this->BuyerPost($post);
 //        Log::debug('DEBUG RESP1::', (array)$buyer_response);
