@@ -82,33 +82,33 @@ class LeadValidate extends Model
     {
         return true;
 
-        $next_pay_date = $this->future_pay_date($request['employer']);
-        $email = $request->applicant['email'];
-        $mobilePhoneNumber = $request->applicant['mobilePhoneNumber'];
-
-        $validate_email = IPQS::verify_email($email);
-        $validate_phone = IPQS::verify_phone($mobilePhoneNumber);
-        $validated_bank_details = $this->validate_bank($request['bank']);
-
-        if ($next_pay_date == true) {
-            return $valid;
-        }
-        if ($validate_lead == false) {
-            return $validate_lead;
-        }
-        if ($validate_email == false) {
-            return 'Invalid Email';
-        }
-        elseif ($validated_bank_details !== true) {
-            return $validated_bank_details;
-        } elseif (
-//            $validate_lead == $valid &&
-            $validate_email == $valid &&
-            $validate_phone == $valid &&
-            $validated_bank_details == $valid
-        ) {
-            return true;
-        }
+//        $next_pay_date = $this->future_pay_date($request['employer']);
+//        $email = $request->applicant['email'];
+//        $mobilePhoneNumber = $request->applicant['mobilePhoneNumber'];
+//
+//        $validate_email = IPQS::verify_email($email);
+//        $validate_phone = IPQS::verify_phone($mobilePhoneNumber);
+//        $validated_bank_details = $this->validate_bank($request['bank']);
+//
+//        if ($next_pay_date == true) {
+//            return $valid;
+//        }
+//        if ($validate_lead == false) {
+//            return $validate_lead;
+//        }
+//        if ($validate_email == false) {
+//            return 'Invalid Email';
+//        }
+//        elseif ($validated_bank_details !== true) {
+//            return $validated_bank_details;
+//        } elseif (
+////            $validate_lead == $valid &&
+//            $validate_email == $valid &&
+//            $validate_phone == $valid &&
+//            $validated_bank_details == $valid
+//        ) {
+//            return true;
+//        }
     }
 
 
