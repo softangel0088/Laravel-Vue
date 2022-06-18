@@ -193,7 +193,7 @@ class LeadPostRequest extends FormRequest
             'employer.followingPayDateMonth' => 'required','min:2', 'max:2',
             'employer.followingPayDateYear' => 'required','min:4', 'max:4',
 
-            'expense.monthlyRepayments' => 'required', 'numeric','gte:0', 'lte:15000',
+//            'expense.monthlyRepayments' => 'required', 'numeric','gte:0', 'lte:15000',
             'expense.utilitiesExpense' => 'required', 'numeric','gte:0', 'lte:15000',
             'expense.foodExpense' => 'required', 'numeric','gte:0', 'lte:15000',
             'expense.transportExpense' => 'required', 'numeric','gte:0', 'lte:15000',
