@@ -556,7 +556,7 @@ class USLeadController extends Controller
     public function CheckStatusNew(Request $request, $correlationId)
     {
         $status_check = CheckStatus::where('correlationId', '=', $correlationId)->first();
-        Log::info('DEBUG:: Check Status', (array)$status_check);
+//        Log::info('DEBUG:: Check Status', (array)$status_check);
         $lead = USLead::where('lead_id', '=', $status_check->lead_id)->first();
         $response_type = $lead->response_type;
 
@@ -567,7 +567,7 @@ class USLeadController extends Controller
                 header("Content-type: text/xml; charset=utf-8");
                 echo $status_check->resp;
             }
-            Log::info('DEBUG:: Check Status ID', (array)$correlationId);
+//            Log::info('DEBUG:: Check Status ID', (array)$correlationId);
         } else {
 //            $lead = USLead::where('id', '=', $status_check->lead_id)->first();
             $response_type = $lead->response_type;
