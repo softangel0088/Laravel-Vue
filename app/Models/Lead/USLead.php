@@ -377,6 +377,8 @@ class USLead extends Model
         } else {
             $search = $post['search'];
             $buyer_list = Mapping::GetBuyer($search, $post);
+            Log::debug('Mapping::GetBuyer() called ::', (array)$buyer_list);
+
 
             $post['buyer_list'] = $buyer_list;
         }
