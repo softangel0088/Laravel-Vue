@@ -182,10 +182,13 @@ class Mapping extends Model
         $search['max_price'] = $post['maxCommissionAmount'] ?? "0";
         $search['timeout'] = $post['timeout'] ?? "210";
 
+        Log::debug('search() called ::', (array)$search);
 
         $buyers = Mapping::getBuyerTiers($search);
+        Log::debug('Mapping::getBuyerTiers() called ::', (array)$buyers);
 
         $buyers = Mapping::filterBuyers($search, $buyers);
+        Log::debug('Mapping::filterBuyers() called ::', (array)$buyers);
 
 
         if ($buyers->isEmpty()) {
