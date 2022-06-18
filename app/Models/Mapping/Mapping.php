@@ -107,10 +107,10 @@ class Mapping extends Model
 //        }
 
 
-        if (!empty($search['min_price'] && $search['min_price'] !== null)) {
+        if (!empty($search['min_price'] && $search['min_price'] !== '0.00')) {
             $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
         }
-        if (!empty($search['max_price'] && $search['max_price'] !== null)) {
+        if (!empty($search['max_price'] && $search['max_price']  !== '0.00')) {
             $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
         }
         Log::debug('DEBUG() 2 called ::', (array)$buyers->get());
