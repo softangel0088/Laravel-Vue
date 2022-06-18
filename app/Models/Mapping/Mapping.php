@@ -186,6 +186,7 @@ class Mapping extends Model
 
         $buyers = Mapping::getBuyerTiers($search);
         Log::debug('Mapping::getBuyerTiers() called ::', (array)$buyers);
+        Log::debug('Mapping::getBuyerTiers()->get() called ::', (array)$buyers->get());
 
         $buyers = Mapping::filterBuyers($search, $buyers);
         Log::debug('Mapping::filterBuyers() called ::', (array)$buyers);
