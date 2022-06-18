@@ -162,6 +162,7 @@ class PostLeadToBuyersUS implements ShouldQueue
      */
     public function BuyerPost($post): array
     {
+        Log::debug('BuyerPost() called ::', (array)$post);
 
         // Get Buyers
         $post = USLead::getBuyers($post);
@@ -172,8 +173,8 @@ class PostLeadToBuyersUS implements ShouldQueue
         // Buyer Filters
         $post = BuyerFilterUS::allBuyerFilters($post);
 
+        Log::debug('DEBUG() called ::', (array)$post);
 
-        Log::debug('BuyerPost() called ::', (array)$post);
 
         // Check Pingtree EPLs
 //        $pingtree_tracker_response = $this->GetPingtreeTracker($post);
@@ -194,6 +195,8 @@ class PostLeadToBuyersUS implements ShouldQueue
                 $row = (object)$value;
 
                 $filename = app_path("Buyerapis/paydayus/" . strtolower($row->buyername) . ".php");
+
+                Log::debug('Buyer Api() called ::', (array)$filename);
 
                 if (file_exists($filename)) {
                     require_once($filename);
