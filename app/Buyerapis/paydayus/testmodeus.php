@@ -3,18 +3,20 @@
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class testmodeus
 {
 
-    var $response = array();
+    public array $response = array();
 
     function __construct($client_detail, $post)
     {
+        Log::debug('TestMode:: Post', (array) $post);
 
         $this->response['post_url'] = ($client_detail->mode == '2') ? $client_detail->post_url_test : $client_detail->post_url_live;
 
-        if ($post->applicant->firstName == 'Accept') {
+        if ($post->Applicant->firstName == 'Accept') {
             $this->response['post_data'] = $this->testModeAccept();
         } else {
             $this->response['post_data'] = $this->testModeReject();
