@@ -13,10 +13,16 @@ class testmodeus
     {
 
         $this->response['post_url'] = ($client_detail->mode == '2') ? $client_detail->post_url_test : $client_detail->post_url_live;
-        $this->response['post_data'] = $this->testMode();
 
-//        if ($post->applicant->firstName == 'Accept') {
-//
+        if ($post->applicant->firstName == 'Accept') {
+            $this->response['post_data'] = $this->testModeAccept();
+        } else {
+            $this->response['post_data'] = $this->testModeReject();
+        }
+
+
+//        if ($post->applicant->firstName == 'Reject') {
+//            $this->response['post_data'] = $this->testModeAccept();
 //        }
 
 
@@ -29,33 +35,55 @@ class testmodeus
 
     }
 
+
     /**
      * Sleep 10, Send to SendResponse()
      *
      * @return string
      */
-    public function testMode()
+    public function testModeAccept()
     {
         sleep(3);
 
-        $resp = $this->sendResponse();
-
-
-        return $resp;
+        return $this->sendAcceptResponse();
     }
+    /**
+     * Sleep 10, Send to SendResponse()
+     *
+     * @return string
+     */
+    public function testModeReject()
+    {
+        sleep(3);
+
+        return $this->sendRejectResponse();
+    }
+
 
     /**
      * Send stimulated response back to client for testing.
      *
      * @return string
      */
-    public function sendResponse()
+    public function sendAcceptResponse()
     {
         header("Content-type: text/xml; charset=utf-8");
         $response = '<?xml version="1.0" encoding="utf-8"?>';
-        $response .= '<Payout>10.00</Payout><Result>2</Result><RedirectURL>https://www.google.com</RedirectURL>';
+        $response .= '<Payout>10.00</Payout><Result>1</Result><RedirectURL>https://www.google.com</RedirectURL>';
 
-//        echo $response;
+        return $response;
+    }
+    /**
+     * Send stimulated response back to client for testing.
+     *
+     * @return string
+     */
+    public function sendRejectResponse()
+    {
+        header("Content-type: text/xml; charset=utf-8");
+        $response = '<?xml version="1.0" encoding="utf-8"?>';
+        $response .= '<Payout>0.00</Payout><Result>2</Result><RedirectURL></RedirectURL>';
+
         return $response;
     }
 
