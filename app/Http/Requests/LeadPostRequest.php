@@ -45,7 +45,7 @@ class LeadPostRequest extends FormRequest
                 ),
             ],
             'loan.loanAmount' => 'required|gte:100|lte:5000|multiple_of:50|numeric',
-            'loan.recentLoanAmount' => 'required',
+            'loan.recentLoanCount' => 'required',
 
             'loan.loanTerms' => [
                 'required',
