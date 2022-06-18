@@ -67,18 +67,6 @@ router.beforeEach((to, _, next) => {
 
         }
     }
-        // if (to.meta.adminAuth && userData.is_admin == 1) {
-        //     console.log('ADMIN')
-        //     // debugger
-        //     next()
-        // }  if (to.meta.partnerAuth && userData.is_admin == 0) {
-        //     console.log('PARTNER')
-        //     // debugger
-        //     next()
-        // }
-//         // {
-//         //         return next({name: 'auth-login'})
-//         //     }
     }
     return next()
 })

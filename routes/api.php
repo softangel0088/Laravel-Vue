@@ -17,7 +17,6 @@ use App\Http\Controllers\Admin\PostbackTracker\PostbackTrackerController;
 use App\Http\Controllers\Admin\Report\ReportController;
 use App\Http\Controllers\Admin\User\CompanyController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CALeadController;
 use App\Http\Controllers\Partner\PartDashboardOfferController;
 use App\Http\Controllers\Partner\PartDashboardUSController;
 use App\Http\Controllers\Partner\PartInvoiceController;
@@ -82,21 +81,17 @@ Route::post('conversion/track/postback', [PostbackTrackerController::class, 'pos
 /**** Lead POST Routes ***/
 Route::post('application/post', [UKLeadController::class, 'post']);
 Route::post('application/usa/post', [USLeadController::class, 'post']);
-Route::post('application/ca/post', [CALeadController::class, 'post']);
 /**** REDIRECT Routes  ***/
 Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirecturl');
 Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl');
-Route::get('/application/ca/redirecturl/{id}', 'Admin\Lead\CALeadController@redirecturl');
 /*** CheckStatus Route ***/
 Route::get('application/status/{correlationId}', [UKLeadController::class, 'CheckStatusNew'])->name('api-check-status');;
 Route::get('application/usa/status/{correlationId}', [USLeadController::class, 'CheckStatusNew'])->name('api-check-status-us');;
-Route::get('application/ca/status/{correlationId}', [CALeadController::class, 'CheckStatusNew'])->name('api-check-status-ca');;
 /*** Lead Test Route ***/
-Route::post('application/test', 'LeadTestController@testmodeca.php')->name('post.test');
+//Route::post('application/test', 'LeadTestController@testmodeca.php')->name('post.test');
 /*** Mark CPF Lead as Funded Endpoint***/
 Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-uk');
 Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us');
-Route::get('application/ca/cpf/{leadId}', [CALeadController::class, 'mark_cpf_funded'])->name('cpf-funded-ca');
 
 
 

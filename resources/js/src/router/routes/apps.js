@@ -851,14 +851,14 @@ export default [
         }
     },
     // HORIZON
-    // {
-    //     path: '/horizon',
-    //     name: 'apps-horizon',
-    //     meta: {
-    //         requiresAuth: true,
-    //         adminAuth: true
-    //     }
-    // },
+    {
+        path: '/horizon',
+        name: 'apps-horizon',
+        meta: {
+            requiresAuth: true,
+            adminAuth: true
+        }
+    },
 
     // Invoice
     {
