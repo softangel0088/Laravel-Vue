@@ -82,7 +82,7 @@ Route::post('conversion/track/postback', [PostbackTrackerController::class, 'pos
 Route::post('application/post', [UKLeadController::class, 'post']);
 Route::post('application/usa/post', [USLeadController::class, 'post']);
 /**** REDIRECT Routes  ***/
-Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirecturl');
+Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirectUrl');
 Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl');
 /*** CheckStatus Route ***/
 Route::get('application/status/{correlationId}', [UKLeadController::class, 'CheckStatusNew'])->name('api-check-status');;

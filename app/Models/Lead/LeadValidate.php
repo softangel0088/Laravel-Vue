@@ -2,6 +2,7 @@
 
 namespace App\Models\Lead;
 
+use App\Http\Requests\LeadPostRequest;
 use App\Http\Requests\LeadPostRequestUS;
 use App\Models\IPQS\IPQS;
 use App\Models\Microbilt\Microbilt;
@@ -41,6 +42,55 @@ class LeadValidate extends Model
         if ($next_pay_date == true) {
             return $valid;
         }
+//        if ($validate_lead == false) {
+//            return $validate_lead;
+//        }
+//        if ($validate_email == false) {
+//            return 'Invalid Email';
+//        }
+//        elseif ($validate_ssn == false) {
+//            return 'Invalid SSN';
+//        }
+//        elseif ($validate_driving_license !== true) {
+//            return 'Invalid Driving License';
+//        }
+//        elseif ($validated_bank_details !== true) {
+//            return $validated_bank_details;
+//        } elseif (
+////            $validate_lead == $valid &&
+//            $validate_email == $valid &&
+//            $validate_phone == $valid &&
+//            $validate_ssn == $valid
+//            &&
+//            $validate_driving_license == $valid &&
+//            $validated_bank_details == $valid
+//        ) {
+//            return true;
+//        }
+    }
+
+
+    public function validate_data_uk(LeadPostRequest $request)
+    {
+        return true;
+
+//        $next_pay_date = $this->future_pay_date($request['employer']);
+//        $email = $request->applicant['email'];
+//        $cellPhoneNumber = $request->applicant['cellPhoneNumber'];
+//        $dlnumber = $request->applicant['drivingLicenseNumber'];
+//        $dlnumberstate = $request->applicant['drivingLicenseState'];
+//        $firstName = $request->applicant['firstName'];
+//        $lastName = $request->applicant['lastName'];
+//        $ssn = $request->applicant['ssn'];
+//
+//        $validate_email = IPQS::verify_email($email);
+//        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
+//        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
+//        $validate_ssn = $this->verify_ssn($ssn);
+//        $validated_bank_details = $this->validate_bank($request['bank']);
+//        if ($next_pay_date == true) {
+//            return $valid;
+//        }
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }

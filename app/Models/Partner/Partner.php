@@ -42,13 +42,15 @@ class Partner extends Model
      * Get the full partner details
      *
      * @param $id
-     * @param $leadtype
+     * @param $leadType
      * @return mixed
      */
-    public static function GetPartnerFullDetail($id, $leadtype)
+    public static function GetPartnerFullDetail($id, $leadType)
     {
 
-        $status_inactive = DB::table('partners',)
+
+
+        $status_inactive = DB::table('partners')
             ->select('partners.*', 'lms_partner_leadtype.*', 'partners.status AS PStatus')
             ->leftJoin(
                 'lms_partner_leadtype',
@@ -57,10 +59,11 @@ class Partner extends Model
                 'lms_partner_leadtype.vendor_id')
             ->where('partners.status', 0)
             ->where('partners.vendor_id', $id)
-            ->where('lms_partner_leadtype.lead_type', '=', $leadtype)
+            ->where('lms_partner_leadtype.lead_type', '=', $leadType)
             ->get();
 
-        $status_active = DB::table('partners',)
+
+        $status_active = DB::table('partners')
             ->select('partners.*', 'lms_partner_leadtype.*', 'partners.status AS PStatus')
             ->leftJoin(
                 'lms_partner_leadtype',
@@ -69,7 +72,7 @@ class Partner extends Model
                 'lms_partner_leadtype.vendor_id')
             ->where('partners.status', 1)
             ->where('partners.vendor_id', $id)
-            ->where('lms_partner_leadtype.lead_type', '=', $leadtype)
+            ->where('lms_partner_leadtype.lead_type', '=', $leadType)
             ->get();
 
         $status_inactive = json_decode(json_encode($status_inactive), true);
@@ -79,7 +82,7 @@ class Partner extends Model
             die();
         }
         else {
-            $status_active->where('lms_partner_leadtype.lead_type', $leadtype);
+            $status_active->where('lms_partner_leadtype.lead_type', $leadType);
         }
 
         if ($id != null) {

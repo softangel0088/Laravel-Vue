@@ -2,8 +2,9 @@
 
 namespace App\Models\Lead;
 
+use App\Models\Buyer\Buyer;
 use App\Http\Controllers\Admin\Lead\LeadTestController;
-//use App\LmsPartnerLeadType;
+use App\Models\Buyer\BuyerFilter;
 use App\Models\Buyer\BuyerSetup;
 use App\Models\LeadLog\LeadLog;
 use App\Models\LMSApplication\Applicant;
@@ -17,10 +18,11 @@ use App\Models\LMSApplication\Source;
 use App\Models\Mapping\Mapping;
 use App\Models\Partner\Partner;
 use App\Models\User;
-//use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +31,6 @@ use Illuminate\Support\Facades\Log;
 class UKLead extends Model
 {
     use HasFactory;
-//        Uuids;
 
     public $timestamps = true;
     public $incrementing = false;
@@ -39,63 +40,41 @@ class UKLead extends Model
     protected $primaryKey = 'id';
 
 
-    public
-    function source()
+    public function source()
     {
-        return $this->hasOne(Source::class, 'id');
+        return $this->hasOne(Source::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function loan()
+    public function loan()
     {
-        return $this->hasOne(Loan::class, 'id');
+        return $this->hasOne(Loan::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function applicant()
+    public function applicant()
     {
-        return $this->hasOne(Applicant::class, 'id');
+        return $this->hasOne(Applicant::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function employer()
+    public function employer()
     {
-        return $this->hasOne(Employer::class, 'id');
+        return $this->hasOne(Employer::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function residence()
+    public function residence()
     {
-        return $this->hasOne(Residence::class, 'id');
+        return $this->hasOne(Residence::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function bank()
+    public function bank()
     {
-        return $this->hasOne(Bank::class, 'id');
+        return $this->hasOne(Bank::class, 'lead_id', 'lead_id');
     }
-
-    public
-    function consent()
+    public function consent()
     {
-        return $this->hasOne(Consent::class, 'id');
+        return $this->hasOne(Consent::class, 'lead_id', 'lead_id');
     }
-    public
-    function expense()
+    public function expense()
     {
-        return $this->hasOne(Expenses::class, 'id');
+        return $this->hasOne(Expenses::class, 'lead_id', 'lead_id');
     }
-
-//    public
-//    function additional()
-//    {
-//        return $this->hasOne(Additional::class, 'lead_id');
-//    }
-
 
     /**
      * Date Format
-     *
      * @param $value
      * @return string
      */
@@ -129,14 +108,6 @@ class UKLead extends Model
     {
         return $this->hasMany(BuyerSetup::class);
     }
-    public function checkstatuses()
-    {
-        return $this->hasMany(CheckStatusLogger::class);
-    }
-//    public function lms_partner_leadtypes()
-//    {
-//        return $this->hasMany(LmsPartnerLeadType::class);
-//    }
     public function lead_logs()
     {
         return $this->hasMany(LeadLog::class);
@@ -162,17 +133,18 @@ class UKLead extends Model
      * This function will take the post data passed from the controller
      * if id is present, then it will do an update, else an insert.
      * @param $data
+     * @return mixed
      */
     public static function add_log_partner( $data )
     {
-//        dd($data);
         $query = DB::table('lms_lead_log_uk');
 
 
         if (isset($data['lead_id'])) {
             $res = $query->where('lead_id', $data['lead_id'])
                 ->updateOrInsert($data);
-            Log::debug('INSERTED LOG::', (array)$res);
+//            Log::debug('INSERTED LOG::', (array)$res);
+
         }
 
         $result = DB::table('lms_lead_log_uk')->latest()->first();
@@ -185,7 +157,7 @@ class UKLead extends Model
      * This function will take the post data passed from the controller
      * if id is present, then it will do an update, else an insert.
      * @param $data
-     * @return Model|\Illuminate\Database\Query\Builder|object|null
+     * @return Model|Builder|object|null
      */
     public static function update_log_partner( $data )
     {
@@ -196,13 +168,10 @@ class UKLead extends Model
                 ->update($data);
 
         } else {
-            $query->insert($data);
+            $res = $query->insert($data);
         }
 
-        $result = $query->get()->first();
-//        dd($result);
-
-        return $result;
+        return $query->get()->first();
     }
 
 
@@ -228,12 +197,11 @@ class UKLead extends Model
      * @param $data
      * @return bool
      */
-    public static function AddLog($data)
+    public static function AddLog($data): bool
     {
         if (!empty($data)) {
-            $res = DB::table('lmsleadlogs')->insert($data);
+            return DB::table('lmsleadlogs')->insert($data);
         }
-        return $res;
     }
 
     /**
@@ -257,7 +225,7 @@ class UKLead extends Model
      */
     public function UpdateRedirectUrl($search)
     {
-//        dd($search);
+
         $query = DB::table('uk_leads');
 
         if (isset($search['id']) && !empty($search['id'])) {
@@ -270,20 +238,14 @@ class UKLead extends Model
 
             if (!empty($row->redirectUrl)) {
                 $data['id'] = $search['id'];
-                $data['isRedirected'] = '1';
 
-                $query->where('id', $data['id']);
-                $res = $query->update(['id' => $data['id'], 'isRedirected' => $data['isRedirected']]);
+                $query->where('id', $data['id'])
+                    ->update(['id' => $data['id'], 'isRedirected' => '1']);
 
                 $data_log['isRedirected'] = '1';
-                $query = DB::table('lmsleadlogs');
+                $lead_log = $this->update_lead_log_redirect($row, $search, $data_log);
 
-                $tier_id = BuyerSetup::where('buyer_tier_id', $row->buyerTierID)->first()->id;
 
-                $query->where('lead_id', $search['id'])
-                    ->where('buyer_setup_id', $tier_id);
-
-                $res = $query->update(['isredirected' => $data_log['isRedirected']]);
                 return $row->redirectUrl;
             }
         }
@@ -293,9 +255,9 @@ class UKLead extends Model
     /**
      * This function updates the lead logs
      * @param $data
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
-    public function UpdateLog($data)
+    public function UpdateLog($data): Builder
     {
         $res = DB::table('lmsleadlogs');
 
@@ -305,23 +267,23 @@ class UKLead extends Model
                     ->where('leadid', $data['leadid'])
                     ->where('buyersetup_id', $data['buyersetup_id'])
                     ->update($data);
-                }
+            }
         }
         return $res;
     }
 
     /**
      * Find the partner Log ID
-     * @param $leadid
-     * @return \Illuminate\Support\Collection
+     * @param $lead_id
+     * @return Collection
      */
-    public static function FindPartnerLogId($leadid)
+    public static function FindPartnerLogId($lead_id): Collection
     {
-         $res = DB::table('lms_lead_paydayuk_partner')
-            ->where('leadid', $leadid)
+        $res = DB::table('lms_lead_log_uk')
+            ->where('leadid', $lead_id)
             ->get();
 
-         return $res;
+        return $res;
     }
 
 
@@ -352,10 +314,10 @@ class UKLead extends Model
      */
     public static function get_vendor_log($id)
     {
-        $query = DB::table('lmsleadlogs');
+        $query = DB::table('lms_lead_paydayuk_partner');
 
         if (!empty($id)) {
-            $query->where('lead_id', $id);
+            $query->where('leadid', $id);
         }
         $rows = $query->get()->toArray();
 
@@ -406,19 +368,21 @@ class UKLead extends Model
      */
     public static function getBuyers($post)
     {
+
         $post = UKLead::preBuyerPost($post);
 
-//        dd($post);
 
-        if ($post->istest == true) {
+        if ($post['istest'] == true || $post['istest'] == 1) {
             $testBuyer = (new LeadTestController)->getTestBuyer();
-            $post->buyer_list = $testBuyer;
+//            dd($testBuyer);
+            $post['buyer_list'] = $testBuyer;
         } else {
-
-            $search = $post->search;
+            $search = $post['search'];
             $buyer_list = Mapping::GetBuyer($search, $post);
-            $post->buyer_list = $buyer_list;
 
+            dd(333);
+//            dd($buyer_list);
+            $post['buyer_list'] = $buyer_list;
         }
 
         return $post;
@@ -433,31 +397,28 @@ class UKLead extends Model
     {
         $search = (object)[];
 
-        if (isset($post->minCommissionAmount) && $post->minCommissionAmount != '0.00') {
-            $search->min_price = $post->minCommissionAmount;
+        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] != '0.00') {
+            $search->min_price = $post['minCommissionAmount'];
         }
-        if (isset($post->minCommissionAmount) && $post->minCommissionAmount != '0.00') {
-            $search->max_price = $post->maxCommissionAmount;
+        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] != '0.00') {
+            $search->max_price = $post['maxCommissionAmount'];
         }
-        if (isset($post->tier)) {
-            $search->tier = $post->tier;
+        if (isset($post['tier'])) {
+            $search->tier = $post['tier'];
         }
-
-//        if (isset($post->timeout)) {
-//                $search->timeout = $post->timeout;
-//        }
-
-        if (isset($post->vid)) {
-            $search->vid = $post->vid;
+        if (isset($post['timeout'])) {
+            $search->timeout = $post['timeout'];
         }
-
-        if (isset($post->istest) && $post->istest === true) {
+        if (isset($post['vid'])) {
+            $search->vid = $post['vid'];
+        }
+        if (isset($post['istest']) && $post['istest'] == true) {
             $search->leadtype = 'testmodeuk';
         } else {
-            $search->leadtype = '1';
+            $search->leadtype = 1;
         }
 
-        $post->search = $search;
+        $post['search'] = $search;
 
         return $post;
 
@@ -477,7 +438,7 @@ class UKLead extends Model
         return $filters;
     }
 
-     /**** Export functionality ***/
+    /**** Export functionality ***/
     public static function getLeads()
     {
         $u_id = Auth::id();
@@ -505,6 +466,23 @@ class UKLead extends Model
         return $records;
     }
 
+    /**
+     * @param $row
+     * @param $search
+     * @param $data_log
+     * @return int
+     */
+    private function update_lead_log_redirect($row, $search, $data_log)
+    {
+        $query = DB::table('lmsleadlogs');
+
+        $tier_id = BuyerSetup::where('buyer_tier_id', $row->buyerTierID)->first()->id;
+
+        $query->where('lead_id', $search['id'])
+            ->where('buyer_setup_id', $tier_id);
+
+        return $query->update(['isredirected' => $data_log['isRedirected']]);
+    }
 
 
 }

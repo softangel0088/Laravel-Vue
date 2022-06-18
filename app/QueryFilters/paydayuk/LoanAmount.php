@@ -25,6 +25,7 @@ class LoanAmount
         $post = UKLead::getBuyers($post);
 
 
+
         $buyer_list['row'] = $post->buyer_list;
         Log::debug('BUYER LIST1::', (array)$buyer_list['row']);
 
@@ -63,6 +64,7 @@ class LoanAmount
                 }
             }
         }
+
         return $post;
     }
 }

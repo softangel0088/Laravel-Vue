@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\Log;
 class BuyerFilter extends Model
 {
     use HasFactory;
-//        Searchable;
 
     protected $table = 'buyer_filters';
 
@@ -143,8 +142,7 @@ class BuyerFilter extends Model
      */
     public static function allBuyerFilters($post)
     {
-//        dd($post['lead_id']);
-        $lead = UKLead::where('id', $post['lead_id'])->with(
+        $lead = UKLead::where('lead_id', $post['lead_id'])->with(
             'source',
             'loan',
             'applicant',
@@ -156,7 +154,9 @@ class BuyerFilter extends Model
         )
             ->first();
 
-        if ($lead->quote_boost == 1) {
+
+
+        if (isset($lead->quote_boost) && $lead->quote_boost == 1) {
             $lead = (new BuyerFilter)->quote_boost($lead);
         }
 

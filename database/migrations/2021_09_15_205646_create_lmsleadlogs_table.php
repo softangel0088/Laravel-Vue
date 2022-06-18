@@ -27,6 +27,7 @@ class CreateLmsleadlogsTable extends Migration
             $table->float('post_time')->nullable();
             $table->enum('isredirected', ['0', '1'])->default('0');
             $table->char( 'lender_found')->nullable();
+            $table->longText('reason')->nullable() ?? '';
 
             $table->timestamps();
 

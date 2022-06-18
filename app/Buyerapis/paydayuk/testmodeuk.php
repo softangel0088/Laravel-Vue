@@ -1,19 +1,31 @@
 <?php
 
-//namespace App\Buyerapis\paydayuk;
+
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class testmodeuk
 {
 
-    var $response = array();
+    public array $response = array();
 
     function __construct($client_detail, $post)
     {
+        Log::debug('TestMode:: Post', (array) $post);
 
         $this->response['post_url'] = ($client_detail->mode == '2') ? $client_detail->post_url_test : $client_detail->post_url_live;
-        $this->response['post_data'] = $this->testMode();
+
+        if ($post->Applicant->firstName == 'Accept') {
+            $this->response['post_data'] = $this->testModeAccept();
+        } else {
+            $this->response['post_data'] = $this->testModeReject();
+        }
+
+
+//        if ($post->applicant->firstName == 'Reject') {
+//            $this->response['post_data'] = $this->testModeAccept();
+//        }
 
 
         if (isset($post->timeout)) {
@@ -25,35 +37,55 @@ class testmodeuk
 
     }
 
+
     /**
      * Sleep 10, Send to SendResponse()
      *
      * @return string
      */
-    public function testMode()
+    public function testModeAccept()
     {
         sleep(3);
 
-        $resp = $this->sendResponse();
-
-
-        return $resp;
+        return $this->sendAcceptResponse();
     }
+    /**
+     * Sleep 10, Send to SendResponse()
+     *
+     * @return string
+     */
+    public function testModeReject()
+    {
+        sleep(3);
+
+        return $this->sendRejectResponse();
+    }
+
 
     /**
      * Send stimulated response back to client for testing.
      *
      * @return string
      */
-    public function sendResponse()
+    public function sendAcceptResponse()
     {
         header("Content-type: text/xml; charset=utf-8");
         $response = '<?xml version="1.0" encoding="utf-8"?>';
-//        $response .= '<Result>2</Result><Message>Declined</Message>';
-        $response .= '<Payout>2.00</Payout><Result>1</Result><Message>Accepted</Message><RedirectURL>https://www.google.com</RedirectURL>';
+        $response .= '<Payout>10.00</Payout><Result>1</Result><RedirectURL>https://www.google.com</RedirectURL>';
 
+        return $response;
+    }
+    /**
+     * Send stimulated response back to client for testing.
+     *
+     * @return string
+     */
+    public function sendRejectResponse()
+    {
+        header("Content-type: text/xml; charset=utf-8");
+        $response = '<?xml version="1.0" encoding="utf-8"?>';
+        $response .= '<Payout>0.00</Payout><Result>2</Result><RedirectURL></RedirectURL>';
 
-//        echo $response;
         return $response;
     }
 
@@ -116,7 +148,7 @@ class testmodeuk
         preg_match("/<CorrelationId>(.*)<\/CorrelationId>/", $res, $CorrelationId);
         preg_match("/<StatusCheckUrl>(.*)<\/StatusCheckUrl>/", $res, $StatusCheckUrl);
 
-        $url = "http://127.0.0.1:8000/application/status/".$StatusCheckUrl[1];
+        $url = "http://127.0.0.1:8000/application/usa/status/".$StatusCheckUrl[1];
         //echo $url;
         $url_response = file_get_contents($url);//die;
         //echo '13';print_r($url_response);die;

@@ -8,7 +8,7 @@ class CreateUkLeadsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *database/migrations/2022_02_25_164220_create_uk_leads_table.php
      * @return void
      */
     public function up()
