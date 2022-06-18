@@ -15,6 +15,10 @@ class testmodeus
         $this->response['post_url'] = ($client_detail->mode == '2') ? $client_detail->post_url_test : $client_detail->post_url_live;
         $this->response['post_data'] = $this->testMode();
 
+//        if ($post->applicant->firstName == 'Accept') {
+//
+//        }
+
 
         if (isset($post->timeout)) {
             $this->response['timeout'] = $post->timeout;
@@ -49,7 +53,7 @@ class testmodeus
     {
         header("Content-type: text/xml; charset=utf-8");
         $response = '<?xml version="1.0" encoding="utf-8"?>';
-        $response .= '<Payout>10.00</Payout><Result>1</Result><RedirectURL>https://www.google.com</RedirectURL>';
+        $response .= '<Payout>10.00</Payout><Result>2</Result><RedirectURL>https://www.google.com</RedirectURL>';
 
 //        echo $response;
         return $response;
