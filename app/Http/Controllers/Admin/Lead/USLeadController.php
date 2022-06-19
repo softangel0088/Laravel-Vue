@@ -56,47 +56,9 @@ class USLeadController extends Controller
     public function index(Request $request): JsonResponse
     {
 
-//        $this->query()
         $perPage = $request->input("perPage");
-        $vendor_id = $request->input("vendor_id");
-        $sub_id = $request->input("sub_id");
-        $tier = $request->input("tier");
-        $vidLeadPrice = $request->input("vidLeadPrice");
-        $buyerLeadPrice = $request->input("buyerLeadPrice");
-        $lead_quality = $request->input("lead_quality");
-        $redirection = $request->input("redirection");
-        $status = $request->input("status");
-        $query = $request->input("searchQuery");
 
-
-        $wherelist = array();
-        if ($vendor_id != null) {
-            $wherelist[] = ['vid', '=', $vendor_id];
-        }
-        if ($sub_id != null) {
-            $wherelist[] = ['subid', '=', $sub_id];
-        }
-        if ($tier != null) {
-            $wherelist[] = ['tier', '=', $tier];
-        }
-        if ($vidLeadPrice != null) {
-            $wherelist[] = ['vidLeadPrice', '=', $vidLeadPrice];
-        }
-        if ($buyerLeadPrice != null) {
-            $wherelist[] = ['buyerLeadPrice', '=', $buyerLeadPrice];
-        }
-        if ($lead_quality != null) {
-            $wherelist[] = ['quality_score', '=', $lead_quality];
-        }
-        if ($redirection != null) {
-            $wherelist[] = ['isRedirected', '=', $redirection];
-        }
-        if ($status != null) {
-            $wherelist[] = ['leadStatus', '=', $status];
-        }
-        if ($query != null) {
-            $wherelist[] = ['', 'LIKE', '%' . $query . '%'];
-        }
+        $wherelist = $this->index_filter($request);
 
         $leads = USLead::with([
             'source',
@@ -578,7 +540,7 @@ class USLeadController extends Controller
                 header("Content-type: application/json; charset=utf-8");
                 echo $status_check->resp;
             }
-            Log::info('DEBUG:: Check Status ID', (array)$correlationId);
+//            Log::info('DEBUG:: Check Status ID', (array)$correlationId);
         }
         die();
     }
@@ -669,7 +631,7 @@ class USLeadController extends Controller
     {
         if ($validated !== true) {
             return response()->json([
-                'Errors' => $validated
+                'errors' => $validated
             ]);
         }
 
@@ -704,5 +666,53 @@ class USLeadController extends Controller
         $data['created_at'] = date('Y-m-d H:i:s');
 
         return USLead::add_log_partner($data);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function index_filter(Request $request)
+    {
+        $vendor_id = $request->input("vendor_id");
+        $sub_id = $request->input("sub_id");
+        $tier = $request->input("tier");
+        $vidLeadPrice = $request->input("vidLeadPrice");
+        $buyerLeadPrice = $request->input("buyerLeadPrice");
+        $lead_quality = $request->input("lead_quality");
+        $redirection = $request->input("redirection");
+        $status = $request->input("status");
+        $query = $request->input("searchQuery");
+
+
+        $wherelist = array();
+        if ($vendor_id != null) {
+            $wherelist[] = ['vid', '=', $vendor_id];
+        }
+        if ($sub_id != null) {
+            $wherelist[] = ['subid', '=', $sub_id];
+        }
+        if ($tier != null) {
+            $wherelist[] = ['tier', '=', $tier];
+        }
+        if ($vidLeadPrice != null) {
+            $wherelist[] = ['vidLeadPrice', '=', $vidLeadPrice];
+        }
+        if ($buyerLeadPrice != null) {
+            $wherelist[] = ['buyerLeadPrice', '=', $buyerLeadPrice];
+        }
+        if ($lead_quality != null) {
+            $wherelist[] = ['quality_score', '=', $lead_quality];
+        }
+        if ($redirection != null) {
+            $wherelist[] = ['isRedirected', '=', $redirection];
+        }
+        if ($status != null) {
+            $wherelist[] = ['leadStatus', '=', $status];
+        }
+        if ($query != null) {
+            $wherelist[] = ['', 'LIKE', '%' . $query . '%'];
+        }
+        return $wherelist;
     }
 }

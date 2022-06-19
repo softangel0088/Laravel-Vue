@@ -18,7 +18,6 @@ class LeadValidate extends Model
     use HasFactory;
 
     /**
-     * TODO
      * @param LeadPostRequestUS $request
      * @return bool
      */
@@ -26,9 +25,14 @@ class LeadValidate extends Model
     {
         $valid = true;
 
-        $next_pay_date = $this->future_pay_date($request['employer']);
+        $future_pay_dates = $this->future_pay_date($request['employer']);
+
+        if ($future_pay_dates == true) {
+            return $valid;
+        }
 //        $email = $request->applicant['email'];
 //        $cellPhoneNumber = $request->applicant['cellPhoneNumber'];
+//        dd($request->residence['zip']);
 //        $dlnumber = $request->applicant['drivingLicenseNumber'];
 //        $dlnumberstate = $request->applicant['drivingLicenseState'];
 //        $firstName = $request->applicant['firstName'];
@@ -42,9 +46,7 @@ class LeadValidate extends Model
 //        $validated_bank_details = $this->validate_bank($request['bank']);
 
 
-        if ($next_pay_date == true) {
-            return $valid;
-        }
+
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }
@@ -80,6 +82,15 @@ class LeadValidate extends Model
      */
     public function validate_data_uk(LeadPostRequest $request)
     {
+        $valid = true;
+
+        $future_pay_dates = $this->future_pay_date($request['employer']);
+
+        if ($future_pay_dates == true) {
+            return $valid;
+        }
+
+
         return true;
 
 //        $next_pay_date = $this->future_pay_date($request['employer']);
@@ -162,9 +173,7 @@ class LeadValidate extends Model
     public function verify_ssn($ssn)
     {
 
-        $result = (new Microbilt)->verify_ssn($ssn);
-
-        return $result;
+        return (new Microbilt)->verify_ssn($ssn);
 
     }
 

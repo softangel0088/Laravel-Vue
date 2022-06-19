@@ -23,6 +23,7 @@ class LeadPostRequestUS extends FormRequest
     {
         return [
             'vid' => 'required',
+
             'oid' => 'required',
 //            'response_type'
 //            'minCommissionAmount' => 'required_without:tier',
@@ -74,9 +75,9 @@ class LeadPostRequestUS extends FormRequest
             'applicant.dateOfBirthYear' =>  'min:4',
             'applicant.ssn' => 'required', 'min:9',
             'applicant.email' => 'required', 'email:rfc, dns, spoof, filter',
-            'applicant.homePhoneNumber' => 'min:10',
-            'applicant.cellPhoneNumber' =>  'min:10',
-            'applicant.workPhoneNumber' => 'min:10',
+            'applicant.homePhoneNumber' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'applicant.cellPhoneNumber' =>  'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'applicant.workPhoneNumber' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'applicant.maritalStatus' => [
                 Rule::in(
                     'Single',
@@ -106,7 +107,7 @@ class LeadPostRequestUS extends FormRequest
                 ),
             ],
             'applicant.drivingLicenseState' =>  'min:2',
-            'applicant.drivingLicenseNumber' =>  'min:4', 'max:20',
+            'applicant.drivingLicenseNumber' =>  'min:4',  'regex:^[A-Z](?:\d[- ]*){14}$',
 
             // Residence
             'residence.houseNumber' => 'requiredIf:houseName,null',
@@ -128,7 +129,8 @@ class LeadPostRequestUS extends FormRequest
             'residence.city' =>  'min:2', 'max:32',
             'residence.state' => 'required|string|min:2|max:2|size:2',
             'residence.zip' => [
-                'required', 'min:5',
+                'required', 'min:5', 'regex:/^(?:(\d{5})(?:[ \-](\d{4}))?)$/i'
+                // '/^(?:(\d{5})(?:[ \-](\d{4}))?)$/i',
             ],
             'residence.monthsAtAddress' => [
                 'required',
