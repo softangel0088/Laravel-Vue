@@ -44,9 +44,6 @@ class LeadValidate extends Model
 //        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
 //        $validate_ssn = $this->verify_ssn($ssn);
 //        $validated_bank_details = $this->validate_bank($request['bank']);
-
-
-
 //        if ($validate_lead == false) {
 //            return $validate_lead;
 //        }
@@ -76,7 +73,6 @@ class LeadValidate extends Model
 
 
     /**
-     * TODO
      * @param LeadPostRequest $request
      * @return bool
      */

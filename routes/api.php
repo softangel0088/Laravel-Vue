@@ -94,6 +94,28 @@ Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_fu
 Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us');
 
 
+//Route::post('find/locales/postcode/', [LocalesController::class, 'postcodes']);
+
+//Route::post('geo/echo/ip', [USLeadController::class, 'geoip']);
+
+//Route::post('impression/{vendor_id}', [USLeadController::class, 'impression']);
+
+//Route::post('api/application/trackingcodes/', [USLeadController::class, 'trackingcodes']);
+//Route::post('metric/benefitsincomemessage/', [USLeadController::class, 'benefitsincomemessage']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Invalid ZIP code","abaNumber must be less than 9 characters long TODO
  */
