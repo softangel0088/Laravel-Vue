@@ -96,7 +96,7 @@ Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_f
 
 //Route::post('find/locales/postcode/', [LocalesController::class, 'postcodes']);
 
-//Route::post('geo/echo/ip', [USLeadController::class, 'geoip']);
+Route::get('geo/ip', [USLeadController::class, 'geoip']);
 
 //Route::post('impression/{vendor_id}', [USLeadController::class, 'impression']);
 

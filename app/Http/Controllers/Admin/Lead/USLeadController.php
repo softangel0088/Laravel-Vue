@@ -49,6 +49,13 @@ class USLeadController extends Controller
     public string $affiliate_id = '';
 
 
+    public function geoip(Request $request)
+    {
+        $ipaddress = $request->ip();
+
+        echo Response::json(['ipAddress' => $ipaddress]);
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
