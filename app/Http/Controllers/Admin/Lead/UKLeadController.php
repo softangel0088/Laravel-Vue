@@ -108,7 +108,7 @@ class UKLeadController extends Controller
      */
     public function post(LeadPostRequest $request)
     {
-        dd($request);
+//        dd($request);
 
         Log::debug('LEAD PASSED INITIAL VALIDATION 1');
         $validated = (new LeadValidate)->validate_data_uk($request);
