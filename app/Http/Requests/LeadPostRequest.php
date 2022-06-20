@@ -114,7 +114,7 @@ class LeadPostRequest extends FormRequest
 //
             'applicant.dependants' => [
                 'required',
-                Rule::in(0,1,2,3,4),
+                Rule::in('0','1','2','3','4'),
             ],
             'residence.residentialStatus' => [
                 'required',
@@ -129,11 +129,11 @@ class LeadPostRequest extends FormRequest
             ],
             'residence.monthsAtAddress' => [
                 'required',
-                Rule::in('12', '24', '36', '48', '60', '72'),
+                Rule::in('0', '12', '24', '36', '48', '60', '72'),
             ],
             'residence.monthsAtEmployer' => [
                 'sometimes', 'required',
-                Rule::in('12', '24', '36', '48', '60', '72'),
+                Rule::in('0', '12', '24', '36', '48', '60', '72'),
             ],
 
 
@@ -176,11 +176,12 @@ class LeadPostRequest extends FormRequest
                     'LastThursday',
                     'LastWednesday',
                     'LastTuesday',
-                    'LastMonday'),
+                    'LastMonday'
+                ),
             ],
             'employer.monthlyIncome' => 'required', 'gte:100', 'lte:15000', 'numeric',
             'employer.incomePaymentType' => [
-                 'required',
+                'required',
                 Rule::in(
                     'Cheque',
                     'Cash',
