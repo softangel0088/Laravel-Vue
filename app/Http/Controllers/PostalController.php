@@ -24,3 +24,4 @@ class PostalController extends Controller
 
     }
 }
+
