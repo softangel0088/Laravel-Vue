@@ -98,6 +98,7 @@ Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_f
 Route::get('geo/ip', [USLeadController::class, 'geoip']);
 
 Route::get('find/postcode/{postcode}', [PostalController::class, 'postcodes']);
+Route::get('find/zip/{zip}', [PostalController::class, 'zip']);
 
 
 //Route::post('impression/{vendor_id}', [USLeadController::class, 'impression']);

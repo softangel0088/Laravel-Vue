@@ -12,7 +12,6 @@ class PostalController extends Controller
      * @param Request $request
      * @param $postcode
      * @return mixed
-     * @string $postcode
      */
     public function postcodes(Request $request, $postcode)
     {
@@ -23,5 +22,24 @@ class PostalController extends Controller
         return Response::json(['result' => $result]);
 
     }
+
+    /**
+     * @param Request $request
+     * @param $zip
+     * @return mixed
+     */
+    public function zip(Request $request, $zip)
+    {
+        $api_key = '3563d540-f0ac-11ec-968f-9f47caf1ac9d';
+
+        $result = Http::withHeaders([
+            'apikey' => $api_key
+        ])
+            ->get('https://app.zipcodebase.com/api/v1/search?codes=' .  $zip)->object();
+
+        return Response::json(['result' => $result]);
+
+    }
+
 }
 
