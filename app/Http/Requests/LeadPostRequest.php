@@ -142,7 +142,7 @@ class LeadPostRequest extends FormRequest
 //            'flatNumber' => 'string|nullable',
             'residence.addressStreet1' => 'required', 'different:houseNumber',
             'residence.city' => 'required', 'min2',
-            'residence.locality' => 'required', 'min:2',
+//            'residence.locality' => 'required', 'min:2',
             'residence.county' => 'required', 'min:2',
             'residence.monthlyMortgageRent' => 'required', 'numeric',
             'residence.postcode' => [
