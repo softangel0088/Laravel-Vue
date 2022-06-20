@@ -27,6 +27,7 @@ use App\Http\Controllers\Partner\PartUSLeadController;
 use App\Http\Controllers\Partner\PartController;
 use App\Http\Controllers\Partner\PartDashboardController;
 use App\Http\Controllers\Partner\PartReportController;
+use App\Http\Controllers\PostalController;
 use App\Http\Controllers\UsersController;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -94,12 +95,12 @@ Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_fu
 Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us');
 
 
-//Route::post('find/locales/postcode/', [LocalesController::class, 'postcodes']);
-
 Route::get('geo/ip', [USLeadController::class, 'geoip']);
 
-//Route::post('impression/{vendor_id}', [USLeadController::class, 'impression']);
+Route::get('find/postcode/{postcode}', [PostalController::class, 'postcodes']);
 
+
+//Route::post('impression/{vendor_id}', [USLeadController::class, 'impression']);
 //Route::post('api/application/trackingcodes/', [USLeadController::class, 'trackingcodes']);
 //Route::post('metric/benefitsincomemessage/', [USLeadController::class, 'benefitsincomemessage']);
 
