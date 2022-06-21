@@ -51,12 +51,13 @@ class USLeadController extends Controller
 
     /**
      * @param Request $request
+     * @return JsonResponse
      */
-    public function geoip(Request $request)
+    public function geoip(Request $request): JsonResponse
     {
         $ipaddress = $request->ip();
 
-        echo json_decode((string)['ipAddress' => $ipaddress]);
+        return Response::json(['ipAddress' => $ipaddress]);
     }
 
     /**
