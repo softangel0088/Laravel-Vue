@@ -29,7 +29,6 @@ class LeadPostRequestUS extends FormRequest
 //            'minCommissionAmount' => 'required_without:tier',
 //            'maxCommissionAmount' => 'required_without:tier',
 //            'tier' => 'required_without_all:minCommissionAmount,maxCommissionAmount',
-//            'tier' => 'required_without_all:minCommissionAmount,maxCommissionAmount',
 
             'source.ipAddress' => 'required|ip',
             'source.userAgent' => 'required',
@@ -75,9 +74,9 @@ class LeadPostRequestUS extends FormRequest
             'applicant.dateOfBirthYear' =>  'min:4',
             'applicant.ssn' => 'required', 'min:9',
             'applicant.email' => 'required', 'email:rfc, dns, spoof, filter',
-            'applicant.homePhoneNumber' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'applicant.cellPhoneNumber' =>  'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'applicant.workPhoneNumber' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'applicant.homePhoneNumber' => 'required|min:10',
+            'applicant.cellPhoneNumber' =>  'required|min:10',
+            'applicant.workPhoneNumber' => 'required|min:10',
             'applicant.maritalStatus' => [
                 Rule::in(
                     'Single',
