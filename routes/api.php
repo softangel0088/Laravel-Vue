@@ -88,8 +88,6 @@ Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@red
 /*** CheckStatus Route ***/
 Route::get('application/status/{correlationId}', [UKLeadController::class, 'CheckStatusNew'])->name('api-check-status');;
 Route::get('application/usa/status/{correlationId}', [USLeadController::class, 'CheckStatusNew'])->name('api-check-status-us');;
-/*** Lead Test Route ***/
-//Route::post('application/test', 'LeadTestController@testmodeca.php')->name('post.test');
 /*** Mark CPF Lead as Funded Endpoint***/
 Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-uk');
 Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us');
@@ -105,6 +103,8 @@ Route::get('find/zip/{zip}', [PostalController::class, 'zip']);
 //Route::post('api/application/trackingcodes/', [USLeadController::class, 'trackingcodes']);
 //Route::post('metric/benefitsincomemessage/', [USLeadController::class, 'benefitsincomemessage']);
 
+/*** Lead Test Route ***/
+//Route::post('application/test', 'LeadTestController@testmodeca.php')->name('post.test');
 
 
 
