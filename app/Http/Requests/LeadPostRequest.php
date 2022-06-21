@@ -131,7 +131,7 @@ class LeadPostRequest extends FormRequest
                 'required',
                 Rule::in('0', '12', '24', '36', '48', '60', '72'),
             ],
-            'residence.monthsAtEmployer' => [
+            'employer.monthsAtEmployer' => [
                 'sometimes', 'required',
                 Rule::in('0', '12', '24', '36', '48', '60', '72'),
             ],
