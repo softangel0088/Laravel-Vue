@@ -57,7 +57,7 @@ class USLeadController extends Controller
     {
         $ipaddress = $request->ip();
 
-        return Response::json(['ipAddress' => $ipaddress]);
+        return Response::json($ipaddress);
     }
 
     /**
