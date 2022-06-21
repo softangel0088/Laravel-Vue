@@ -134,7 +134,7 @@ class LeadPostRequestUS extends FormRequest
             'residence.monthsAtAddress' => [
                 'required',
 //                'min:0', 'max:60',
-                Rule::in(12, 24, 36, 48, 60, 72, 84, 96),
+                Rule::in(0, 12, 24, 36, 48, 60, 72, 84, 96),
             ],
 
 
@@ -179,7 +179,7 @@ class LeadPostRequestUS extends FormRequest
             'employer.monthlyIncome' => 'required', 'gte:100', 'lte:15000',
             'employer.monthsAtEmployer' => [
                 'required',
-                Rule::in(12, 24, 36, 48, 60, 72, 84, 96),
+                Rule::in(0, 12, 24, 36, 48, 60, 72, 84, 96),
 
             ],
             'employer.incomePaymentType' => [
@@ -205,7 +205,7 @@ class LeadPostRequestUS extends FormRequest
             'bank.bankRoutingNumber' => 'min:9',
             'bank.monthsAtBank' => [
                 'required',
-                Rule::in(12, 24, 36, 48, 60, 72, 84, 96),
+                Rule::in(0, 12, 24, 36, 48, 60, 72, 84, 96),
 
 
             ],
