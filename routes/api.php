@@ -81,7 +81,7 @@ Route::post('/forgot-password', [AuthController::class, 'validatePasswordRequest
 Route::post('conversion/track/postback', [PostbackTrackerController::class, 'postback'])->name('postback_tracker');
 /**** Lead POST Routes ***/
 Route::post('application/post', [UKLeadController::class, 'post'])->middleware('cors');
-Route::post('application/usa/post', [USLeadController::class, 'post']);
+Route::post('application/usa/post', [USLeadController::class, 'post'])->middleware('cors');;
 /**** REDIRECT Routes  ***/
 Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirectUrl');
 Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl');
