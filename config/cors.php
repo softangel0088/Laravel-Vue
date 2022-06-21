@@ -16,15 +16,15 @@ return [
     */
 
     'paths' => [
-//        'api/*',
-//        '/login',
-//        '/logout',
-//        '/sanctum/csrf-cookie',
+        'api/*',
+        '/login',
+        '/logout',
+        '/sanctum/csrf-cookie',
         '*'
     ],
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*', 'https://loanie.net', 'https://loanie.co.uk'],
+    'allowed_origins' => ['*',],
 
     'allowed_origins_patterns' => ['*'],
 
