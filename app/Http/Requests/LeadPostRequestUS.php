@@ -200,7 +200,7 @@ class LeadPostRequestUS extends FormRequest
                     Rule::in('Checking', 'Savings'),
         ],
 
-            'bank.bankAccountNumber' => 'min:10', 'max:12',
+            'bank.bankAccountNumber' => 'min:7', 'max:25',
             'bank.bankRoutingNumber' => 'min:9',
             'bank.monthsAtBank' => [
                 'required',
