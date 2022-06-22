@@ -24,7 +24,7 @@ return [
     ],
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*', 'https://loanie.net/',  'https://loanie.net/*'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => ['*'],
 
