@@ -83,14 +83,14 @@ Route::post('conversion/track/postback', [PostbackTrackerController::class, 'pos
 Route::post('application/post', [UKLeadController::class, 'post'])->middleware('cors');
 Route::post('application/usa/post', [USLeadController::class, 'post'])->middleware('cors');;
 /**** REDIRECT Routes  ***/
-Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirectUrl');
-Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl');
+Route::get('/application/redirecturl/{id}', 'Admin\Lead\UKLeadController@redirectUrl')->middleware('cors');;;
+Route::get('/application/usa/redirecturl/{id}', 'Admin\Lead\USLeadController@redirectUrl')->middleware('cors');;;
 /*** CheckStatus Route ***/
 Route::get('application/status/{correlationId}', [UKLeadController::class, 'CheckStatusNew'])->name('api-check-status')->middleware('cors');;;
 Route::get('application/usa/status/{correlationId}', [USLeadController::class, 'CheckStatusNew'])->name('api-check-status-us')->middleware('cors');;;
 /*** Mark CPF Lead as Funded Endpoint***/
-Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-uk');
-Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us');
+Route::get('application/uk/cpf/{leadId}', [UKLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-uk')->middleware('cors');;;
+Route::get('application/usa/cpf/{leadId}', [USLeadController::class, 'mark_cpf_funded'])->name('cpf-funded-us')->middleware('cors');;;
 
 
 Route::get('geo/ip', [USLeadController::class, 'geoip']);
