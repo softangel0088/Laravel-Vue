@@ -129,7 +129,6 @@ class LeadPostRequestUS extends FormRequest
             'residence.state' => 'required|string|min:2|max:2|size:2',
             'residence.zip' => [
                 'required', 'min:5', 'regex:/^(?:(\d{5})(?:[ \-](\d{4}))?)$/i'
-                // '/^(?:(\d{5})(?:[ \-](\d{4}))?)$/i',
             ],
             'residence.monthsAtAddress' => [
                 'required',
@@ -201,8 +200,8 @@ class LeadPostRequestUS extends FormRequest
                     Rule::in('Checking', 'Savings'),
         ],
 
-            'bank.bankAccountNumber' => 'min:4', 'max:30',
-            'bank.bankRoutingNumber' => 'min:5',
+            'bank.bankAccountNumber' => 'min:10', 'max:12',
+            'bank.bankRoutingNumber' => 'min:9',
             'bank.monthsAtBank' => [
                 'required',
                 Rule::in(0, 12, 24, 36, 48, 60, 72, 84, 96),
