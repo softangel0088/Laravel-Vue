@@ -90,6 +90,7 @@ class LeadPostRequestUS extends FormRequest
             ],
             'applicant.dependants' => [
                 Rule::in(
+                    0,
                     1,
                     2,
                     3,
