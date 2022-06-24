@@ -175,7 +175,11 @@ class roundsky
             $referringUrl = $post->Source->referringUrl;
         }
 
+        $min_price = 0;
 
+        if ($post->minCommissionAmount == null) {
+            $min_price = $client_detail->min_price;
+        }
 
         $lead = array(
                 "time_allowed" => (int)$client_detail->timeout,
@@ -186,7 +190,7 @@ class roundsky
                 "domain" => (string)$referringUrl,
                 "response_type" => 'json',
                 "tier" => (int) 1,
-                "minimum_price" =>  (integer) $post->minCommissionAmount ?? $client_detail->min_price,
+                "minimum_price" =>  (integer) $min_price,
                 "sub_id" => (string)$post->subid ?? 'UPING',
                 "first_name" => (string)$post->Applicant->firstName,
 //                "first_name" => (string)'approved',
