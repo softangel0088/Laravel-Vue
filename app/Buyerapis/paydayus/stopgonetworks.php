@@ -235,7 +235,7 @@ class stopgonetworks
             "aff" => (string)$client_detail->parameter1,
             "apiToken" => (string)$client_detail->parameter2,
             'subAff' => (string)$post->subid ?? 'UPING',
-            'timeAllowed' => (integer) $post->timeout ?? '30',
+            'timeAllowed' => (integer) $post->timeout ?? 30,
             'minPrice' => (integer) $client_detail->min_price, // TODO CHECK
 
             'amount' => (integer) $post->Loan->loanAmount,

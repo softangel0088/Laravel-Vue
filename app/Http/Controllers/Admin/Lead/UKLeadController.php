@@ -165,14 +165,14 @@ class UKLeadController extends Controller
         $data->transaction_id = $this->toString($post->transaction_id ?? null);
 
         if ($post->minCommissionAmount == '') {
-            $post->minCommissionAmount = '0.00';
+            $post->minCommissionAmount = null;
         }
         if ($post->maxCommissionAmount == '') {
-            $post->maxCommissionAmount = '0.00';
+            $post->maxCommissionAmount = null;
         }
 
-        $data->minCommissionAmount = $this->toString($post->minCommissionAmount ?? '0.00');
-        $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount ?? '0.00');
+        $data->minCommissionAmount = $this->toString($post->minCommissionAmount);
+        $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount);
         $data->timeout = $this->toString($post->timeout ?? null);
         $data->istest = $this->toString($post->istest ?? false);
         $data->response_type = $this->toString($post->response_type ?? 'json');
