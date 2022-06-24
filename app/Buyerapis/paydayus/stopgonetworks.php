@@ -252,7 +252,7 @@ class stopgonetworks
 //        dd($lead);
 
         Log::debug('POST DATA::', (array)$lead);
-        die();
+//        die();
 
         $this->response['post_data'] = $lead;
         $this->response['timeout'] = $client_detail->timeout;
