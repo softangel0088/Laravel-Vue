@@ -160,25 +160,25 @@ class itmedia
         }
         switch ($post->Residence->residentialStatus) {
             case 'HomeOwner':
-                $residentialStatus = 'own';
+                $post->Residence->residentialStatus = 'own';
                 break;
             case 'PrivateTenant':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
             case 'CouncilTenant':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
             case 'LivingWithParents':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
             case 'LivingWithFriends':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
             case 'LivingWithFamily':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
             case 'Other':
-                $residentialStatus = 'rent';
+                $post->Residence->residentialStatus = 'rent';
                 break;
 
         }
@@ -221,7 +221,7 @@ class itmedia
         $lead['licenseState'] = (string)$post->Applicant->drivingLicenseState;
         $lead['email'] = (string)$post->Applicant->email;
         $lead['license'] = (string)$post->Applicant->drivingLicenseNumber;
-        $lead['rentOwn'] = (string)$residentialStatus ?? 'own';
+        $lead['rentOwn'] = (string)$post->Residence->residentialStatus ?? 'own';
         $lead['phone'] = (string)$post->Applicant->homePhoneNumber;
         $lead['workPhone'] = (string)$post->Applicant->workPhoneNumber;
         $lead['callTime'] = $callTime;
