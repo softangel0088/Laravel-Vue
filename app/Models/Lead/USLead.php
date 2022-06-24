@@ -395,10 +395,10 @@ class USLead extends Model
     {
         $search = (object)[];
 
-        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] != '0.00') {
+        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] !== null) {
             $search->min_price = $post['minCommissionAmount'];
         }
-        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] != '0.00') {
+        if (isset($post['minCommissionAmount']) && $post['minCommissionAmount'] !== null) {
             $search->max_price = $post['maxCommissionAmount'];
         }
         if (isset($post['tier'])) {

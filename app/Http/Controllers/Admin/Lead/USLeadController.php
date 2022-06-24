@@ -176,8 +176,8 @@ class USLeadController extends Controller
         $data->transaction_id = $this->toString($post->transaction_id ?? null);
 
 
-        $data->minCommissionAmount = $this->toString($post->minCommissionAmount ?? '');
-        $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount ?? '');
+        $data->minCommissionAmount = $this->toString($post->minCommissionAmount ?? null);
+        $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount ?? null);
         $data->timeout = $this->toString($post->timeout ?? null);
         $data->istest = $this->toString($post->istest ?? false);
         $data->response_type = $this->toString($post->response_type ?? 'json');

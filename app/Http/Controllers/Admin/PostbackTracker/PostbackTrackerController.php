@@ -330,7 +330,7 @@ class PostbackTrackerController extends Controller
         // Check valid post-back
         if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
             $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
-            $valid_lead = USLead::where('uuid', $request->lead_id)->first();
+            $valid_lead = USLead::where('lead_id', $request->lead_id)->first();
 
 //            $duplicate = collect($duplicate);
 //            if ($duplicate->isNotEmpty()) {
