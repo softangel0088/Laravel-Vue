@@ -36,19 +36,26 @@ class stopgonetworks
 
         switch ($post->Employer->incomeSource) {
             case 'SelfEmployed':
-                $post->Employer->incomeSource = 'selfEmployed';
+                $incomeSource = 'selfEmployed';
+                break;
             case 'EmployedFullTime':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
+                break;
             case 'EmployedPartTime':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
+                  break;
             case 'EmployedTemporary':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
+                  break;
             case 'Pension':
-                $post->Employer->incomeSource = 'pension';
+                $incomeSource = 'pension';
+                  break;
             case 'DisabilityBenefits':
-                $post->Employer->incomeSource = 'disability';
+                $incomeSource = 'disability';
+                  break;
             case 'Benefits':
-                $post->Employer->incomeSource = 'benefits';
+                $incomeSource = 'benefits';
+                  break;
         }
         switch ($post->Employer->incomeCycle) {
             case 'Weekly':
@@ -118,7 +125,6 @@ class stopgonetworks
                 $inMilitary = 'Y';
                  break;
         }
-
         switch ($post->Residence->residentialStatus) {
             case 'HomeOwner':
                 $residentialStatus = 'own';
@@ -201,7 +207,7 @@ class stopgonetworks
             'homeOwner' => (string)$residentialStatus ?? 'own', // ENUM
             'timeAddress' => (integer)$post->Residence->monthsAtAddress,
 
-            'incomeSource' => (string)$post->Employer->incomeSource, // ENUM
+            'incomeSource' => (string)$incomeSource ?? 'employed', // ENUM
             'jobTitle' => (string)$post->Employer->jobTitle,
             'company' => (string)$post->Employer->employerName,
             'income' =>  (int)$post->Employer->monthlyIncome,
