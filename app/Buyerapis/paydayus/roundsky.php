@@ -190,7 +190,7 @@ class roundsky
                 "domain" => (string)$referringUrl,
                 "response_type" => 'json',
                 "tier" => (int) 1,
-                "minimum_price" =>  (integer) $min_price,
+                "minimum_price" =>  (integer) $client_detail->min_price, // TODO CHECK
                 "sub_id" => (string)$post->subid ?? 'UPING',
                 "first_name" => (string)$post->Applicant->firstName,
 //                "first_name" => (string)'approved',

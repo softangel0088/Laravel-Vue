@@ -274,7 +274,7 @@ class itmedia
         $lead['campaignId'] = 'UPING';
         $lead['ip_address'] = (string)$post->Source->ipAddress;
         $lead['agent'] = (string)$post->Source->userAgent;
-        $lead['min_price'] = (integer)$min_price;
+        $lead['min_price'] = (integer)$client_detail->min_price; // TODO CHECK
         $lead['amount'] = (integer)$post->Loan->loanAmount;
         $lead['fName'] = (string)$post->Applicant->firstName;
         $lead['lName'] = (string)$post->Applicant->lastName;

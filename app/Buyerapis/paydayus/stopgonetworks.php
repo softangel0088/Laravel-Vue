@@ -219,7 +219,7 @@ class stopgonetworks
             $referringUrl = $post->Source->referringUrl;
         }
 
-        $min_price = 0;
+        $min_price = null;
 
         if ($post->minCommissionAmount == null) {
             $min_price = $client_detail->min_price;
@@ -236,7 +236,7 @@ class stopgonetworks
             "apiToken" => (string)$client_detail->parameter2,
             'subAff' => (string)$post->subid ?? 'UPING',
             'timeAllowed' => (integer) $post->timeout ?? '30',
-            'minPrice' => (integer) $min_price,
+            'minPrice' => (integer) $client_detail->min_price, // TODO CHECK
 
             'amount' => (integer) $post->Loan->loanAmount,
             'purpose' => (string) $loanPurpose ?? '',
