@@ -184,7 +184,7 @@ class roundsky
                 "income_type" => (string)$post->Employer->incomeSource,
                 "active_military" => (string)$post->Applicant->inMilitary,
                 "occupation" => (string)$post->Employer->jobTitle,
-//                "employer" => (string)$post->Employer->employerName,
+                "employer" => (string)$post->Employer->employerName,
                 "months_employed" => (int)$EmploymentStarted,
 
                 "bank_name" => (string)$post->Bank->bankName,

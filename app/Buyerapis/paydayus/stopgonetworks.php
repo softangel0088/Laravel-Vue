@@ -82,22 +82,23 @@ class stopgonetworks
         }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
-                $post->Employer->incomePaymentType = 'N';
+                $incomePaymentType = 'N';
             case 'Cheque':
-                $post->Employer->incomePaymentType = 'N';
+                $incomePaymentType = 'N';
             case 'RegionalDirectDeposit':
-                $post->Employer->incomePaymentType = 'Y';
+                $incomePaymentType = 'Y';
         }
         switch ($post->Applicant->inMilitary) {
             case 'None':
-                $post->Applicant->inMilitary = 'N';
+                $inMilitary = 'N';
             case 'Veteran':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
             case 'Reserves':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
             case 'ActiveDuty':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
         }
+
         switch ($post->Residence->residentialStatus) {
             case 'HomeOwner':
                 $post->Residence->residentialStatus = 'own';
@@ -117,9 +118,9 @@ class stopgonetworks
         }
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
-                $post->Bank->bankAccountType = 'checking';
+                $bankAccountType = 'Y';
             case 'Savings':
-                $post->Bank->bankAccountType = 'savings';
+                $bankAccountType = 'N';
         }
         switch ((string)$post->Consent->consentThirdParty) {
             case 'true':
@@ -160,7 +161,7 @@ class stopgonetworks
             'mobilePhone' => (string)$post->Applicant->cellPhoneNumber,
             'homePhone' =>  (string)$post->Applicant->homePhoneNumber,
             'workPhone' => (string)$post->Applicant->workPhoneNumber,
-            'military' =>  (string)$post->Applicant->inMilitary, //ENUM
+            'military' =>  (string) $inMilitary ?? 'N', //ENUM
             'dob' => (string) $dateOfBirth,
 
             'streetAddress' => (string)$post->Residence->addressStreet1,
@@ -174,7 +175,7 @@ class stopgonetworks
             'jobTitle' => (string)$post->Employer->jobTitle,
             'company' => (string)$post->Employer->employerName,
             'income' =>  (int)$post->Employer->monthlyIncome,
-            'directDeposit' =>  $post->Employer->incomePaymentType, //ENUM
+            'directDeposit' =>  (string)$incomePaymentType ?? 'Y', //ENUM
             'frequency' => (string)$post->Employer->incomeCycle, //ENUM
             'payDate' => (string)$nextPayDate,
             'payDateNext' => (string)$followingPayDate,
@@ -183,7 +184,7 @@ class stopgonetworks
             'accountABA' =>  (string)$post->Bank->bankRoutingNumber,
             'bankName' => (string)$post->Bank->bankName,
             'accountNumber' => (string)$post->Bank->bankAccountNumber,
-            'accountType' => (string)$post->Bank->bankAccountType,
+            'accountType' => (string)$bankAccountType ?? 'Y',
             'accountLength' => (integer)$post->Bank->monthsAtBank,
             'bankruptcy' => (integer) $bankruptcy, //ENUM
 
