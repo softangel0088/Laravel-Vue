@@ -80,7 +80,6 @@ class stopgonetworks
             case 'SpecificDayOfMonth':
                 $post->Employer->incomeCycle = 'monthly';
         }
-
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
                 $post->Employer->incomePaymentType = 'N';
@@ -122,7 +121,6 @@ class stopgonetworks
             case 'Savings':
                 $post->Bank->bankAccountType = 'savings';
         }
-
         switch ((string)$post->Consent->consentThirdParty) {
             case 'true':
                 $post->Consent->consentThirdParty = 'Y';
@@ -140,12 +138,15 @@ class stopgonetworks
             $referringUrl = $post->Source->referringUrl;
         }
 
+//        dd($client_detail->min_price);
+
+
         $lead = array(
             "aff" => (string)$client_detail->parameter1,
             "apiToken" => (string)$client_detail->parameter2,
             'subAff' => (string)$post->subid ?? 'UPING',
             'timeAllowed' => (integer) $post->timeout ?? '120',
-            'minPrice' => (integer) $post->minCommissionAmount ?? '0.00',
+            'minPrice' => (integer) $post->minCommissionAmount ?? $client_detail->min_price,
 
             'amount' => (integer) $post->Loan->loanAmount,
             'purpose' => (string) $post->Loan->loanPurpose,

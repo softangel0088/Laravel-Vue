@@ -164,6 +164,7 @@ class PostLeadToBuyersUS implements ShouldQueue
     {
         // Get Buyers
         $post = USLead::getBuyers($post);
+//        dd($post['buyer_list']);
 
         // Check for high risk leads
         $post = $this->quality_score_tracker($post);

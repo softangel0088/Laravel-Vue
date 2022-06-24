@@ -155,6 +155,8 @@ class itmedia
             $referringUrl = $post->Source->referringUrl;
         }
 
+//        dd($client_detail->min_price);
+
 
         $lead = array();
         $lead['username']             = $client_detail->parameter1;
@@ -162,7 +164,7 @@ class itmedia
         $lead['campaignId']           = 'UPING';
         $lead['ip_address']           = (string)$post->Source->ipAddress;
         $lead['agent']                = (string) $post->Source->userAgent;
-        $lead['min_price']            = (string)$post->minCommissionAmount ?? "";
+        $lead['min_price']            =  (integer) $post->minCommissionAmount ?? $client_detail->min_price;
         $lead['amount']               = (integer) $post->Loan->loanAmount;
         $lead['fName']                = (string) $post->Applicant->firstName;
         $lead['lName']                = (string) $post->Applicant->lastName;
