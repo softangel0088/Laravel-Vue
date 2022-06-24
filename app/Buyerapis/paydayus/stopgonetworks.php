@@ -250,9 +250,9 @@ class stopgonetworks
             'creditScore' => (string) $post->Additional->creditScore ?? 'good',
         );
 //        dd($lead);
-        die();
 
         Log::debug('POST DATA::', (array)$lead);
+        die();
 
         $this->response['post_data'] = $lead;
         $this->response['timeout'] = $client_detail->timeout;
