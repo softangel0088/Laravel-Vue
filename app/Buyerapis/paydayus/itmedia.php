@@ -40,6 +40,7 @@ class itmedia
         $loanPurpose = '';
         $residentialStatus = '';
         $bestTimeToCall = '';
+        $SSN = $post->Applicant->ssn;
 
         if ($post->Residence->monthsAtAddress == '0') {
             $monthsAtAddress = '1';
@@ -286,7 +287,7 @@ class itmedia
         $lead['bMonth'] = $dob_month;
         $lead['bDay'] = $dob_day;
         $lead['bYear'] = $dob_year;
-        $lead['ssn'] = (string)$post->Applicant->ssn;
+        $lead['ssn'] = (string)$SSN;
         $lead['armedForces'] = (string)$inMilitary ?? 'no';
         $lead['incomeSource'] = (string)$incomeSource ?? 'employment';
         $lead['employerName'] = (string)$post->Employer->employerName;
@@ -305,7 +306,7 @@ class itmedia
         $lead['directDeposit'] = (string)$incomePaymentType ?? 'yes';
         $lead['monthlyNetIncome'] = (int)$post->Employer->monthlyIncome;
 //        $lead['ownCar']               = 'no';
-        $lead['note'] = (string)$post->subid ?? 'UPING';
+        $lead['note'] = (string)'UPING';
         $lead['websiteName'] = (string)$referringUrl;
         $lead['timeout'] = (integer)$post->timeout ?? '30';
         $lead['lead_type'] = (string)$leadType;
