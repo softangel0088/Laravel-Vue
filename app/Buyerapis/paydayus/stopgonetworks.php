@@ -152,10 +152,10 @@ class stopgonetworks
         }
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
-                $post->Bank->bankAccountType = 'Y';
+                $post->Bank->bankAccountType = 'checking';
                 break;
             case 'Savings':
-                $post->Bank->bankAccountType = 'N';
+                $post->Bank->bankAccountType = 'savings';
                 break;
         }
         switch ((string)$post->Consent->consentThirdParty) {
