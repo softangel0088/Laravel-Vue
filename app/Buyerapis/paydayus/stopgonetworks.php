@@ -43,9 +43,21 @@ class stopgonetworks
         $residentialStatus = '';
         $consentThirdParty = '';
 
-//        if ($post->Employer->incomeSource == 'SelfEmployed') {
-//
-//        }
+        if ($post->Residence->monthsAtAddress == '0') {
+            $monthsAtAddress = '1';
+        } else {
+            $monthsAtAddress = $post->Residence->monthsAtAddress;
+        }
+        if ($post->Bank->monthsAtBank == '0') {
+            $monthsAtBank = '1';
+        } else {
+            $monthsAtBank = $post->Bank->monthsAtBank;
+        }
+        if ($post->Employer->monthsAtEmployer == '0') {
+            $monthsAtEmployer = '1';
+        } else {
+            $monthsAtEmployer = $post->Employer->monthsAtEmployer;
+        }
 
         switch ($post->Employer->incomeSource) {
             case 'SelfEmployed':
@@ -198,7 +210,7 @@ class stopgonetworks
             "aff" => (string)$client_detail->parameter1,
             "apiToken" => (string)$client_detail->parameter2,
             'subAff' => (string)$post->subid ?? 'UPING',
-            'timeAllowed' => (integer) $post->timeout ?? '120',
+            'timeAllowed' => (integer) $post->timeout ?? '30',
             'minPrice' => (integer) $post->minCommissionAmount ?? $client_detail->min_price,
 
             'amount' => (integer) $post->Loan->loanAmount,
@@ -221,7 +233,7 @@ class stopgonetworks
             'locality' => (string)$post->Residence->city,
             'region' => (string)$post->Residence->state, //ENUM
             'homeOwner' => (string)$residentialStatus ?? 'own', // ENUM
-            'timeAddress' => (integer)$post->Residence->monthsAtAddress,
+            'timeAddress' => (integer)$monthsAtAddress,
 
             'incomeSource' => (string)$incomeSource ?? 'employed', // ENUM
             'jobTitle' => (string)$post->Employer->jobTitle,
@@ -231,13 +243,13 @@ class stopgonetworks
             'frequency' => (string)$incomeCycle ?? 'monthly', //ENUM
             'payDate' => (string)$nextPayDate,
             'payDateNext' => (string)$followingPayDate,
-            'timeJob' => (integer) $post->Employer->monthsAtEmployer,
+            'timeJob' => (integer) $monthsAtEmployer,
 
             'accountABA' =>  (string)$post->Bank->bankRoutingNumber,
             'bankName' => (string)$post->Bank->bankName,
             'accountNumber' => (string)$post->Bank->bankAccountNumber,
             'accountType' => (string)$bankAccountType ?? 'Y',
-            'accountLength' => (integer)$post->Bank->monthsAtBank,
+            'accountLength' => (integer)$monthsAtBank,
             'bankruptcy' => (integer) $bankruptcy, //ENUM
 
             'userAgent' => (string) $post->Source->userAgent,
@@ -249,7 +261,6 @@ class stopgonetworks
             "domain" => (string)$referringUrl,
             'creditScore' => (string) $post->Additional->creditScore ?? 'good',
         );
-//        dd($lead);
 
         Log::debug('POST DATA::', (array)$lead);
 

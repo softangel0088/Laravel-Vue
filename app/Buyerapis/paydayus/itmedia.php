@@ -29,7 +29,7 @@ class itmedia
         $followingPayDate = $following_pay_date_day . '-' . $following_pay_date_month . '-' . $following_pay_date_year;
 
         $creditScore = (string)$post->Additional->creditScore;
-        $callTime = (string)$post->Additional->bestTimeToCall;
+//        $callTime = (string)$post->Additional->bestTimeToCall;
         $leadType = 'installment';
 
         $inMilitary = '';
@@ -39,6 +39,23 @@ class itmedia
         $incomePaymentType = '';
         $loanPurpose = '';
         $residentialStatus = '';
+        $bestTimeToCall = '';
+
+        if ($post->Residence->monthsAtAddress == '0') {
+            $monthsAtAddress = '1';
+        } else {
+            $monthsAtAddress = $post->Residence->monthsAtAddress;
+        }
+        if ($post->Bank->monthsAtBank == '0') {
+            $monthsAtBank = '1';
+        } else {
+            $monthsAtBank = $post->Bank->monthsAtBank;
+        }
+        if ($post->Employer->monthsAtEmployer == '0') {
+            $monthsAtEmployer = '1';
+        } else {
+            $monthsAtEmployer = $post->Employer->monthsAtEmployer;
+        }
 
         switch ($post->Applicant->inMilitary) {
             case 'None':
@@ -121,7 +138,6 @@ class itmedia
                 $incomeCycle = 'monthly';
                 break;
         }
-
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
                 $bankAccountType = 'checking';
@@ -200,6 +216,37 @@ class itmedia
                 break;
 
         }
+        switch ($post->Additional->bestTimeToCall) {
+            case '1':
+                $bestTimeToCall = 'morning';
+                break;
+            case '2':
+                $bestTimeToCall = 'evening';
+                break;
+            case '3':
+                $bestTimeToCall = 'anytime';
+                break;
+
+        }
+        switch ($post->Additional->creditScore) {
+            case '1':
+                $creditScore = 'excellent';
+                break;
+            case '2':
+                $creditScore = 'good';
+                break;
+            case '3':
+                $creditScore = 'fair';
+                break;
+            case '4':
+                $creditScore = 'poor';
+                break;
+            case '5':
+                $creditScore = 'notSure';
+                break;
+
+        }
+
 
         if (Str::startsWith($post->Source->referringUrl, 'http')) {
             $input = $post->Source->referringUrl;
@@ -228,14 +275,14 @@ class itmedia
         $lead['city'] = (string)$post->Residence->city;
         $lead['state'] = (string)$post->Residence->state;
         $lead['address'] = (string)$post->Residence->addressStreet1;
-        $lead['lengthAtAddress'] = (integer)$post->Residence->monthsAtAddress;
+        $lead['lengthAtAddress'] = (integer)$monthsAtAddress;
         $lead['licenseState'] = (string)$post->Applicant->drivingLicenseState;
         $lead['email'] = (string)$post->Applicant->email;
         $lead['license'] = (string)$post->Applicant->drivingLicenseNumber;
         $lead['rentOwn'] = (string)$residentialStatus ?? 'own';
         $lead['phone'] = (string)$post->Applicant->homePhoneNumber;
         $lead['workPhone'] = (string)$post->Applicant->workPhoneNumber;
-        $lead['callTime'] = $callTime;
+        $lead['callTime'] = $bestTimeToCall;
         $lead['bMonth'] = $dob_month;
         $lead['bDay'] = $dob_day;
         $lead['bYear'] = $dob_year;
@@ -243,7 +290,7 @@ class itmedia
         $lead['armedForces'] = (string)$inMilitary ?? 'no';
         $lead['incomeSource'] = (string)$incomeSource ?? 'employment';
         $lead['employerName'] = (string)$post->Employer->employerName;
-        $lead['timeEmployed'] = (integer)$post->Employer->monthsAtEmployer;
+        $lead['timeEmployed'] = (integer)$monthsAtEmployer;
         $lead['employerPhone'] = (string)$post->Employer->employerPhoneNumber;
         $lead['jobTitle'] = (string)$post->Employer->jobTitle;
         $lead['paidEvery'] = (string)$incomeCycle ?? 'monthly';
@@ -254,7 +301,7 @@ class itmedia
         $lead['accountType'] = (string)$bankAccountType ?? 'checking';
         $lead['bankName'] = (string)$post->Bank->bankName;
         $lead['bankPhone'] = 0;
-        $lead['monthsBank'] = (integer)$post->Bank->monthsAtBank;
+        $lead['monthsBank'] = (integer)$monthsAtBank;
         $lead['directDeposit'] = (string)$incomePaymentType ?? 'yes';
         $lead['monthlyNetIncome'] = (int)$post->Employer->monthlyIncome;
 //        $lead['ownCar']               = 'no';

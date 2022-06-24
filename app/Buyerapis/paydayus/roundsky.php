@@ -46,12 +46,29 @@ class roundsky
 
 
         $inMilitary = '';
-//        $incomeSource = '';
+        $incomeSource = '';
         $incomeCycle = '';
         $bankAccountType = '';
         $incomePaymentType = '';
-//        $loanPurpose = '';
         $residentialStatus = '';
+        $callTime = '';
+
+
+        if ($post->Residence->monthsAtAddress == '0') {
+            $monthsAtAddress = '1';
+        } else {
+            $monthsAtAddress = $post->Residence->monthsAtAddress;
+        }
+        if ($post->Bank->monthsAtBank == '0') {
+            $monthsAtBank = '1';
+        } else {
+            $monthsAtBank = $post->Bank->monthsAtBank;
+        }
+        if ($post->Employer->monthsAtEmployer == '0') {
+            $monthsAtEmployer = '1';
+        } else {
+            $monthsAtEmployer = $post->Employer->monthsAtEmployer;
+        }
 
         switch ($post->Employer->incomeSource) {
             case 'selfEmployed':
@@ -149,6 +166,7 @@ class roundsky
 
         }
 
+
         if (Str::startsWith($post->Source->referringUrl, 'http')) {
             $input = $post->Source->referringUrl;
             $new_input = preg_replace("#^[^:/.]*[:/]+#i", "", $input);
@@ -189,7 +207,7 @@ class roundsky
                 "second_pay_date" => (string)$followingPayDate,
                 "months_at_residence" => (int)$AddressMoveIn,
                 "requested_loan_amount" => (int)$post->Loan->loanAmount,
-                "income_type" => (string)$post->Employer->incomeSource ?? 'employment',
+                "income_type" => (string)$incomeSource ?? 'employment',
                 "active_military" => (string)$inMilitary ?? 0,
                 "occupation" => (string)$post->Employer->jobTitle,
                 "employer" => (string)$post->Employer->employerName,
