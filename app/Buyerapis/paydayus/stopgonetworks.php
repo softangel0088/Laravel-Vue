@@ -30,140 +30,152 @@ class stopgonetworks
         $followingPayDate = $following_pay_date_year . '-' . $following_pay_date_month . '-' . $following_pay_date_day;
 
 
-        $post->Loan->loanPurpose = 'oneoffPurchase';
+//        $post->Loan->loanPurpose = 'oneoffPurchase';
 //        $creditScore = 'good';
         $bankruptcy = 'N';
 
+        $inMilitary = '';
+        $incomeSource = '';
+        $incomeCycle = '';
+        $bankAccountType = '';
+        $incomePaymentType = '';
+        $loanPurpose = '';
+        $residentialStatus = '';
+
+//        if ($post->Employer->incomeSource == 'SelfEmployed') {
+//
+//        }
+
         switch ($post->Employer->incomeSource) {
             case 'SelfEmployed':
-                $post->Employer->incomeSource = 'selfEmployed';
+                $incomeSource = 'selfEmployed';
                 break;
             case 'EmployedFullTime':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
                 break;
             case 'EmployedPartTime':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
                   break;
             case 'EmployedTemporary':
-                $post->Employer->incomeSource = 'employed';
+                $incomeSource = 'employed';
                   break;
             case 'Pension':
-                $post->Employer->incomeSource = 'pension';
+                $incomeSource = 'pension';
                   break;
             case 'DisabilityBenefits':
-                $post->Employer->incomeSource = 'disability';
+                $incomeSource = 'disability';
                   break;
             case 'Benefits':
-                $post->Employer->incomeSource = 'benefits';
+                $incomeSource = 'benefits';
                   break;
         }
         switch ($post->Employer->incomeCycle) {
             case 'Weekly':
-                $post->Employer->incomeCycle = 'weekly';
+                $incomeCycle = 'weekly';
                 break;
             case 'BiWeekly':
-                $post->Employer->incomeCycle = 'biWeekly';
+                $incomeCycle = 'biWeekly';
                 break;
                 case 'Fortnightly':
-                $post->Employer->incomeCycle = 'biWeekly';
+                $incomeCycle = 'biWeekly';
             case 'TwiceMonthly':
-                $post->Employer->incomeCycle = 'twiceMonthly';
+                $incomeCycle = 'twiceMonthly';
                  break;
             case 'FourWeekly':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'Monthly':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastDayMonth':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastWorkingDayMonth':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastFriday':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastThursday':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastWednesday':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastTuesday':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'LastMonday':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
             case 'SpecificDayOfMonth':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                  break;
         }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
-                $post->Employer->incomePaymentType = 'N';
+                $incomePaymentType = 'N';
                 break;
             case 'Cheque':
-                $post->Employer->incomePaymentType = 'N';
+                $incomePaymentType = 'N';
                 break;
             case 'RegionalDirectDeposit':
-                $post->Employer->incomePaymentType = 'Y';
+                $incomePaymentType = 'Y';
                 break;
         }
         switch ($post->Applicant->inMilitary) {
             case 'None':
-                $post->Applicant->inMilitary = 'N';
+                $inMilitary = 'N';
                 break;
             case 'Veteran':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
                  break;
             case 'Reserves':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
                  break;
             case 'ActiveDuty':
-                $post->Applicant->inMilitary = 'Y';
+                $inMilitary = 'Y';
                  break;
         }
         switch ($post->Residence->residentialStatus) {
             case 'HomeOwner':
-                $post->Residence->residentialStatus = 'own';
+                $residentialStatus = 'own';
                 break;
              case 'PrivateTenant':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
             case 'CouncilTenant':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
             case 'LivingWithParents':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
             case 'LivingWithFriends':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
             case 'LivingWithFamily':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
             case 'Other':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                  break;
 
 
         }
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
-                $post->Bank->bankAccountType = 'checking';
+                $bankAccountType = 'checking';
                 break;
             case 'Savings':
-                $post->Bank->bankAccountType = 'savings';
+                $bankAccountType = 'savings';
                 break;
         }
         switch ((string)$post->Consent->consentThirdParty) {
             case 'true':
-                $post->Consent->consentThirdParty = 'Y';
+                $consentThirdParty = 'Y';
                 break;
             case 'false':
-                $post->Consent->consentThirdParty = 'N';
+                $consentThirdParty = 'N';
                 break;
         }
 
@@ -176,6 +188,9 @@ class stopgonetworks
         }
 
 //        dd($client_detail->min_price);
+//        dd($post);
+
+
 
 
         $lead = array(
@@ -186,7 +201,7 @@ class stopgonetworks
             'minPrice' => (integer) $post->minCommissionAmount ?? $client_detail->min_price,
 
             'amount' => (integer) $post->Loan->loanAmount,
-            'purpose' => (string) $post->Loan->loanPurpose ?? '',
+            'purpose' => (string) $loanPurpose ?? '',
 
             'firstName' => (string) $post->Applicant->firstName,
             'lastName' =>(string) $post->Applicant->lastName,
@@ -197,22 +212,22 @@ class stopgonetworks
             'mobilePhone' => (string)$post->Applicant->cellPhoneNumber,
             'homePhone' =>  (string)$post->Applicant->homePhoneNumber,
             'workPhone' => (string)$post->Applicant->workPhoneNumber,
-            'military' =>  (string) $post->Applicant->inMilitary ?? 'N', //ENUM
+            'military' =>  (string) $inMilitary ?? 'N', //ENUM
             'dob' => (string) $dateOfBirth,
 
             'streetAddress' => (string)$post->Residence->addressStreet1,
             'postalCode' => (string)$post->Residence->zip,
             'locality' => (string)$post->Residence->city,
             'region' => (string)$post->Residence->state, //ENUM
-            'homeOwner' => (string)$post->Residence->residentialStatus ?? 'own', // ENUM
+            'homeOwner' => (string)$residentialStatus ?? 'own', // ENUM
             'timeAddress' => (integer)$post->Residence->monthsAtAddress,
 
-            'incomeSource' => (string)$post->Employer->incomeSource ?? 'employed', // ENUM
+            'incomeSource' => (string)$incomeSource ?? 'employed', // ENUM
             'jobTitle' => (string)$post->Employer->jobTitle,
             'company' => (string)$post->Employer->employerName,
             'income' =>  (int)$post->Employer->monthlyIncome,
-            'directDeposit' =>  (string)$post->Employer->incomePaymentType ?? 'Y', //ENUM
-            'frequency' => (string)$post->Employer->incomeCycle ?? 'monthly', //ENUM
+            'directDeposit' =>  (string)$incomePaymentType ?? 'Y', //ENUM
+            'frequency' => (string)$incomeCycle ?? 'monthly', //ENUM
             'payDate' => (string)$nextPayDate,
             'payDateNext' => (string)$followingPayDate,
             'timeJob' => (integer) $post->Employer->monthsAtEmployer,
@@ -220,7 +235,7 @@ class stopgonetworks
             'accountABA' =>  (string)$post->Bank->bankRoutingNumber,
             'bankName' => (string)$post->Bank->bankName,
             'accountNumber' => (string)$post->Bank->bankAccountNumber,
-            'accountType' => (string)$post->Bank->bankAccountType ?? 'Y',
+            'accountType' => (string)$bankAccountType ?? 'Y',
             'accountLength' => (integer)$post->Bank->monthsAtBank,
             'bankruptcy' => (integer) $bankruptcy, //ENUM
 
@@ -228,11 +243,12 @@ class stopgonetworks
             'ipAddress' => (string)$post->Source->ipAddress,
 
             'termsAgreed' => (string) 'Y',
-            'mailing' => (string) $post->Consent->consentThirdParty ? 'Y' : 'N', //ENUM
+            'mailing' => (string) $consentThirdParty ? 'Y' : 'N', //ENUM
 
             "domain" => (string)$referringUrl,
             'creditScore' => (string) $post->Additional->creditScore ?? 'good',
         );
+//        dd($lead);
 
         Log::debug('POST DATA::', (array)$lead);
 

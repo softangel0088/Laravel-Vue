@@ -45,98 +45,106 @@ class roundsky
         $monthsAtBank = floor($post->Bank->bankAccountLength);
 
 
+        $inMilitary = '';
+//        $incomeSource = '';
+        $incomeCycle = '';
+        $bankAccountType = '';
+        $incomePaymentType = '';
+//        $loanPurpose = '';
+        $residentialStatus = '';
+
         switch ($post->Employer->incomeSource) {
-            case 'SelfEmployed':
-                $post->Employer->incomeSource = 'self_employed';
+            case 'selfEmployed':
+                $incomeSource = 'self_employed';
                   break;
             case 'EmployedFullTime':
-                $post->Employer->incomeSource = 'employment';
+                $incomeSource = 'employment';
                   break;
             case 'EmployedPartTime':
-                $post->Employer->incomeSource = 'employment';
+                $incomeSource = 'employment';
                   break;
             case 'EmployedTemporary':
-                $post->Employer->incomeSource = 'employment';
+                $incomeSource = 'employment';
                   break;
             case 'Pension':
-                $post->Employer->incomeSource = 'employment';
+                $incomeSource = 'employment';
                   break;
             case 'DisabilityBenefits':
-                $post->Employer->incomeSource = 'benefits';
+                $incomeSource = 'benefits';
                   break;
             case 'Benefits':
-                $post->Employer->incomeSource = 'benefits';
+                $incomeSource = 'benefits';
                   break;
         }
         switch ($post->Employer->incomeCycle) {
             case 'Weekly':
-                $post->Employer->incomeCycle = 'weekly';
+                $incomeCycle = 'weekly';
                   break;
             case 'BiWeekly':
-                $post->Employer->incomeCycle = 'bi_weekly';
+                $incomeCycle = 'bi_weekly';
                   break;
             case 'TwiceMonthly':
-                $post->Employer->incomeCycle = 'twice_monthly';
+                $incomeCycle = 'twice_monthly';
                   break;
             case 'FourWeekly':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                   break;
             case 'Monthly':
-                $post->Employer->incomeCycle = 'monthly';
+                $incomeCycle = 'monthly';
                   break;
         }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
-                $post->Employer->incomePaymentType = false;
+                $incomePaymentType = false;
                   break;
             case 'Cheque':
-                $post->Employer->incomePaymentType = false;
+                $incomePaymentType = false;
                   break;
             case 'RegionalDirectDeposit':
-                $post->Employer->incomePaymentType = true;
+                $incomePaymentType = true;
                   break;
         }
         switch ($post->Applicant->inMilitary) {
             case 'None':
-                $post->Applicant->inMilitary = 0;
+                $inMilitary = 0;
                   break;
             case 'Veteran':
-                $post->Applicant->inMilitary = 1;
+                $inMilitary = 1;
                   break;
             case 'Reserves':
-                $post->Applicant->inMilitary = 1;
+                $inMilitary = 1;
                   break;
             case 'ActiveDuty':
-                $post->Applicant->inMilitary = 1;
+                $inMilitary = 1;
                   break;
         }
         switch ($post->Residence->residentialStatus) {
             case 'HomeOwner':
-                $post->Residence->residentialStatus = 'own';
+                $residentialStatus = 'own';
                   break;
             case 'PrivateTenant':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                   break;
             case 'CouncilTenant':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                   break;
             case 'LivingWithParents':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                   break;
             case 'LivingWithFriends':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                   break;
             case 'Other':
-                $post->Residence->residentialStatus = 'rent';
+                $residentialStatus = 'rent';
                   break;
 
         }
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
-                $post->Bank->bankAccountType = 'checkings';
+                $bankAccountType = 'checkings';
                 break;
                 case 'Savings':
-                $post->Bank->bankAccountType = 'savings';
+                $bankAccountType = 'savings';
                 break;
 
         }
@@ -172,23 +180,23 @@ class roundsky
                 "zip" => (string)$post->Residence->zip,
                 "home_phone" => (string)$post->Applicant->homePhoneNumber,
                 "work_phone" => (string)$post->Applicant->workPhoneNumber,
-                "housing" => (string)$post->Residence->residentialStatus ?? 'own',
+                "housing" => (string)$residentialStatus ?? 'own',
                 "monthly_income" => (int)$post->Employer->monthlyIncome,
-                "direct_deposit" => $post->Employer->incomePaymentType ?? 'true',
-                "pay_period" => (string)$post->Employer->incomeCycle ?? 'monthly',
+                "direct_deposit" => $incomePaymentType ?? 'true',
+                "pay_period" => (string)$incomeCycle ?? 'monthly',
                 "company" => (string)$post->Employer->employerName,
                 "next_pay_date" => (string)$nextPayDate,
                 "second_pay_date" => (string)$followingPayDate,
                 "months_at_residence" => (int)$AddressMoveIn,
                 "requested_loan_amount" => (int)$post->Loan->loanAmount,
                 "income_type" => (string)$post->Employer->incomeSource ?? 'employment',
-                "active_military" => (string)$post->Applicant->inMilitary ?? 0,
+                "active_military" => (string)$inMilitary ?? 0,
                 "occupation" => (string)$post->Employer->jobTitle,
                 "employer" => (string)$post->Employer->employerName,
                 "months_employed" => (int)$EmploymentStarted,
 
                 "bank_name" => (string)$post->Bank->bankName,
-                "account_type" => (string)$post->Bank->bankAccountType ?? 'checkings',
+                "account_type" => (string)$bankAccountType ?? 'checkings',
                 "account_number" => (string)$post->Bank->bankAccountNumber,
                 "routing_number" => (string)$post->Bank->bankRoutingNumber,
                 "driving_license_state" => (string)$post->Applicant->drivingLicenseState,
