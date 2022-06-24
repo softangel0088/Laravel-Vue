@@ -41,6 +41,7 @@ class stopgonetworks
         $incomePaymentType = '';
         $loanPurpose = '';
         $residentialStatus = '';
+        $consentThirdParty = '';
 
 //        if ($post->Employer->incomeSource == 'SelfEmployed') {
 //
@@ -249,6 +250,7 @@ class stopgonetworks
             'creditScore' => (string) $post->Additional->creditScore ?? 'good',
         );
 //        dd($lead);
+        die();
 
         Log::debug('POST DATA::', (array)$lead);
 
