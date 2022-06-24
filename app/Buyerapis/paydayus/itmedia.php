@@ -104,21 +104,21 @@ class itmedia
         }
         switch ($post->Loan->loanPurpose) {
             case 'Subsistence':
-                $post->Loan->loanPurpose = 'emergencySituation';
+                $loanPurpose = 'emergencySituation';
             case 'OneOffPurchase':
-                $post->Loan->loanPurpose = 'majorPurchase';
+                $loanPurpose = 'majorPurchase';
             case 'DebtConsolidation':
-                $post->Loan->loanPurpose = 'debtConsolidation';
+                $loanPurpose = 'debtConsolidation';
             case 'CarLoan':
-                $post->Loan->loanPurpose = 'autoPurchase';
+                $loanPurpose = 'autoPurchase';
             case 'PayBills':
-                $post->Loan->loanPurpose = 'rentOrMortgage';
+                $loanPurpose = 'rentOrMortgage';
             case 'ShortTermCash':
-                $post->Loan->loanPurpose = 'majorPurchase';
+                $loanPurpose = 'majorPurchase';
             case 'HomeImprovements':
-                $post->Loan->loanPurpose = 'homeImprovement';
+                $loanPurpose = 'homeImprovement';
             case 'Other':
-                $post->Loan->loanPurpose = 'other';
+                $loanPurpose = 'other';
 
         }
         switch ($post->Residence->residentialStatus) {
@@ -206,7 +206,7 @@ class itmedia
         $lead['websiteName']          = (string) $referringUrl;
         $lead['timeout']              =  (integer) $post->timeout ?? '30';
         $lead['lead_type']            = (string) $leadType;
-        $lead['loan_reason']          = (string) $post->Loan->loanPurpose;
+        $lead['loan_reason']          = (string) $loanPurpose ?? 'majorPurchase';
         $lead['credit_type']          = $creditScore;
         $lead['atrk']                 = (string)$post->transaction_id ?? '0';
 
