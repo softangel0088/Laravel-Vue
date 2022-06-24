@@ -34,127 +34,127 @@ class itmedia
 
         switch ($post->Applicant->inMilitary) {
             case 'None':
-                $inMilitary = 'no';
+                $post->Applicant->inMilitary = 'no';
                 break;
             case 'Veteran':
-                $inMilitary = 'yes';
+                $post->Applicant->inMilitary = 'yes';
                 break;
             case 'Reserves':
-                $inMilitary = 'yes';
+                $post->Applicant->inMilitary = 'yes';
                 break;
             case 'ActiveDuty':
-                $inMilitary = 'yes';
+                $post->Applicant->inMilitary = 'yes';
                 break;
         }
         switch ($post->Employer->incomeSource) {
             case 'SelfEmployed':
-                $incomeSource = 'selfemployment';
+                $post->Employer->incomeSource = 'selfemployment';
                 break;
             case 'EmployedFullTime':
-                $incomeSource = 'employment';
+                $post->Employer->incomeSource = 'employment';
                 break;
             case 'EmployedPartTime':
-                $incomeSource = 'employment';
+                $post->Employer->incomeSource = 'employment';
                 break;
             case 'EmployedTemporary':
-                $incomeSource = 'employment';
+                $post->Employer->incomeSource = 'employment';
                 break;
             case 'Pension':
-                $incomeSource = 'benefits';
+                $post->Employer->incomeSource = 'benefits';
                 break;
             case 'DisabilityBenefits':
-                $incomeSource = 'benefits';
+                $post->Employer->incomeSource = 'benefits';
                 break;
             case 'Benefits':
-                $incomeSource = 'benefits';
+                $post->Employer->incomeSource = 'benefits';
                 break;
         }
         switch ($post->Employer->incomeCycle) {
             case 'Weekly':
-                $incomeCycle = 'weekly';
+                $post->Employer->incomeCycle = 'weekly';
                 break;
             case 'BiWeekly':
-                $incomeCycle = 'biweekly';
+                $post->Employer->incomeCycle = 'biweekly';
                 break;
             case 'Fortnightly':
-                $incomeCycle = 'biweekly';
+                $post->Employer->incomeCycle = 'biweekly';
                 break;
             case 'TwiceMonthly':
-                $incomeCycle = 'twicemonthly';
+                $post->Employer->incomeCycle = 'twicemonthly';
                 break;
             case 'FourWeekly':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'Monthly':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastDayMonth':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastWorkingDayMonth':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastFriday':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastThursday':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastWednesday':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastTuesday':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'LastMonday':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
             case 'SpecificDayOfMonth':
-                $incomeCycle = 'monthly';
+                $post->Employer->incomeCycle = 'monthly';
                 break;
         }
         switch ($post->Bank->bankAccountType) {
             case 'Checking':
-                $bankAccountType = 'checking';
+                $post->Bank->bankAccountType = 'checking';
                 break;
             case 'Savings':
-                $bankAccountType = 'saving';
+                $post->Bank->bankAccountType = 'saving';
                 break;  }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
-                $incomePaymentType = 'no';
+                $post->Employer->incomePaymentType = 'no';
                 break;
             case 'Cheque':
-                $incomePaymentType = 'no';
+                $post->Employer->incomePaymentType = 'no';
                 break;
             case 'RegionalDirectDeposit':
-                $incomePaymentType = 'yes';
+                $post->Employer->incomePaymentType = 'yes';
                 break;
         }
         switch ($post->Loan->loanPurpose) {
             case 'Subsistence':
-                $loanPurpose = 'emergencySituation';
+                $post->Loan->loanPurpose = 'emergencySituation';
                 break;
             case 'OneOffPurchase':
-                $loanPurpose = 'majorPurchase';
+                $post->Loan->loanPurpose = 'majorPurchase';
                 break;
             case 'DebtConsolidation':
-                $loanPurpose = 'debtConsolidation';
+                $post->Loan->loanPurpose = 'debtConsolidation';
                 break;
             case 'CarLoan':
-                $loanPurpose = 'autoPurchase';
+                $post->Loan->loanPurpose = 'autoPurchase';
                 break;
             case 'PayBills':
-                $loanPurpose = 'rentOrMortgage';
+                $post->Loan->loanPurpose = 'rentOrMortgage';
                 break;
             case 'ShortTermCash':
-                $loanPurpose = 'majorPurchase';
+                $post->Loan->loanPurpose = 'majorPurchase';
                 break;
             case 'HomeImprovements':
-                $loanPurpose = 'homeImprovement';
+                $post->Loan->loanPurpose = 'homeImprovement';
                 break;
             case 'Other':
-                $loanPurpose = 'other';
+                $post->Loan->loanPurpose = 'other';
                 break;
 
         }
@@ -229,29 +229,29 @@ class itmedia
         $lead['bDay'] = $dob_day;
         $lead['bYear'] = $dob_year;
         $lead['ssn'] = (string)$post->Applicant->ssn;
-        $lead['armedForces'] = (string)$inMilitary ?? 'no';
-        $lead['incomeSource'] = (string)$incomeSource ?? 'employment';
+        $lead['armedForces'] = (string)$post->Applicant->inMilitary ?? 'no';
+        $lead['incomeSource'] = (string)$post->Employer->incomeSource ?? 'employment';
         $lead['employerName'] = (string)$post->Employer->employerName;
         $lead['timeEmployed'] = (integer)$post->Employer->monthsAtEmployer;
         $lead['employerPhone'] = (string)$post->Employer->employerPhoneNumber;
         $lead['jobTitle'] = (string)$post->Employer->jobTitle;
-        $lead['paidEvery'] = (string)$incomeCycle ?? 'monthly';
+        $lead['paidEvery'] = (string)$post->Employer->incomeCycle ?? 'monthly';
         $lead['nextPayday'] = $nextPayDate;
         $lead['secondPayday'] = $followingPayDate;
         $lead['abaNumber'] = (string)$post->Bank->bankRoutingNumber;
         $lead['accountNumber'] = (string)$post->Bank->bankAccountNumber;
-        $lead['accountType'] = (string)$bankAccountType ?? 'checking';
+        $lead['accountType'] = (string)$post->Bank->bankAccountType ?? 'checking';
         $lead['bankName'] = (string)$post->Bank->bankName;
         $lead['bankPhone'] = 0;
         $lead['monthsBank'] = (integer)$post->Bank->monthsAtBank;
-        $lead['directDeposit'] = (string)$incomePaymentType ?? 'yes';
+        $lead['directDeposit'] = (string)$post->Employer->incomePaymentType ?? 'yes';
         $lead['monthlyNetIncome'] = (int)$post->Employer->monthlyIncome;
 //        $lead['ownCar']               = 'no';
         $lead['note'] = (string)$post->subid;
         $lead['websiteName'] = (string)$referringUrl;
         $lead['timeout'] = (integer)$post->timeout ?? '30';
         $lead['lead_type'] = (string)$leadType;
-        $lead['loan_reason'] = (string)$loanPurpose ?? 'majorPurchase';
+        $lead['loan_reason'] = (string)$post->Loan->loanPurpose ?? 'majorPurchase';
         $lead['credit_type'] = $creditScore;
         $lead['atrk'] = (string)$post->transaction_id ?? '0';
 
