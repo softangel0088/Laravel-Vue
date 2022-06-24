@@ -42,6 +42,7 @@ class stopgonetworks
         $loanPurpose = '';
         $residentialStatus = '';
         $consentThirdParty = '';
+        $creditScore = '';
 
         if ($post->Residence->monthsAtAddress == '0') {
             $monthsAtAddress = '1';
@@ -191,6 +192,24 @@ class stopgonetworks
                 $consentThirdParty = 'N';
                 break;
         }
+        switch ($post->Additional->creditScore) {
+            case '1':
+                $creditScore = 'excellent';
+                break;
+            case '2':
+                $creditScore = 'good';
+                break;
+            case '3':
+                $creditScore = 'fair';
+                break;
+            case '4':
+                $creditScore = 'poor';
+                break;
+            case '5':
+                $creditScore = 'good';
+                break;
+
+        }
 
         if (Str::startsWith($post->Source->referringUrl, 'http')) {
             $input = $post->Source->referringUrl;
@@ -259,7 +278,7 @@ class stopgonetworks
             'mailing' => (string) $consentThirdParty ? 'Y' : 'N', //ENUM
 
             "domain" => (string)$referringUrl,
-            'creditScore' => (string) $post->Additional->creditScore ?? 'good',
+            'creditScore' => (string) $creditScore ?? 'good',
         );
 
         Log::debug('POST DATA::', (array)$lead);

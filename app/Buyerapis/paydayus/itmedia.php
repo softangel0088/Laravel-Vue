@@ -291,7 +291,7 @@ class itmedia
         $lead['incomeSource'] = (string)$incomeSource ?? 'employment';
         $lead['employerName'] = (string)$post->Employer->employerName;
         $lead['timeEmployed'] = (integer)$monthsAtEmployer;
-        $lead['employerPhone'] = (string)$post->Employer->employerPhoneNumber;
+        $lead['employerPhone'] = (string)$post->Applicant->workPhoneNumber;
         $lead['jobTitle'] = (string)$post->Employer->jobTitle;
         $lead['paidEvery'] = (string)$incomeCycle ?? 'monthly';
         $lead['nextPayday'] = $nextPayDate;
@@ -305,7 +305,7 @@ class itmedia
         $lead['directDeposit'] = (string)$incomePaymentType ?? 'yes';
         $lead['monthlyNetIncome'] = (int)$post->Employer->monthlyIncome;
 //        $lead['ownCar']               = 'no';
-        $lead['note'] = (string)$post->subid;
+        $lead['note'] = (string)$post->subid ?? 'UPING';
         $lead['websiteName'] = (string)$referringUrl;
         $lead['timeout'] = (integer)$post->timeout ?? '30';
         $lead['lead_type'] = (string)$leadType;
