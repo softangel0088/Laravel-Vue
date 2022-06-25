@@ -72,11 +72,11 @@ class LeadPostRequestUS extends FormRequest
             'applicant.dateOfBirthDay' =>  'min:2',
             'applicant.dateOfBirthMonth' =>  'min:2',
             'applicant.dateOfBirthYear' =>  'min:4',
-            'applicant.ssn' => 'required', 'min:9',
+            'applicant.ssn' => 'required', 'min:9', 'numeric',
             'applicant.email' => 'required', 'email:rfc, dns, spoof, filter',
-            'applicant.homePhoneNumber' => 'required|min:10',
-            'applicant.cellPhoneNumber' =>  'required|min:10',
-            'applicant.workPhoneNumber' => 'required|min:10',
+            'applicant.homePhoneNumber' => 'required|min:10|numeric',
+            'applicant.cellPhoneNumber' =>  'required|min:10|numeric',
+            'applicant.workPhoneNumber' => 'required|min:10|numeric',
             'applicant.maritalStatus' => [
                 Rule::in(
                     'Single',
@@ -194,7 +194,7 @@ class LeadPostRequestUS extends FormRequest
             'employer.followingPayDateYear' => 'min:4', 'max:4', 'size:4',
 
 
-            'bank.bankPhone' => 'min:10',
+            'bank.bankPhone' => 'min:10', 'numeric',
             'bank.bankName' => 'required', 'min:2', 'max:64',
             'bank.bankAccountType' => [
                     'required',
