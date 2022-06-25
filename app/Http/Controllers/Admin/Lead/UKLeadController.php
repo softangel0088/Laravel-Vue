@@ -108,21 +108,20 @@ class UKLeadController extends Controller
      */
     public function post(LeadPostRequest $request)
     {
-//        dd($request);
-
         Log::debug('LEAD PASSED INITIAL VALIDATION 1');
         $validated = (new LeadValidate)->validate_data_uk($request);
         Log::debug('LEAD PASSED INITIAL VALIDATION 2');
 
         // Is application valid, if not return errors
         $this->application_validate($validated);
+        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
+
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);
         $lead_quality = 0;
 
         // Decode the Application
         $post = json_decode($request->getContent());
-
 
         // Retrieve Partner Account Status if AFF ID present.
         $this->partner_detail = $this->getPartnerDetails($post->vid, $this->leadtype);
@@ -564,26 +563,23 @@ class UKLeadController extends Controller
      */
     public function mark_cpf_funded(Request $request, $leadId)
     {
-
         try {
 
-            $query = DB::table('us_leads')->where('id', $leadId);
+            $query = DB::table('uk_leads')->where('lead_id', $leadId);
 
-            $lead = $query->first();
-            $tier = BuyerSetup::find('buyer_tier_id', $lead->buyerTierID)->first();
-            $partner_detail = PartnerLeadType::where('vid', $lead->vid)->first();
+//            $tier = BuyerSetup::find('buyer_tier_id', $lead->buyerTierID)->first();
+//            $partner_detail = PartnerLeadType::where('vid', $lead->vid)->first();
 
-            $vidLeadPrice = $tier->tier_price - ($tier->tier_price * ($partner_detail->margin / 100));
+//            $vidLeadPrice = $tier->tier_price - ($tier->tier_price * ($partner_detail->margin / 100));
 
             $res = $query->update([
                 'leadStatus' => 4,
-                'vidLeadPrice' => $vidLeadPrice,
-                'buyerLeadPrice' => $tier->tier_price,
+//                'vidLeadPrice' => $vidLeadPrice,
+//                'buyerLeadPrice' => $tier->tier_price,
                 'updated_at' => Carbon::now(),
             ]);
             return Response::json('Success:: CPF Funded Received ', 202);
         } catch (Exception $e) {
-            Log::info('mark_cpf_funded() called');
             Log::debug($e);
             return Response::json('Error:: Unable to mark CPF Funded', 418);
 

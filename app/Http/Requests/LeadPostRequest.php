@@ -215,8 +215,8 @@ class LeadPostRequest extends FormRequest
                     'MasterCardDebit'
                 ),
             ],
-            'bank.bankAccountNumber' => 'required', 'size:8',
-            'bank.bankRoutingNumber' => 'required', 'size:6',
+            'bank.bankAccountNumber' => 'required', 'size:8', 'numeric',
+            'bank.bankRoutingNumber' => 'required', 'size:6', 'numeric',
 
             'consent.consentFinancial' => 'boolean',
             'source.ipAddress' => 'required',

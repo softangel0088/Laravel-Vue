@@ -561,23 +561,21 @@ class USLeadController extends Controller
 
         try {
 
-            $query = DB::table('us_leads')->where('id', $leadId);
+            $query = DB::table('us_leads')->where('lead_id', $leadId);
 
-            $lead = $query->first();
-            $tier = BuyerSetup::find('buyer_tier_id', $lead->buyerTierID)->first();
-            $partner_detail = PartnerLeadType::where('vid', $lead->vid)->first();
-
-            $vidLeadPrice = $tier->tier_price - ($tier->tier_price * ($partner_detail->margin / 100));
+//            $tier = BuyerSetup::find('buyer_tier_id', $lead->buyerTierID)->first();
+//            $partner_detail = PartnerLeadType::where('vid', $lead->vid)->first();
+//
+//            $vidLeadPrice = $tier->tier_price - ($tier->tier_price * ($partner_detail->margin / 100));
 
             $res = $query->update([
                 'leadStatus' => 4,
-                'vidLeadPrice' => $vidLeadPrice,
-                'buyerLeadPrice' => $tier->tier_price,
+//                'vidLeadPrice' => $vidLeadPrice,
+//                'buyerLeadPrice' => $tier->tier_price,
                 'updated_at' => Carbon::now(),
             ]);
             return Response::json('Success:: CPF Funded Received ', 202);
         } catch (Exception $e) {
-            Log::info('mark_cpf_funded() called');
             Log::debug($e);
             return Response::json('Error:: Unable to mark CPF Funded', 418);
 
