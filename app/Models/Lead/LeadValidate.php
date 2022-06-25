@@ -6,12 +6,15 @@ use App\Http\Requests\LeadPostRequest;
 use App\Http\Requests\LeadPostRequestUS;
 use App\Models\IPQS\IPQS;
 use App\Models\Microbilt\Microbilt;
+use Axlon\PostalCodeValidation\Support\Facades\PostalCodes;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberUtil;
 
 class LeadValidate extends Model
 {
@@ -23,52 +26,27 @@ class LeadValidate extends Model
      */
     public function validate_data(LeadPostRequestUS $request)
     {
-        $valid = true;
+        $applicant = $request['applicant'];
+        $employer = $request['employer'];
+        $zip = $request->residence['zip'];
 
-        $future_pay_dates = $this->future_pay_date($request['employer']);
+        $this->check_pay_dates($employer);
+        $this->check_phone_numbers($applicant, 'US');
+        $this->check_postcode($zip, 'US');
 
-        if ($future_pay_dates == true) {
-            return $valid;
-        }
+        return true;
+//        $dl_number = $request->applicant['drivingLicenseNumber'];
+//        $dl_number_state = $request->applicant['drivingLicenseState'];
+//        $ssn = $request->applicant['ssn'];
 //        $email = $request->applicant['email'];
-//        $cellPhoneNumber = $request->applicant['cellPhoneNumber'];
-//        dd($request->residence['zip']);
-//        $dlnumber = $request->applicant['drivingLicenseNumber'];
-//        $dlnumberstate = $request->applicant['drivingLicenseState'];
 //        $firstName = $request->applicant['firstName'];
 //        $lastName = $request->applicant['lastName'];
-//        $ssn = $request->applicant['ssn'];
-//
-//        $validate_email = IPQS::verify_email($email);
-//        $validate_phone = IPQS::verify_phone($cellPhoneNumber);
-//        $validate_driving_license = $this->verify_driving_license($dlnumber, $dlnumberstate, $firstName, $lastName);
-//        $validate_ssn = $this->verify_ssn($ssn);
 //        $validated_bank_details = $this->validate_bank($request['bank']);
-//        if ($validate_lead == false) {
-//            return $validate_lead;
-//        }
-//        if ($validate_email == false) {
-//            return 'Invalid Email';
-//        }
-//        elseif ($validate_ssn == false) {
-//            return 'Invalid SSN';
-//        }
-//        elseif ($validate_driving_license !== true) {
-//            return 'Invalid Driving License';
-//        }
-//        elseif ($validated_bank_details !== true) {
-//            return $validated_bank_details;
-//        } elseif (
-////            $validate_lead == $valid &&
-//            $validate_email == $valid &&
-//            $validate_phone == $valid &&
-//            $validate_ssn == $valid
-//            &&
-//            $validate_driving_license == $valid &&
-//            $validated_bank_details == $valid
-//        ) {
-//            return true;
-//        }
+//        $validate_driving_license = $this->verify_driving_license($dl_number, $dl_number_state, $firstName, $lastName);
+//        $validate_ssn = $this->verify_ssn($ssn);
+//        $validate_email = IPQS::verify_email($email);
+
+
     }
 
 
@@ -78,44 +56,20 @@ class LeadValidate extends Model
      */
     public function validate_data_uk(LeadPostRequest $request)
     {
-        $valid = true;
+        $applicant = $request['applicant'];
+        $employer = $request['employer'];
+        $postcode = $request->residence['postcode'];
 
-        $future_pay_dates = $this->future_pay_date($request['employer']);
-
-        if ($future_pay_dates == true) {
-            return $valid;
-        }
-
+        $this->check_pay_dates($employer);
+        $this->check_phone_numbers($applicant, 'GB');
+        $this->check_postcode($postcode, 'GB');
 
         return true;
 
-//        $next_pay_date = $this->future_pay_date($request['employer']);
 //        $email = $request->applicant['email'];
-//        $mobilePhoneNumber = $request->applicant['mobilePhoneNumber'];
-//
 //        $validate_email = IPQS::verify_email($email);
 //        $validate_phone = IPQS::verify_phone($mobilePhoneNumber);
 //        $validated_bank_details = $this->validate_bank($request['bank']);
-//
-//        if ($next_pay_date == true) {
-//            return $valid;
-//        }
-//        if ($validate_lead == false) {
-//            return $validate_lead;
-//        }
-//        if ($validate_email == false) {
-//            return 'Invalid Email';
-//        }
-//        elseif ($validated_bank_details !== true) {
-//            return $validated_bank_details;
-//        } elseif (
-////            $validate_lead == $valid &&
-//            $validate_email == $valid &&
-//            $validate_phone == $valid &&
-//            $validated_bank_details == $valid
-//        ) {
-//            return true;
-//        }
     }
 
 
@@ -162,6 +116,7 @@ class LeadValidate extends Model
     }
 
 
+
     /**
      * @param $ssn
      * @return bool
@@ -177,22 +132,218 @@ class LeadValidate extends Model
      * @param array $applicant
      * @return bool|JsonResponse
      */
-    private function future_pay_date($applicant)
+    private function check_pay_dates($applicant)
     {
 
-        $next_pay_date = Carbon::createFromDate($applicant['nextPayDateYear'] , $applicant['nextPayDateMonth'] , $applicant['nextPayDateDay']);
-        $following_pay_date = Carbon::createFromDate($applicant['followingPayDateYear'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateDay']);
-        $next_pay_date = $next_pay_date->isPast();
-        $following_pay_date = $following_pay_date->isPast();
+        $npd = Carbon::createFromDate($applicant['nextPayDateYear'] , $applicant['nextPayDateMonth'] , $applicant['nextPayDateDay']);
+        $fpd = Carbon::createFromDate($applicant['followingPayDateYear'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateDay']);
+
+
+        $this->dates_are_in_past($npd, $fpd);
+        $this->dates_are_weekend($npd, $fpd);
+
+        return true;
+    }
+
+    /**
+     * @param Carbon $npd
+     * @param Carbon $fpd
+     * @return bool
+     */
+    private function dates_are_in_past(Carbon $npd, Carbon $fpd)
+    {
+        $next_pay_date = $npd->isPast();
+        $following_pay_date = $fpd->isPast();
+//        dd($following_pay_date);
 
         if ($next_pay_date === true) {
             echo json_encode(['errors' => 'Next Pay Date Should Be In The Future']);
             die();
-        } else if ($following_pay_date === true) {
+        }
+        if ($following_pay_date === true) {
             echo json_encode(['errors' => 'Following Pay Date Should Be In The Future']);
+            die();
+        } else {
+            return true;
+        }
+
+    }
+
+    /**
+     * @param Carbon $npd
+     * @param Carbon $fpd
+     * @return bool
+     */
+    private function dates_are_weekend(Carbon $npd, Carbon $fpd)
+    {
+        $next_pay_date = $npd->isWeekend();
+        $following_pay_date = $fpd->isWeekend();
+
+        if ($next_pay_date === true) {
+            echo json_encode(['errors' => 'Next Pay Date Should Not Be a Saturday or Sunday']);
+            die();
+        }
+        if ($following_pay_date === true) {
+            echo json_encode(['errors' => 'Following Pay Date Should Not Be a Saturday or Sunday']);
             die();
         } elseif ($next_pay_date == false && $following_pay_date == false) {
             return true;
         }
+
     }
+
+
+    /**
+     * @param $applicant
+     * @param $country_code
+     * //     * @return bool
+     * @return bool
+     */
+    private function check_phone_numbers($applicant, $country_code)
+    {
+        if ($country_code == 'US') {
+            $mobile = $applicant['cellPhoneNumber'];
+        } else {
+            $mobile = $applicant['mobilePhoneNumber'];
+
+        }
+        $this->validate_mobile_phone($mobile, $country_code);
+        $this->validate_home_phone($applicant['homePhoneNumber'], $country_code);
+        $this->validate_work_phone($applicant['workPhoneNumber'], $country_code);
+
+        return true;
+    }
+
+
+    /**
+     * @param $cellPhoneNumber
+     * @param $country_code
+     * @return bool
+     */
+    private function validate_mobile_phone($cellPhoneNumber, $country_code)
+    {
+        $swissNumberProto = '';
+        $swissNumberStr = $cellPhoneNumber;
+        $phoneUtil = PhoneNumberUtil::getInstance();
+        try {
+            $swissNumberProto = $phoneUtil->parse($swissNumberStr, $country_code);
+            Log::debug($swissNumberProto);
+        } catch (NumberParseException $e) {
+            Log::debug($e);
+        }
+
+        $isValid = $phoneUtil->isValidNumber($swissNumberProto);
+
+
+        if ($country_code == 'US') {
+            if ($isValid === false) {
+                echo json_encode(['errors' => 'cellPhoneNumber is Invalid.']);
+                die();
+            } else {
+                return true;
+            }
+        }
+        if ($country_code == 'GB') {
+            if ($isValid === false) {
+                echo json_encode(['errors' => 'mobilePhoneNumber is Invalid.']);
+                die();
+            } else {
+                return true;
+            }
+        }
+
+//        return $isValid;
+    }
+
+
+    /**
+     * @param $homePhoneNumber
+     * @param $country_code
+     * @return bool
+     */
+    private function validate_home_phone($homePhoneNumber, $country_code)
+    {
+        $swissNumberProto = '';
+        $swissNumberStr = $homePhoneNumber;
+        $phoneUtil = PhoneNumberUtil::getInstance();
+        try {
+            $swissNumberProto = $phoneUtil->parse($swissNumberStr, $country_code);
+            Log::debug($swissNumberProto);
+        } catch (NumberParseException $e) {
+            Log::debug($e);
+        }
+
+        $isValid = $phoneUtil->isValidNumber($swissNumberProto);
+
+        if ($isValid === false) {
+            echo json_encode(['errors' => 'homePhoneNumber is Invalid.']);
+            die();
+        } else {
+            return true;
+        }
+//        return $isValid;
+    }
+
+    /**
+     * @param $workPhoneNumber
+     * @param $country_code
+     * @return bool
+     */
+    private function validate_work_phone($workPhoneNumber, $country_code)
+    {
+        $swissNumberProto = '';
+        $swissNumberStr = $workPhoneNumber;
+        $phoneUtil = PhoneNumberUtil::getInstance();
+        try {
+            $swissNumberProto = $phoneUtil->parse($swissNumberStr, $country_code);
+            Log::debug($swissNumberProto);
+        } catch (NumberParseException $e) {
+            Log::debug($e);
+        }
+
+        $isValid = $phoneUtil->isValidNumber($swissNumberProto);
+
+        if ($isValid === false) {
+            echo json_encode(['errors' => 'cellPhoneNumber is Invalid.']);
+            die();
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @param $zip
+     * @return bool
+     */
+    private function check_zip($zip)
+    {
+        $isValid = PostalCodes::passes('US', $zip); // returns a boolean
+
+//        dd($isValid);
+        if ($isValid === false) {
+            echo json_encode(['errors' => 'ZIP is Invalid.']);
+            die();
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @param $postcode
+     * @param $country_code
+     * @return bool
+     */
+    private function check_postcode($postcode, $country_code)
+    {
+        $isValid = PostalCodes::passes($country_code, $postcode); // returns a boolean
+
+//        dd($isValid);
+        if ($isValid === false) {
+            echo json_encode(['errors' => 'Postcode is Invalid.']);
+            die();
+        } else {
+            return true;
+        }
+    }
+
 }

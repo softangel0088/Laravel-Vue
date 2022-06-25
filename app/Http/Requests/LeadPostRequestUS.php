@@ -107,7 +107,7 @@ class LeadPostRequestUS extends FormRequest
                 ),
             ],
             'applicant.drivingLicenseState' =>  'min:2',
-            'applicant.drivingLicenseNumber' =>  'min:4',  'regex:^[A-Z](?:\d[- ]*){14}$',
+            'applicant.drivingLicenseNumber' =>  'min:4',  'regex:/^[a-zA-Z0-9]{7,25}$/',
 
             // Residence
             'residence.houseNumber' => 'requiredIf:houseName,null',
@@ -202,7 +202,7 @@ class LeadPostRequestUS extends FormRequest
         ],
 
             'bank.bankAccountNumber' => 'min:7', 'max:25',
-            'bank.bankRoutingNumber' => 'min:9',
+            'bank.bankRoutingNumber' => 'min:9', 'max:9', 'numeric',
 
             'bank.monthsAtBank' => [
                 'required',

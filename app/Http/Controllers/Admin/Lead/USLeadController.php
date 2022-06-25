@@ -127,10 +127,12 @@ class USLeadController extends Controller
 
         // Is application valid, if not return errors
         $this->application_validate($validated);
+        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);
         $lead_quality = 0;
+
 
         // Decode the Application
         $post = json_decode($request->getContent());
@@ -174,8 +176,6 @@ class USLeadController extends Controller
         $data->oid = $this->toString($post->oid);
         $data->tier = $this->toString($post->tier ?? null);
         $data->transaction_id = $this->toString($post->transaction_id ?? null);
-
-
         $data->minCommissionAmount = $this->toString($post->minCommissionAmount ?? null);
         $data->maxCommissionAmount = $this->toString($post->maxCommissionAmount ?? null);
         $data->timeout = $this->toString($post->timeout ?? null);

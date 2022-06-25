@@ -312,7 +312,7 @@ class itmedia
         $lead['directDeposit'] = (string)$incomePaymentType ?? 'yes';
         $lead['monthlyNetIncome'] = (int)$post->Employer->monthlyIncome;
 //        $lead['ownCar']               = 'no';
-        $lead['note'] = (string)'UPING12';
+        $lead['note'] = (string)'UPING';
         $lead['websiteName'] = (string)$referringUrl;
         $lead['timeout'] = (integer)$post->timeout ?? '30';
         $lead['lead_type'] = (string)$leadType;
