@@ -104,6 +104,9 @@
                             <b-badge v-else-if="leadData.lead.leadStatus == 2" variant="light-danger">
                                 Declined
                             </b-badge>
+                          <b-badge v-else-if="leadData.lead.leadStatus == 4" variant="light-info">
+                            CPF
+                          </b-badge>
 
                         </td>
                     </tr>
@@ -156,7 +159,7 @@
                                 ALL Tiers
                             </b-badge>
                             <b-badge variant="light-primary" v-else>
-                                {{ leadData.lead.tier }}
+                                {{ leadData.lead.buyerTierID }}
                             </b-badge>
                         </td>
                     </tr>

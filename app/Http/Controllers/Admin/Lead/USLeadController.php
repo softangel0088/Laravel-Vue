@@ -589,8 +589,10 @@ class USLeadController extends Controller
      */
     public function getUsLeadLog(Request $request, $id)
     {
+        $lead = USLead::find($id);
 
-        $leadlog = DB::table('lmsleadlogsus')->where('lead_id', $id)->get();
+
+        $leadlog = DB::table('lmsleadlogsus')->where('lead_id', $lead->lead_id)->get();
 
         return Response::json(['leadlog' => $leadlog]);
 

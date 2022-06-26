@@ -244,6 +244,26 @@ class roundsky
             $timeout = $this->response['timeout'];
 
 
+//            if ($client_detail->buyer_tier_id == 'RS_60' || $client_detail->buyer_tier_id == 'RS_45' || $client_detail->buyer_tier_id == 'RS_32' || $client_detail->buyer_tier_id == 'RS_22' ) {
+//                $this->response['DECISION'] = 'REJECTED';
+//                $this->response['post_price'] = '0.00';
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '';
+//                $this->response['reason'] =  'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'Declined';
+//                $resp = $this->response;
+//            } else {
+//                $this->response['DECISION'] = 'ACCEPTED';
+//                $this->response['post_price'] = $client_detail->tier_price;
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '123';
+//                $this->response['reason'] = 'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'LenderFound';
+//                $resp = $this->response;
+//            }
+
             try {
                 $response = (new App\Helpers\CurlHelper)->curl_post($url, $params, $header, $timeout, $api_creds);
             } catch (Exception $e) {
@@ -254,7 +274,7 @@ class roundsky
 
             Log::debug('RESP POST::', (array)$resp);
             $this->response['application_response'] = (array)$resp;
-            $this->response['post_time'] = (string)$response['post_time'];
+            $this->response['post_time'] = (string)$response['post_time'] ?? '0';
 
         } else {
             $this->response['application_response'] = $validation_result;
@@ -274,6 +294,8 @@ class roundsky
         Log::debug('RESP2 :: ', (array)$this->response);
 
 
+
+
         if ($appResponse['DECISION'] == 'APPROVED') {
             $this->response['accept'] = 'ACCEPTED';
             $this->response['post_price'] = $appResponse['PRICE'];
@@ -286,10 +308,10 @@ class roundsky
 
         } else {
             $this->response['accept'] = 'REJECTED';
-            $this->response['post_status'] = '0';
+            $this->response['post_status'] = '1';
             $this->response['post_price'] = '0.00';
             $this->response['post_time'] ?? '0.00';
-            $this->response['LenderFound'] = 'NoLenderFound';
+            $this->response['LenderFound'] = 'Declined';
             $this->response['reason'] = $appResponse['MESSAGE']  ?? 'Not available';;
 
         }

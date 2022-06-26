@@ -145,7 +145,8 @@ class itmedia
                 break;
             case 'Savings':
                 $bankAccountType = 'saving';
-                break;  }
+                break;
+        }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
                 $incomePaymentType = 'no';
@@ -320,7 +321,6 @@ class itmedia
         $lead['credit_type'] = $creditScore;
         $lead['atrk'] = (string)$post->transaction_id ?? '0';
 
-//        dd($lead);
 
         Log::debug('POST DATA::', (array)$lead);
 
@@ -335,6 +335,28 @@ class itmedia
 
             $url = $this->response['post_url'];
             $timeout = $this->response['timeout'];
+
+//            dd($client_detail);
+//            if ($client_detail->parameter1 == 'Amikaro_150' || $client_detail->parameter1 == 'Amikaro_80' || $client_detail->parameter1 == 'Amikaro_60' || $client_detail->parameter1 == 'Amikaro_40' || $client_detail->parameter1 == 'Amikaro_20' || $client_detail->parameter1 == 'Amikaro_10') {
+//                $this->response['Status'] = 'REJECTED';
+//                $this->response['post_price'] = '0.00';
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '';
+//                $this->response['reason'] =  'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'Declined';
+//                $response = $this->response;
+//
+//            } else {
+//                $this->response['Status'] = 'ACCEPTED';
+//                $this->response['post_price'] = $client_detail->tier_price;
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '123';
+//                $this->response['reason'] = 'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'LenderFound';
+//                $response = $this->response;
+//            }
 
             $response = Http::asForm()->post($url, $lead);
             $response = $response->object();
@@ -358,6 +380,16 @@ class itmedia
         Log::debug('RESP2 :: ', (array)$this->response);
 
 
+        if ($appResponse['Status'] == 'Error') {
+            $this->response['accept'] = 'REJECTED';
+            $this->response['post_price'] = $appResponse['Price'];
+            $this->response['post_status'] = '0';
+            $this->response['redirect_url'] = $appResponse['Redirect'];
+            $this->response['reason'] = $appResponse['Messages'] ?? 'Not available';
+            $this->response['post_time'] = '0.00';
+            $this->response['LenderFound'] = 'Errors';
+        }
+
         if ($appResponse['Status'] == 'Sold') {
             $this->response['accept'] = 'ACCEPTED';
             $this->response['post_price'] = $appResponse['Price'];
@@ -365,6 +397,7 @@ class itmedia
             $this->response['redirect_url'] = $appResponse['Redirect'];
             $this->response['reason'] = $appResponse['Messages'] ?? 'Not available';
             $this->response['post_time'] = '0.00';
+            $this->response['LenderFound'] = 'LenderFound';
 
 
         } else {
@@ -372,8 +405,9 @@ class itmedia
             $this->response['post_price'] = '0.00';
             $this->response['post_status'] = '1';
             $this->response['redirect_url'] = '';
-            $this->response['reason'] = json_encode($appResponse['Messages']) ?? 'Not available';
+            $this->response['reason'] =  'Not available';
             $this->response['post_time'] = '0.00';
+            $this->response['LenderFound'] = 'Declined';
 
         }
         return $this->response;

@@ -173,25 +173,19 @@ class PostLeadToBuyersUS implements ShouldQueue
         $post = BuyerFilterUS::allBuyerFilters($post);
 
 
-
-        // Check Pingtree EPLs
-//        $pingtree_tracker_response = $this->GetPingtreeTracker($post);
-        // Check affiliate limits on channel settings - pingtree traffic
-//        $network_channel_response = $this->network_channel_settings($post);
-
-
         // Assign buyer list
         $buyer_list = $post->buyer_list;
         $buyer_list = json_decode(json_encode($buyer_list), true);
+
 
 
         if (is_array($buyer_list) && !empty($buyer_list)) {
             $index = 0;
             $length = count($buyer_list);
 
+
             foreach ($buyer_list as $key => $value) {
                 $row = (object)$value;
-
                 $filename = app_path("Buyerapis/paydayus/" . strtolower($row->buyername) . ".php");
 
 
@@ -276,6 +270,10 @@ class PostLeadToBuyersUS implements ShouldQueue
 
             return $data;
         }
+//        $data = $this->no_lender_found($post);
+//        Log::debug('no_lender_found() called');
+//
+//        return $data;
     }
 
     /**
@@ -523,7 +521,7 @@ class PostLeadToBuyersUS implements ShouldQueue
             'lead_id' => $post->lead_id,
             'vendor_id' => $post->vid,
             'buyer_id' => $row->buyer_id,
-            'buyer_setup_id' => $row->id,
+            'buyer_setup_id' => $row->buyer_tier_id,
             'post_price' => $lender_response['post_price'] ?? "",
             'post_url' => $lender_response['post_url'] ?? "",
             'post_data' => json_encode($lender_response['post_data'] ?? ""),

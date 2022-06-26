@@ -300,6 +300,27 @@ class stopgonetworks
             $url = $this->response['post_url'];
             $timeout = $this->response['timeout'];
 
+//            if ($client_detail->buyer_tier_id == 'SGN_100' || $client_detail->buyer_tier_id == 'SGN_80' || $client_detail->buyer_tier_id == 'SGN_60' || $client_detail->buyer_tier_id == 'SGN_60') {
+//                $this->response['status'] = 'REJECTED';
+//                $this->response['post_price'] = '0.00';
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '';
+//                $this->response['reason'] =  'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'Declined';
+//                $res = $this->response;
+//            } else {
+////            if ($client_detail->parameter1 == 'SGN_32') {
+//                $this->response['status'] = 'OK';
+//                $this->response['post_price'] = $client_detail->tier_price;
+//                $this->response['post_status'] = '1';
+//                $this->response['redirect_url'] = '123';
+//                $this->response['reason'] = 'Not available';
+//                $this->response['post_time'] = '0.00';
+//                $this->response['LenderFound'] = 'LenderFound';
+//                $res = $this->response;
+//            }
+
             $response = Http::asForm()->post($url, $lead);
             Log::debug('RESP SGN POST1::', (array)$response);
             $xml = $response->body();
@@ -330,27 +351,32 @@ class stopgonetworks
         if ($appResponse['status'] == 'FAIL') {
             $this->response['accept'] = 'REJECTED';
             $this->response['post_price'] = '0.00';
-            $this->response['post_status'] = '1';
+            $this->response['post_status'] = '0';
             $this->response['redirect_url'] = '';
             $this->response['reason'] = json_encode($appResponse['errors']) ?? 'Not available';
             $this->response['post_time'] = '0.00';
+            $this->response['LenderFound'] = 'Errors';
         }
 
         if ($appResponse['status'] == 'OK') {
             $this->response['accept'] = 'ACCEPTED';
             $this->response['post_price'] = $appResponse['price'];
+//            $this->response['post_price'] = '32.00';
             $this->response['post_status'] = '1';
             $this->response['redirect_url'] = $appResponse['redirectUrl'];
+//            $this->response['redirect_url'] = 'google.com';
             $this->response['reason'] = $appResponse['message'] ?? 'Not available';
             $this->response['post_time'] = '0.00';
+            $this->response['LenderFound'] = 'LenderFound';
 
 
         } else {
             $this->response['accept'] = 'REJECTED';
-            $this->response['post_status'] = '0';
+            $this->response['post_status'] = '1';
             $this->response['post_price'] = '0.00';
             $this->response['post_time'] = '0.00';
             $this->response['reason'] = $appResponse['message']  ?? 'Not available';;
+            $this->response['LenderFound'] = 'Declined';
 
         }
         return $this->response;

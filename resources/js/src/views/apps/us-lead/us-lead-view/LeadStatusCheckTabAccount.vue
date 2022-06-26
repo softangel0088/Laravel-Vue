@@ -95,7 +95,7 @@
 
                 <!-- A custom formatted column -->
                 <template #cell(post_status)="data">
-                    <div v-if="data.item.post_status == 0">
+                    <div v-if="data.item.post_status == 1">
                         <b-progress
                                 value="100"
                                 max="100"
@@ -104,20 +104,15 @@
                         />
                     </div>
 
+                  <div v-else>
                     <b-progress
-                            v-else-if="data.item.post_status == 0"
                             :value="100"
                             max="100"
                             :variant="'danger'"
                             striped
                     />
-                    <b-progress
-                            v-else-if="data.item.post_status == 3"
-                            :value="100"
-                            max="100"
-                            :variant="'warning'"
-                            striped
-                    />
+                  </div>
+
                 </template>
 
 

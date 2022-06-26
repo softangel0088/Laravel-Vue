@@ -13,7 +13,7 @@
                 No user found with this user id. Check
                 <b-link
                     class="alert-link"
-                    :to="{ name: 'apps-users-list'}"
+                    :to="{ name: 'apps-us-lead-list'}"
                 >
                     User List
                 </b-link>

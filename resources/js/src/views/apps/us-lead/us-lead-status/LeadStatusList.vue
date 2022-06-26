@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Filters -->
-    <UK-leads-list-filters
+    <us-leads-list-filters
       :status-filter.sync="statusFilter"
       :affiliate-filter="affiliateFilter"
       :sub-id-filter="subIdFilter"
@@ -52,9 +52,9 @@
 
 <!--        // TODO swap for vue-good-table-->
       <b-table
-        ref="refUKLeadsListTable"
+        ref="refUSLeadsListTable"
         class="position-relative"
-        :items="fetchUKLeads"
+        :items="fetchUSLeads"
         responsive
         :fields="tableColumns"
         primary-key="id"
@@ -74,7 +74,7 @@
         <template #cell(id)="data">
           <b-link
             :to="{
-              name: 'apps-uk-lead-view',
+              name: 'apps-us-lead-view',
               params: { id: data.item.id },
             }"
             class="font-weight-bold"
@@ -85,17 +85,17 @@
 
         <template #cell(info)="data">
           <b-avatar
-            :id="`uk-lead-row-${data.item.id}`"
+            :id="`us-lead-row-${data.item.id}`"
             size="32"
             :variant="`light-${
-              resolveUKLeadsStatusVariantAndIcon(data.item.leadStatus).variant
+              resolveUSLeadsStatusVariantAndIcon(data.item.leadStatus).variant
             }`"
           >
             <feather-icon
-              :icon="resolveUKLeadsStatusVariantAndIcon(data.item.leadStatus).icon"
+              :icon="resolveUSLeadsStatusVariantAndIcon(data.item.leadStatus).icon"
             />
           </b-avatar>
-          <b-tooltip :target="`uk-lead-row-${data.item.id}`" placement="top">
+          <b-tooltip :target="`us-lead-row-${data.item.id}`" placement="top">
             <p class="mb-0">Processed</p>
             <p class="mb-0">Post Time: 52 secs</p>
             <p class="mb-0">
@@ -135,7 +135,7 @@
             <template #aside>
               <b-link
                 :to="{
-                  name: 'apps-uk-lead-view',
+                  name: 'apps-us-lead-view',
                   params: { id: data.item.id },
                 }"
                 class="font-weight-bold d-block text-nowrap"
@@ -153,7 +153,7 @@
           <template #cell(subid)="data">
               <b-media vertical-align="center">
                   <b-link
-                      :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+                      :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
                       class="font-weight-bold d-block text-nowrap"
                   >
                       <b-badge class="badge-light-primary" pill>
@@ -168,7 +168,7 @@
         <template #cell(tier)="data">
           <b-media vertical-align="center">
             <b-link
-              :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+              :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap"
             >
               <b-badge class="badge-light-primary" pill>
@@ -185,7 +185,7 @@
         <template #cell(IPAddress)="data">
           <b-media vertical-align="center">
             <b-link
-              :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+              :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap"
             >
               <b-badge class="badge-light-primary" pill>
@@ -200,7 +200,7 @@
         <template #cell(name)="data">
           <b-media vertical-align="center">
             <b-link
-              :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+              :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap"
             >
               <b-badge class="badge-light-primary" pill>
@@ -215,7 +215,7 @@
         <template #cell(email)="data">
           <b-media vertical-align="center">
             <b-link
-              :to="{ name: 'apps-uk-lead-view', params: { id: data.item.id } }"
+              :to="{ name: 'apps-us-lead-view', params: { id: data.item.id } }"
               class="font-weight-bold d-block text-nowrap"
             >
               <b-badge class="badge-light-primary" pill>
@@ -274,7 +274,7 @@
         <template #cell(leadStatus)="data">
           <b-badge
             pill
-            :variant="`light-${resolveUKLeadsStatusVariant(data.item.leadStatus)}`"
+            :variant="`light-${resolveUSLeadsStatusVariant(data.item.leadStatus)}`"
             class="text-capitalize"
           >
             <span v-if="data.item.leadStatus == 1">Sold</span>
@@ -300,7 +300,7 @@
             </template>
             <b-dropdown-item
               :to="{
-                  name: 'apps-uk-lead-view',
+                  name: 'apps-us-lead-view',
                   params: { id: data.item.id },
                 }"
             >
@@ -310,7 +310,7 @@
 
             <b-dropdown-item
               :to="{
-                  name: 'apps-uk-lead-view',
+                  name: 'apps-us-lead-view',
                   params: { id: data.item.id },
                 }"
             >
@@ -348,7 +348,7 @@
           >
             <b-pagination
               v-model="currentPage"
-              :total-rows="totalUKLeads"
+              :total-rows="totalUSLeads"
               :per-page="perPage"
               first-number
               last-number
@@ -394,10 +394,10 @@ import vSelect from "vue-select";
 import store from "@/store";
 import { ref, onUnmounted } from "@vue/composition-api";
 import { avatarText } from "@core/utils/filter";
-import UKLeadsListFilters from "./LeadListFilters.vue";
-import useUKLeadsList from "./useLeadList";
-import ukLeadsStoreModule from "../LeadStoreModule";
-import UKLeadsListAddNew from "./LeadListAddNew.vue";
+import USLeadsListFilters from "./LeadListFilters.vue";
+import useUSLeadsList from "./useLeadList";
+import usLeadsStoreModule from "../LeadStoreModule";
+import USLeadsListAddNew from "./LeadListAddNew.vue";
 
 import VueApexCharts from "vue-apexcharts";
 import { $themeColors } from "@themeConfig";
@@ -406,8 +406,8 @@ const $trackBgColor = "#e9ecef";
 
 export default {
   components: {
-    UKLeadsListFilters,
-    UKLeadsListAddNew,
+    USLeadsListFilters,
+    USLeadsListAddNew,
 
     BCard,
     BRow,
@@ -490,18 +490,18 @@ export default {
   },
 
   setup() {
-    const UK_LEADS = "app-uk-leads";
+    const US_LEADS = "app-us-leads";
 
     // Register module
-    if (!store.hasModule(UK_LEADS))
-      store.registerModule(UK_LEADS, ukLeadsStoreModule);
+    if (!store.hasModule(US_LEADS))
+      store.registerModule(US_LEADS, usLeadsStoreModule);
 
     // UnRegister on leave
     onUnmounted(() => {
-      if (store.hasModule(UK_LEADS)) store.unregisterModule(UK_LEADS);
+      if (store.hasModule(US_LEADS)) store.unregisterModule(US_LEADS);
     });
 
-    const isAddNewUKLeadSidebarActive = ref(false);
+    const isAddNewUSLeadSidebarActive = ref(false);
 
     const roleOptions = [
       { label: "Admin", value: "admin" },
@@ -525,24 +525,24 @@ export default {
     ];
 
     const {
-      fetchUKLeads,
+      fetchUSLeads,
       tableColumns,
       perPage,
       currentPage,
-      totalUKLeads,
+      totalUSLeads,
       dataMeta,
       perPageOptions,
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUKLeadsListTable,
+      refUSLeadsListTable,
       refetchData,
 
       // UI
-      resolveUKLeadsRoleVariant,
-      resolveUKLeadsRoleIcon,
-      resolveUKLeadsStatusVariant,
-      resolveUKLeadsStatusVariantAndIcon,
+      resolveUSLeadsRoleVariant,
+      resolveUSLeadsRoleIcon,
+      resolveUSLeadsStatusVariant,
+      resolveUSLeadsStatusVariantAndIcon,
       // Extra Filters
       statusFilter,
       affiliateFilter,
@@ -552,33 +552,33 @@ export default {
       buyerPriceFilter,
       leadQualityFilter,
       redirectionFilter,
-    } = useUKLeadsList();
+    } = useUSLeadsList();
 
     return {
       // Sidebar
-      // isAddNewUKLeadSidebarActive,
+      // isAddNewUSLeadSidebarActive,
 
-      fetchUKLeads,
+      fetchUSLeads,
       tableColumns,
       perPage,
       currentPage,
-      totalUKLeads,
+      totalUSLeads,
       dataMeta,
       perPageOptions,
       searchQuery,
       sortBy,
       isSortDirDesc,
-      refUKLeadsListTable,
+      refUSLeadsListTable,
       refetchData,
 
       // Filter
       avatarText,
 
       // UI
-      resolveUKLeadsRoleVariant,
-      resolveUKLeadsRoleIcon,
-      resolveUKLeadsStatusVariant,
-      resolveUKLeadsStatusVariantAndIcon,
+      resolveUSLeadsRoleVariant,
+      resolveUSLeadsRoleIcon,
+      resolveUSLeadsStatusVariant,
+      resolveUSLeadsStatusVariantAndIcon,
 
       roleOptions,
       planOptions,

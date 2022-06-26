@@ -264,6 +264,7 @@
                   >
               </b-media>
           </template>
+
         <template #cell(profit)="data">
           <b-media vertical-align="center">
             <small class="align-text-top text-capitalize text-success"
