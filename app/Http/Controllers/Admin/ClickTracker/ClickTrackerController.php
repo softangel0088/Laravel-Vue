@@ -39,6 +39,9 @@ class ClickTrackerController extends Controller
      */
     public function track(Request $request)
     {
+        if($request->aff_id == null) {
+            die();
+        }
 
         try {
             $affiliateId = Partner::where('vendor_id', $request->aff_id)->first();
