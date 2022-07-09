@@ -14,14 +14,8 @@ class pingyo
     function __construct($client_detail, $post)
     {
 
-//        $this->manageDependencies();
-//        unset($root, $library, $path);
 
-//        try {
-//            $today = new DateTime("now", new DateTimeZone("UTC"));
-//        } catch (Exception $e) {
-//        }
-
+//        dd($post);
 
         $dob_day = $post->Applicant->dateOfBirthDay;
         $dob_month = $post->Applicant->dateOfBirthMonth;
@@ -74,8 +68,6 @@ class pingyo
         $next_pay_date_year = $post->Employer->nextPayDateYear;
         $npd = new DateTime($next_pay_date_year . '/' . $next_pay_date_month . '/' . $next_pay_date_day, new DateTimeZone("UTC"));
         $nextPayDate = '/Date(' . ($npd->getTimestamp() * 1000) . ')/';
-//        $nextPayDate = $next_pay_date_year . '/' . $next_pay_date_month . '/' . $next_pay_date_day;
-
 
         $followingPayDateDay = $post->Employer->followingPayDateDay;
         $followingPayDateMonth = $post->Employer->followingPayDateMonth;
@@ -83,11 +75,12 @@ class pingyo
         $fpd = new DateTime($followingPayDateYear . '/' . $followingPayDateMonth . '/' . $followingPayDateDay, new DateTimeZone("UTC"));
         $followingPayDate = '/Date(' . ($fpd->getTimestamp() * 1000) . ')/';
 
-        $numberOfMonthsAtAddress = $post->Applicant->monthsAtAddress;
+        $numberOfMonthsAtAddress = $post->Residence->monthsAtAddress;
         $date = date("c", strtotime('-' . $numberOfMonthsAtAddress . " months", strtotime($post->created_at)));
         $AddressMoveIn = date("c", strtotime($date));
         $ami = new DateTime($AddressMoveIn, new DateTimeZone("UTC"));
         $AddressMoveIn = '/Date(' . ($ami->getTimestamp() * 1000) . ')/';
+
 
         // Time in current employment status
         $numberOfMonthsInCurrentEmploymentStatus = $post->Employer->monthsAtEmployer;
@@ -205,32 +198,7 @@ class pingyo
             case 'Other':
                 $post->Applicant->maritalStatus = 7;
         }
-//        if ($post->Consent->consentFinancial === '1') {
-//            $post->Consent->consentFinancial = true;
-//        } else {
-//            $post->Consent->consentFinancial = false;
-//        }
-//        if ($post->Consent->consentCreditSearch == '1') {
-//            $post->Consent->consentCreditSearch = true;
-//        } else {
-//            $post->Consent->consentCreditSearch = false;
-//        }
-//        if ($post->Consent->consentThirdPartyEmails == '1') {
-//            $post->Consent->consentThirdPartyEmails = true;
-//        } else {
-//            $post->Consent->consentThirdPartyEmails = false;
-//        }
-//        if ($post->Consent->consentThirdPartySMS == '1') {
-//            $post->Consent->consentThirdPartySMS = true;
-//        } else {
-//            $post->Consent->consentThirdPartySMS = false;
-//        }
-//        if ($post->Consent->consentThirdPartyPhone == '1') {
-//            $post->Consent->consentThirdPartySMS = true;
-//        } else {
-//            $post->Consent->consentThirdPartyPhone = false;
-//        }
-
+//
 
 
 
@@ -358,17 +326,20 @@ class pingyo
                 $this->response['post_status'] = '1';
                 $this->response['redirect_url'] = $status->redirecturl;
                 $this->response['post_time'] = $appResponse->post_time;
+                $this->response['LenderFound'] = 'LenderFound';
 
             } elseif ($status->status == 'ConditionalLenderMatchFound') {
                 $this->response['accept'] = 'ACCEPTED';
                 $this->response['post_status'] = '0';
                 $this->response['post_price'] = '0';
                 $this->response['post_time'] = $appResponse->post_time;
+                $this->response['LenderFound'] = 'LenderFound';
             } elseif ($status->status == 'NoLenderMatchFound') {
                 $this->response['accept'] = 'REJECTED';
                 $this->response['post_status'] = '0';
                 $this->response['post_price'] = '0';
                 $this->response['post_time'] = $appResponse->post_time;
+                $this->response['LenderFound'] = 'Declined';
             }
             return $this->response;
         } else {
@@ -376,6 +347,7 @@ class pingyo
             $this->response['post_status'] = '0';
             $this->response['post_price'] = '0';
             $this->response['post_time'] = $appResponse->post_time;
+            $this->response['LenderFound'] = 'Errors';
             return $this->response;
         }
 

@@ -96,6 +96,7 @@ class Application
 
         $application = json_decode(json_encode($application), true);
 
+
             $output = Http::post("https://leads.pingyo.co.uk/application/submit", $application);
             $server_output = $output->body();
 
