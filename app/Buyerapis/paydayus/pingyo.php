@@ -203,7 +203,7 @@ class pingyo
 
 
         $application = new Application();
-        $application->AffiliateId =  (string) "TOMJ-USA";
+        $application->AffiliateId =  (string) "UPING_USA";
         $application->Campaign =  (string)$post->vid ?? 'UPING';
         $application->SubAffiliate =  (string)$post->subid ?? '';
         $application->Timeout =  (int)$client_detail->timeout ?? '120';
