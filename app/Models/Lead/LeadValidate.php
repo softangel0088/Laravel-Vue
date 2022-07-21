@@ -31,7 +31,7 @@ class LeadValidate extends Model
         $zip = $request->residence['zip'];
 
         $this->check_pay_dates($employer);
-        $this->check_phone_numbers($applicant, 'US');
+//        $this->check_phone_numbers($applicant, 'US');
         $this->check_postcode($zip, 'US');
 
         return true;
