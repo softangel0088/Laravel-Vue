@@ -279,8 +279,8 @@ class pingyo
                 $application_status = (new Application)->send($application);
                 Log::debug('STATUS::', (array)$application_status);
 
-                if (isset($application_status->Errors)) {
-                    echo $application_status->Errors;
+                if (isset($application_status['Errors'])) {
+                    echo $application_status['Errors'];
                     die();
                 }
 
