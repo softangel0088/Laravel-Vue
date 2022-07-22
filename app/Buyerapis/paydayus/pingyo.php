@@ -207,7 +207,7 @@ class pingyo
         $application->Campaign =  (string)$post->vid ?? 'UPING';
         $application->SubAffiliate =  (string)$post->subid ?? '';
         $application->Timeout =  (int)$client_detail->timeout ?? '120';
-        $application->TestOnly =  (boolean)true;
+        $application->TestOnly =  (boolean)false;
 
         $SourceDetails = new SourceDetails();
         $SourceDetails->Address = (string)$post->Source->ipAddress;
