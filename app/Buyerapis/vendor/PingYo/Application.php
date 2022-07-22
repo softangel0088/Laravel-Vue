@@ -108,6 +108,11 @@ class Application
                 die();
             }
 
+        if (isset($server_output['Errors'])) {
+            echo $server_output['Errors'];
+            die();
+        }
+
 
         if ($output->successful()) {
                 return new Status($output->status(), $output, null, null);
