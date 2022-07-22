@@ -284,14 +284,9 @@ class pingyo
                 $temp_errors = json_decode($temp_errors, true);
 
                 if (isset($temp_errors['Errors'])) {
-                    echo $temp_errors['Errors'];
+                    echo $application_status;
                     die();
                 }
-
-//            if (isset($temp_errors->Errors)) {
-//                echo $temp_errors->Errors;
-//                die();
-//            }
 
             $this->response['application_response'] = $application_status;
 
