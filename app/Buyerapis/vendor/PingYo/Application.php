@@ -103,6 +103,11 @@ class Application
             Log::debug('PingYo Post Resp::', (array) $output->body());
             Log::debug("got response with code " . $output->status() . ': ' . $server_output);
 
+            if (isset($server_output->Errors)) {
+                echo $server_output->Errors;
+                die();
+            }
+
 
         if ($output->successful()) {
                 return new Status($output->status(), $output, null, null);

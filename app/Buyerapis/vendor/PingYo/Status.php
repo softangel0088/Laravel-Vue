@@ -27,16 +27,12 @@ class Status
         \Psr\Log\LoggerInterface $logger = null
     )
     {
-//        if (!is_null($logger)) {
-//            $this->logger = $logger;
-//        }
-
         if (!is_null($correlationid)) {
             $this->correlationid = $correlationid;
             $this->statuscheckurl = '/application/status/' . $correlationid;
         } else {
             $r = json_decode($json_response);
-//            Log::debug($r);
+
             $this->httpcode = $http_code;
             if (isset($r->Errors)) {
                 $this->errors = $r->Errors;
