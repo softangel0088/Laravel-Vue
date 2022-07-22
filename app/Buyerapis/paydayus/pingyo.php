@@ -288,10 +288,10 @@ class pingyo
                     die();
                 }
 
-            if (isset($temp_errors->Errors)) {
-                echo $temp_errors->Errors;
-                die();
-            }
+//            if (isset($temp_errors->Errors)) {
+//                echo $temp_errors->Errors;
+//                die();
+//            }
 
             $this->response['application_response'] = $application_status;
 
