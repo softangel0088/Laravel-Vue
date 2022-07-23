@@ -173,7 +173,8 @@ class LeadPostRequestUS extends FormRequest
                     'LastWednesday',
                     'LastTuesday',
                     'LastThursday',
-                    'LastMonday'
+                    'LastMonday',
+                    'Monthly'
                 ),
             ],
             'employer.monthlyIncome' => 'required', 'gte:100', 'lte:15000',

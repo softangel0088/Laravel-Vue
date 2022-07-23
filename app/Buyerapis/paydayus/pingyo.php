@@ -139,6 +139,8 @@ class pingyo
                 $post->Employer->incomeCycle = 14;
             case 'LastDayMonth':
                 $post->Employer->incomeCycle = 14;
+            case 'Monthly':
+                $post->Employer->incomeCycle = 8;
         }
         switch ($post->Employer->incomePaymentType) {
             case 'Cash':
