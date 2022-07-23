@@ -126,8 +126,8 @@ class USLeadController extends Controller
 //        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
 
         // Is application valid, if not return errors
-        $this->application_validate($validated);
-        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
+//        $this->application_validate($validated);
+//        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);
