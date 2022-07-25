@@ -175,8 +175,10 @@ class Mapping extends Model
      */
     public static function GetBuyer($search, $post)
     {
-        $vendor = Partner::where('vendor_id', '=', $post['vid'])->first();
+        $vendor = Partner::where('vendor_id', $post['vid'])->first();
         $post['vendor_id'] = $vendor->id;
+
+        Log::debug('BS:: ', (array) $post['vendor_id']);
 
         $search = (array)$search;
 //        $search['vid'] = $post['vendor_id'];
