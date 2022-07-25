@@ -106,12 +106,12 @@ class Mapping extends Model
 //            $buyers->where('buyer_setups.timeout', '<=', $search['timeout']);
 //        }
 
-//        if (!empty($search['min_price'] && $search['min_price'] !== '0.00')) {
-//            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
-//        }
-//        if (!empty($search['max_price'] && $search['max_price']  !== '0.00')) {
-//            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
-//        }
+        if (!empty($search['min_price'] && $search['min_price'] !== '0.00')) {
+            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
+        }
+        if (!empty($search['max_price'] && $search['max_price']  !== '0.00')) {
+            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
+        }
 
         if (!empty($search['mode'])) {
             $buyers = $buyers->where('buyer_setups.mode', $search['mode']);
@@ -180,14 +180,14 @@ class Mapping extends Model
 
         $search = (array)$search;
         $search['vid'] = $post['vendor_id'];
-//        if ($post['minCommissionAmount'] == "0") {
-//            $post['minCommissionAmount'] = "0.00";
-//        }
-//        if ($post['maxCommissionAmount'] == "0") {
-//            $post['maxCommissionAmount'] = "0.00";
-//        }
-//        $search['min_price'] = $post['minCommissionAmount'] ?? "0.00";
-//        $search['max_price'] = $post['maxCommissionAmount'] ?? "0.00";
+        if ($post['minCommissionAmount'] == "0") {
+            $post['minCommissionAmount'] = "0.00";
+        }
+        if ($post['maxCommissionAmount'] == "0") {
+            $post['maxCommissionAmount'] = "0.00";
+        }
+        $search['min_price'] = $post['minCommissionAmount'] ?? "0.00";
+        $search['max_price'] = $post['maxCommissionAmount'] ?? "0.00";
         $search['timeout'] = $post['timeout'] ?? "210";
 
         Log::debug('search() called ::', (array)$search);
