@@ -302,7 +302,7 @@ class pingyo
 
         $this->response['validated'] = true;
         if ($this->response['validated'] === true) {
-            $status = new Status('202', null, $CorrelationId, null);
+            $status = new Status('202', $appResponse, $CorrelationId, null);
             Log::debug('RESP STATUS::', (array)$status);
 
             $counter = 0;
