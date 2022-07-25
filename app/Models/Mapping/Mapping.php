@@ -106,12 +106,12 @@ class Mapping extends Model
 //            $buyers->where('buyer_setups.timeout', '<=', $search['timeout']);
 //        }
 
-        if (!empty($search['min_price'] && $search['min_price'] !== '0.00')) {
-            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
-        }
-        if (!empty($search['max_price'] && $search['max_price']  !== '0.00')) {
-            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
-        }
+//        if (!empty($search['min_price'] && $search['min_price'] !== '0.00')) {
+//            $buyers->where('buyer_setups.tier_price', '>=', $search['min_price']);
+//        }
+//        if (!empty($search['max_price'] && $search['max_price']  !== '0.00')) {
+//            $buyers->where('buyer_setups.tier_price', '<=', $search['max_price']);
+//        }
 
         if (!empty($search['mode'])) {
             $buyers = $buyers->where('buyer_setups.mode', $search['mode']);
