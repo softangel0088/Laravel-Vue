@@ -62,7 +62,7 @@ class Status
         Log::debug('Status Output::', (array) $server_output->object());
         Log::debug('Status Output2::', (array) $server_output->body());
         Log::debug('Status Output3::', (array) $server_output->json());
-        $res = $server_output->object();
+        $res = $server_output->body();
         Log::debug('Status Output::', (array) $res);
 
 
