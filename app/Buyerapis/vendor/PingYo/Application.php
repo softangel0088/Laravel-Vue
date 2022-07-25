@@ -101,7 +101,7 @@ class Application
             $server_output = $output->object();
 
             Log::debug('PingYo Post Resp::', (array) $output->object());
-            Log::debug("got response with code " . $output->status() . ': ' . $server_output);
+            Log::debug("got response with code " . $output->status() . ': ' . (array)$server_output);
 
 
         if ($output->status() == 403) {
