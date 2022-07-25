@@ -121,7 +121,7 @@ class Application
         if ($output->successful()) {
             $CorrelationId = $server_output->correlationid;
 
-                return new Status($output->status(), $output, $CorrelationId, null);
+                return new Status($output->status(), $server_output, $CorrelationId, null);
 
             } else {
             Log::debug('PingYo POST Error::', (array)$output);
