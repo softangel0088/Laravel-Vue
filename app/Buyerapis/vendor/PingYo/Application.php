@@ -98,9 +98,9 @@ class Application
 
 
             $output = Http::post("https://leads.pingyo.co.uk/application/submit", $application);
-            $server_output = $output->body();
+            $server_output = $output->object();
 
-            Log::debug('PingYo Post Resp::', (array) $output->body());
+            Log::debug('PingYo Post Resp::', (array) $output->object());
             Log::debug("got response with code " . $output->status() . ': ' . $server_output);
 
 //            if (isset($server_output->Errors)) {
