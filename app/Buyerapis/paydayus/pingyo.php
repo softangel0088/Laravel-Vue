@@ -285,7 +285,7 @@ class pingyo
 //                $temp_errors = $application_status;
 //                $temp_errors = json_decode($temp_errors, true);
 //
-//                if (isset($temp_errors['Errors'])) {
+//                if (isset($application_status['Errors'])) {
 //                    echo $application_status;
 //                    die();
 //                }
