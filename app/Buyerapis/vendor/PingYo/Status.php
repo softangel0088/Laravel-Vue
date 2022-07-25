@@ -59,11 +59,11 @@ class Status
         Log::debug("PingYo Status::refresh()");
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
+        $res = $server_output->json();
+        Log::debug('Status Output::', (array) $res);
 
-        Log::debug('Status Output::', (array) $server_output);
 
-
-        $r = json_decode($server_output);
+        $r = json_decode($res);
         Log::debug('Status RESP::', (array) $r);
 
         if (isset($r->PercentageComplete)) {
