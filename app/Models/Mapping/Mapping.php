@@ -181,7 +181,7 @@ class Mapping extends Model
         Log::debug('BS:: ', (array) $post['vendor_id']);
 
         $search = (array)$search;
-//        $search['vid'] = $post['vendor_id'];
+        $search['vid'] = $post['vendor_id'];
 //        if ($post['minCommissionAmount'] == "0") {
 //            $post['minCommissionAmount'] = "0.00";
 //        }
