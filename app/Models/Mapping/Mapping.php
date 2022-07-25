@@ -180,8 +180,8 @@ class Mapping extends Model
 
         $search = (array)$search;
         $search['vid'] = $post['vendor_id'];
-        $search['min_price'] = $post['minCommissionAmount'] ?? "0";
-        $search['max_price'] = $post['maxCommissionAmount'] ?? "0";
+//        $search['min_price'] = $post['minCommissionAmount'] ?? "0";
+//        $search['max_price'] = $post['maxCommissionAmount'] ?? "0";
         $search['timeout'] = $post['timeout'] ?? "210";
 
         Log::debug('search() called ::', (array)$search);
