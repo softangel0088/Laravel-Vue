@@ -59,7 +59,7 @@ class Status
         Log::debug("PingYo Status::refresh()");
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
-        $res = $server_output->body();
+        $res = $server_output->object();
         Log::debug('Status Output::', (array) $res);
 
 
