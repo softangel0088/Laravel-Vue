@@ -59,11 +59,11 @@ class Status
         Log::debug("PingYo Status::refresh()");
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
-        Log::debug('Status Output::', (array) $server_output->object());
-        Log::debug('Status Output2::', (array) $server_output->body());
-        Log::debug('Status Output3::', (array) $server_output->json());
+        Log::debug('Status Output1::', (array) $server_output->body());
+//        Log::debug('Status Output2::', (array) $server_output->body());
+//        Log::debug('Status Output3::', (array) $server_output->json());
         $res = $server_output->body();
-        Log::debug('Status Output::', (array) $res);
+        Log::debug('Status Output2::', (array) $res);
 
 
 //        $r = json_decode($res);
