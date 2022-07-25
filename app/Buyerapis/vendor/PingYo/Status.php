@@ -63,8 +63,8 @@ class Status
         Log::debug('Status Output::', (array) $res);
 
 
-        $r = json_decode($res);
-        Log::debug('Status RESP::', (array) $r);
+//        $r = json_decode($res);
+//        Log::debug('Status RESP::', (array) $r);
 
         if (isset($r->PercentageComplete)) {
             $this->percentagecomplete = $r->PercentageComplete;
