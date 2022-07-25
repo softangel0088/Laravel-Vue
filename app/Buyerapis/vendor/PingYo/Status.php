@@ -31,7 +31,7 @@ class Status
             $this->correlationid = $correlationid;
             $this->statuscheckurl = '/application/status/' . $correlationid;
         } else {
-            $r = json_decode($json_response);
+//            $r = json_decode($json_response);
 
             $this->httpcode = $http_code;
             if (isset($r->Errors)) {
