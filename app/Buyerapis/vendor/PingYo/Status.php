@@ -23,7 +23,7 @@ class Status
     function __construct(
         $http_code,
         $json_response,
-        $correlationid = null,
+        $correlationid,
         \Psr\Log\LoggerInterface $logger = null
     )
     {

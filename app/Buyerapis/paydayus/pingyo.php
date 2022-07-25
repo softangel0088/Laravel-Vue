@@ -297,9 +297,8 @@ class pingyo
         Log::debug('APP RESP::', (array)$appResponse);
 
 
-        Log::debug('APP RESP::', (array)$appResponse->correlationid);
+        Log::debug('APP RESP1::', (array)$appResponse->correlationid);
         $CorrelationId = $appResponse->correlationid;
-
 
         $this->response['validated'] = true;
         if ($this->response['validated'] === true) {
