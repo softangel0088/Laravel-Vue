@@ -282,13 +282,13 @@ class pingyo
                 Log::debug('STATUS::', (array)$application_status);
 
 
-                $temp_errors = $application_status;
-                $temp_errors = json_decode($temp_errors, true);
-
-                if (isset($temp_errors['Errors'])) {
-                    echo $application_status;
-                    die();
-                }
+//                $temp_errors = $application_status;
+//                $temp_errors = json_decode($temp_errors, true);
+//
+//                if (isset($temp_errors['Errors'])) {
+//                    echo $application_status;
+//                    die();
+//                }
 
             $this->response['application_response'] = $application_status;
 
