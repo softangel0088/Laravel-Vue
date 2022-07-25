@@ -93,15 +93,15 @@ class Mapping extends Model
      */
     private static function filterBuyers(array $search, Builder $buyers)
     {
-        if (!empty($search['tier'])) {
-            if ($search['tier'] == '0') {
-                $buyers->orderBy('buyer_setups.tier_price', 'DESC');
-            } else {
-                if ($search['tier'] != '0') {
-                    $buyers->where('buyer_setups.buyer_tier_id', '=', $search['tier']);
-                }
-            }
-        }
+//        if (!empty($search['tier'])) {
+//            if ($search['tier'] == '0') {
+//                $buyers->orderBy('buyer_setups.tier_price', 'DESC');
+//            } else {
+//                if ($search['tier'] != '0') {
+//                    $buyers->where('buyer_setups.buyer_tier_id', '=', $search['tier']);
+//                }
+//            }
+//        }
 //        if (!empty($search['timeout'])) {
 //            $buyers->where('buyer_setups.timeout', '<=', $search['timeout']);
 //        }
