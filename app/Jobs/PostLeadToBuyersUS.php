@@ -203,10 +203,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                     $lead = USLead::where('lead_id', $post->lead_id)->first();
 
                     // Lead accepted By BUYER
-                    if (isset($lender_response['post_price']) &&
-                        isset($lender_response['accept']) &&
-
-                        $lender_response['accept'] == 'ACCEPTED') {
+                    if (isset($lender_response['post_price']) && isset($lender_response['accept']) && $lender_response['accept'] == 'ACCEPTED') {
                         $lead_status = 1;
 
                         // Get lender price and sub margin.
@@ -233,6 +230,29 @@ class PostLeadToBuyersUS implements ShouldQueue
 
                         // Conditional Response Data
                         return $conditional_data = $this->lead_response($lead, $row, $price, $lead_status);
+
+                    }
+
+                    // Errors
+                    if (isset($lender_response['accept']) && $lender_response['accept'] == 'Errors') {
+
+                        $lead_status = 2;
+                        $price = '0.00';
+
+                        $decline_response = $this->lead_response($lead, $row, $price, $lead_status);
+
+                        $index++;
+                        if ($index >= $length) {
+                            $this->status_check->percentage = 100;
+                            $this->status_check->save();
+                            Log::debug('Status Check::', (array)$this->status_check);
+                            return $decline_response;
+                        } else {
+                            $this->status_check->percentage = (($index) / $length) * 100;
+                            Log::debug('Status Check::', (array)$this->status_check);
+                            $this->status_check->save();
+                            continue;
+                        }
 
                     }
 

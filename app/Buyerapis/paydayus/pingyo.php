@@ -345,10 +345,11 @@ class pingyo
     public function validation_errors($appResponse)
     {
         $response['errors'] = 'Validation Failed';
+        $response['accept'] = 'Errors';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
         $response['post_time'] = $appResponse->post_time ?? '0';
-        $response['LenderFound'] = 'Errors';
+        $response['LenderFound'] = 'Declined';
         return $response;
     }
 
@@ -361,7 +362,7 @@ class pingyo
         $response['accept'] = 'REJECTED';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse->post_time;
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'Declined';
 
         return $response;
@@ -379,7 +380,7 @@ class pingyo
         $response['post_price'] = $status->estimatedcommission->Amount;
         $response['post_status'] = '1';
         $response['redirect_url'] = $status->redirecturl;
-        $response['post_time'] = $appResponse->post_time;
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'LenderFound';
         return $response;
     }
@@ -394,7 +395,7 @@ class pingyo
         $response['accept'] = 'ACCEPTED';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse->post_time;
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'LenderFound';
 
         return $response;
