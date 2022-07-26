@@ -177,7 +177,6 @@ class PostLeadToBuyersUS implements ShouldQueue
         $buyer_list = json_decode(json_encode($buyer_list), true);
 
 
-
         if (is_array($buyer_list) && !empty($buyer_list)) {
             $index = 0;
             $length = count($buyer_list);
@@ -216,7 +215,9 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $this->update_lead_status($lender_response, $row, $lead, $price);
 
                         // Accepted Response Data
-                        return $accepted_data = $this->lead_response($lead, $row, $price, $lead_status);
+                        $accepted_data = $this->lead_response($lead, $row, $price, $lead_status);
+
+                        $data = $accepted_data;
 
                     }
                     // Lead Conditionally accepted By BUYER
@@ -229,7 +230,8 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $this->update_lead_status($lender_response, $row, $lead, $price);
 
                         // Conditional Response Data
-                        return $conditional_data = $this->lead_response($lead, $row, $price, $lead_status);
+                         $conditional_data = $this->lead_response($lead, $row, $price, $lead_status);
+                        $data = $conditional_data;
 
                     }
 
@@ -246,7 +248,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                             $this->status_check->percentage = 100;
                             $this->status_check->save();
                             Log::debug('Status Check::', (array)$this->status_check);
-                            return $decline_response;
+                            $data = $decline_response;
                         } else {
                             $this->status_check->percentage = (($index) / $length) * 100;
                             Log::debug('Status Check::', (array)$this->status_check);
@@ -257,9 +259,9 @@ class PostLeadToBuyersUS implements ShouldQueue
                     }
 
                     // Lead Declined By BUYER
-                if (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
+                    if (isset($lender_response['accept']) && $lender_response['accept'] == 'REJECTED') {
 
-                    // Monetize declines.
+                        // Monetize declines.
 
                         $lead_status = 2;
                         $price = '0.00';
@@ -271,7 +273,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                             $this->status_check->percentage = 100;
                             $this->status_check->save();
                             Log::debug('Status Check::', (array)$this->status_check);
-                            return $decline_response;
+                            $data = $decline_response;
                         } else {
                             $this->status_check->percentage = (($index) / $length) * 100;
                             Log::debug('Status Check::', (array)$this->status_check);
@@ -287,13 +289,15 @@ class PostLeadToBuyersUS implements ShouldQueue
             $data = $this->no_lender_found($post);
             Log::debug('no_lender_found() called');
 
-            return $data;
+//            $data;
         }
+
+        return (array) $data;
+    }
 //        $data = $this->no_lender_found($post);
 //        Log::debug('no_lender_found() called');
 //
 //        return $data;
-    }
 
     /**
      * Get Ping-tree EPL
