@@ -347,7 +347,7 @@ class pingyo
         $response['errors'] = 'Validation Failed';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse->post_time;
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'Errors';
         return $response;
     }
