@@ -281,8 +281,8 @@ class pingyo
                 $application_status = (new Application)->send($application);
                 Log::debug('STATUS::', (array)$application_status);
 
-                if (is_null($application_status->correlationid)) {
-                    echo $application_status->Errors;
+                if (is_null($application_status->Errors)) {
+                    echo $application_status;
                     die();
                 }
 
