@@ -100,7 +100,8 @@ class Application
             $output = Http::post("https://leads.pingyo.co.uk/application/submit", $application);
             $server_output = $output->object();
 
-            Log::debug('PingYo Post Resp::', (array) $output->object());
+            Log::debug('PingYo Post Resp::', (array) $server_output);
+            Log::debug('PingYo CorrelationId::', (array) $server_output->CorrelationId);
             Log::debug("got response with code " . $output->status());
 
 
