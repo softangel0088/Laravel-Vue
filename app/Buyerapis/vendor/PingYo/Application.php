@@ -110,7 +110,7 @@ class Application
 
 
         if ($output->successful()) {
-            $CorrelationId = $server_output->correlationid;
+            $CorrelationId = $server_output->CorrelationId;
 
                 return new Status($output->status(), $server_output, $CorrelationId, null);
 

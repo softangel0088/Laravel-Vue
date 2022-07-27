@@ -220,6 +220,7 @@ class PostLeadToBuyersUS implements ShouldQueue
                         $data = $accepted_data;
 
                     }
+
                     // Lead Conditionally accepted By BUYER
                     if (isset($lender_response['accept']) && $lender_response['accept'] == 'CONDITIONAL') {
 
