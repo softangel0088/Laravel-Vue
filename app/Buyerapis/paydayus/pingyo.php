@@ -259,7 +259,7 @@ class pingyo
         Log::debug('APP RESP::', (array)$appResponse);
 
 
-        if (!is_null($appResponse->Errors)) {
+        if ($appResponse->errors !== "") {
             $this->response = $this->validation_errors($appResponse);
         } else {
 
