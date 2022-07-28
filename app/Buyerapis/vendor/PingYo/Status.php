@@ -34,7 +34,7 @@ class Status
 //            $r = json_decode($json_response);
 
             $this->httpcode = $http_code;
-            if (isset($r->errors)) {
+            if (isset($r->Errors)) {
                 $this->errors = $r->Errors;
             }
             if (isset($r->correlationid)) {
