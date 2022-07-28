@@ -271,6 +271,16 @@ class pingyo
                 $status = new Status('202', $appResponse, $CorrelationId, null);
                 Log::debug('RESP STATUS::', (array)$status);
 
+
+                $xmlFile = file_get_contents($status));
+
+                $xmlObject = simplexml_load_string($xmlFile);
+
+                $jsonFormatData = json_encode($xmlObject);
+                $appResponse = json_decode($jsonFormatData, true);
+
+//                dd($appResponse);
+
                 $counter = 0;
                 while (true) {
                     $res = $status->refresh();
