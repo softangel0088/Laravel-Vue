@@ -34,17 +34,17 @@ class Status
 //            $r = json_decode($json_response);
 
             $this->httpcode = $http_code;
-            if (isset($r->Errors)) {
-                $this->errors = $r->Errors;
+            if (isset($r['Errors'])) {
+                $this->errors = $r['Errors'];
             }
             if (isset($r->CorrelationId)) {
-                $this->correlationid = $r->CorrelationId;
+                $this->correlationid = $r['CorrelationId'];
             }
             if (isset($r->Message)) {
-                $this->message = $r->Message;
+                $this->message = $r['Message'];
             }
             if (isset($r->StatusCheckUrl)) {
-                $this->statuscheckurl = $r->StatusCheckUrl;
+                $this->statuscheckurl = $r['StatusCheckUrl'];
             }
         }
     }
