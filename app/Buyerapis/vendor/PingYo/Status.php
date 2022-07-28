@@ -34,17 +34,17 @@ class Status
 //            $r = json_decode($json_response);
 
             $this->httpcode = $http_code;
-            if (isset($r->Errors)) {
+            if (isset($r->errors)) {
                 $this->errors = $r->Errors;
             }
-            if (isset($r->CorrelationId)) {
-                $this->correlationid = $r->CorrelationId;
+            if (isset($r->correlationid)) {
+                $this->correlationid = $r->correlationid;
             }
-            if (isset($r->Message)) {
-                $this->message = $r->Message;
+            if (isset($r->message)) {
+                $this->message = $r->message;
             }
-            if (isset($r->StatusCheckUrl)) {
-                $this->statuscheckurl = $r->StatusCheckUrl;
+            if (isset($r->statuscheckurl)) {
+                $this->statuscheckurl = $r->statuscheckurl;
             }
         }
     }
@@ -60,27 +60,27 @@ class Status
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
         Log::debug('Status Output1::', (array) $server_output->object());
-        $res = $server_output->object();
-        Log::debug('Status Output2::', (array) $res);
+        $r = $server_output->object();
+        Log::debug('Status Output2::', (array) $r);
 
 
 //        $r = json_decode($res);
 //        Log::debug('Status RESP::', (array) $r);
 
-        if (isset($r->PercentageComplete)) {
-            $this->percentagecomplete = $r->PercentageComplete;
+        if (isset($r->percentagecomplete)) {
+            $this->percentagecomplete = $r->percentagecomplete;
         }
-        if (isset($r->RedirectionUrl)) {
-            $this->redirecturl = $r->RedirectionUrl;
+        if (isset($r->redirecturl)) {
+            $this->redirecturl = $r->redirecturl;
         }
-        if (isset($r->Message)) {
-            $this->message = $r->Message;
+        if (isset($r->message)) {
+            $this->message = $r->message;
         }
-        if (isset($r->Status)) {
-            $this->status = $r->Status;
+        if (isset($r->status)) {
+            $this->status = $r->status;
         }
-        if (isset($r->EstimatedCommission)) {
-            $this->estimatedcommission = $r->EstimatedCommission;
+        if (isset($r->estimatedcommission)) {
+            $this->estimatedcommission = $r->estimatedcommission;
         }
 
         return $r;
