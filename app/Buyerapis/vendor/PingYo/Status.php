@@ -63,7 +63,6 @@ class Status
         Log::debug('Status Output1::', (array) $server_output->object());
         Log::debug('Status Output1::', (array) $server_output->json());
         Log::debug('Status Output2::', (array) $server_output->body());
-        Log::debug('Status Output3::', (array) $server_output);
         Log::debug('Status Output4::', (array) $server_output);
         $r = $server_output->object();
         Log::debug('Status Output2::', (array) $r);
