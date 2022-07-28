@@ -38,13 +38,13 @@ class Status
                 $this->errors = $r->Errors;
             }
             if (isset($r->CorrelationId)) {
-                $this->correlationid = $r->correlationid;
+                $this->correlationid = $r->CorrelationId;
             }
-            if (isset($r->message)) {
+            if (isset($r->Message)) {
                 $this->message = $r->Message;
             }
             if (isset($r->StatusCheckUrl)) {
-                $this->statuscheckurl = $r->statuscheckurl;
+                $this->statuscheckurl = $r->StatusCheckUrl;
             }
         }
     }
