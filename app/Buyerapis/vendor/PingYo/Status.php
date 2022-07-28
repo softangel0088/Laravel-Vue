@@ -57,6 +57,7 @@ class Status
     public function refresh()
     {
         Log::debug("PingYo Status::refresh()");
+        Log::debug('Status URL::', (array) $this->statuscheckurl);
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
         Log::debug('Status Output1::', (array) $server_output->object());
