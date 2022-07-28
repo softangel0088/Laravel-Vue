@@ -195,7 +195,7 @@ class LeadPostRequestUS extends FormRequest
             'employer.followingPayDateYear' => 'min:4', 'max:4', 'size:4',
 
 
-            'bank.bankPhone' => 'min:10', 'numeric',
+//            'bank.bankPhone' => 'min:10', 'numeric',
             'bank.bankName' => 'required', 'min:2', 'max:64',
             'bank.bankAccountType' => [
                     'required',

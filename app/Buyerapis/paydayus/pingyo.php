@@ -15,11 +15,15 @@ class pingyo
     {
 
 
+//        dd($post);
+
         $dob_day = $post->Applicant->dateOfBirthDay;
         $dob_month = $post->Applicant->dateOfBirthMonth;
         $dob_year = $post->Applicant->dateOfBirthYear;
+
         $dob = new DateTime($dob_year . '/' . $dob_month . '/' . $dob_day, new DateTimeZone("UTC"));
         $dateOfBirth = '/Date(' . ($dob->getTimestamp() * 1000) . ')/';
+
 
         $next_pay_date_day = $post->Employer->nextPayDateDay;
         $next_pay_date_month = $post->Employer->nextPayDateMonth;
@@ -230,6 +234,7 @@ class pingyo
 
         $this->response['timeout'] = $client_detail->timeout;
         $this->response['post_url'] = ($client_detail->status == '0') ? $client_detail->post_url_test : $client_detail->post_url_live;
+
 
         $validation_result = (new Application)->pre_validate($application);
         if ($validation_result == true) {

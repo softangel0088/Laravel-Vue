@@ -20,15 +20,20 @@ class LeadValidate extends Model
 {
     use HasFactory;
 
+
+
     /**
-     * @param LeadPostRequestUS $request
+     * @param  $post
      * @return bool
      */
-    public function validate_data(LeadPostRequestUS $request)
+    public function validate_data($post)
     {
-        $applicant = $request['applicant'];
-        $employer = $request['employer'];
-        $zip = $request->residence['zip'];
+        $post = $this->format_dates($post);
+
+        $applicant = $post->applicant;
+        $employer = $post->employer;
+        $zip = $post->residence->zip;
+
 
         $this->check_pay_dates($employer);
 //        $this->check_phone_numbers($applicant, 'US');
@@ -51,14 +56,14 @@ class LeadValidate extends Model
 
 
     /**
-     * @param LeadPostRequest $request
+     * @param  $post
      * @return bool
      */
-    public function validate_data_uk(LeadPostRequest $request)
+    public function validate_data_uk($post)
     {
-        $applicant = $request['applicant'];
-        $employer = $request['employer'];
-        $postcode = $request->residence['postcode'];
+        $applicant = $post->applicant;
+        $employer = $post->employer;
+        $postcode = $post->residencepostcode;
 
         $this->check_pay_dates($employer);
         $this->check_phone_numbers($applicant, 'GB');
@@ -66,10 +71,10 @@ class LeadValidate extends Model
 
         return true;
 
-//        $email = $request->applicant['email'];
+//        $email = $request->applicant['email;
 //        $validate_email = IPQS::verify_email($email);
 //        $validate_phone = IPQS::verify_phone($mobilePhoneNumber);
-//        $validated_bank_details = $this->validate_bank($request['bank']);
+//        $validated_bank_details = $this->validate_bank($post->bank']);
     }
 
 
@@ -129,17 +134,17 @@ class LeadValidate extends Model
     }
 
     /**
-     * @param array $applicant
-     * @return bool|JsonResponse
+     * @param object $employer
+     * @return bool
      */
-    private function check_pay_dates($applicant)
+    private function check_pay_dates(object $employer)
     {
 
-        $npd = Carbon::createFromDate($applicant['nextPayDateYear'] , $applicant['nextPayDateMonth'] , $applicant['nextPayDateDay']);
-        $fpd = Carbon::createFromDate($applicant['followingPayDateYear'] . '/' . $applicant['followingPayDateMonth'] . '/' . $applicant['followingPayDateDay']);
+        $npd = Carbon::createFromDate($employer->nextPayDateYear , $employer->nextPayDateMonth , $employer->nextPayDateDay);
+        $fpd = Carbon::createFromDate($employer->followingPayDateYear . '/' . $employer->followingPayDateMonth . '/' . $employer->followingPayDateDay);
 
 
-        $this->dates_are_in_past($npd, $fpd);
+//        $this->dates_are_in_past($npd, $fpd);
         $this->dates_are_weekend($npd, $fpd);
 
         return true;
@@ -344,6 +349,33 @@ class LeadValidate extends Model
         } else {
             return true;
         }
+    }
+
+    /**
+     * @param $post
+     * @return mixed
+     */
+    private function format_dates($post)
+    {
+        if ($post->applicant->dateOfBirthMonth > '12'){
+            $post->applicant->dateOfBirthMonth = $post->employer->dateOfBirthDay;
+            $post->applicant->dateOfBirthDay = $post->employer->dateOfBirthMonth;
+        }
+        if ($post->employer->nextPayDateMonth > '12'){
+            $nextPayDateDay = $post->employer->nextPayDateDay;
+            $nextPayDateMonth = $post->employer->nextPayDateMonth;
+
+            $post->employer->nextPayDateMonth = $nextPayDateDay;
+            $post->employer->nextPayDateDay = $nextPayDateMonth;
+        }
+        if ($post->employer->followingPayDateMonth > '12'){
+            $post->employer->followingPayDateMonth = $post->employer->followingPayDateDay;
+            $post->employer->followingPayDateDay = $post->employer->followingPayDateMonth;
+
+        }
+
+        return $post;
+
     }
 
 }
