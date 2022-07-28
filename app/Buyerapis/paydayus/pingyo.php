@@ -15,52 +15,11 @@ class pingyo
     {
 
 
-//        dd($post);
-
         $dob_day = $post->Applicant->dateOfBirthDay;
         $dob_month = $post->Applicant->dateOfBirthMonth;
         $dob_year = $post->Applicant->dateOfBirthYear;
-        if (strlen($dob_day) < 2) {
-            $dob_day = '0' . $dob_day;
-        }
-        if (strlen($dob_month) < 2) {
-            $dob_month = '0' . $dob_month;
-        }
-
-        if ($dob_month > '12') {
-            try {
-                $dob = new DateTime($dob_year . '/' . $dob_day . '/' . $dob_month, new DateTimeZone("UTC"));
-                $dateOfBirth = '/Date(' . ($dob->getTimestamp() * 1000) . ')/';
-                Log::debug('DOB Month > 12::', (array)$dateOfBirth);
-            } catch (Exception $e) {
-                $dob = strtotime($dob_year . '/' . $dob_day . '/' . $dob_month);
-                $dateOfBirth = '/Date(' . $dob . ')/';
-                Log::debug('DOB CATCH::', (array)$dateOfBirth);
-
-                if ($dob === '') {
-                    $dob = date("U", strtotime($dob_year . '/' . $dob_day . '/' . $dob_month));
-                    $dateOfBirth = '/Date(' . $dob . ')/';
-                    Log::debug('DOB EMPTY::', (array)$dateOfBirth);
-                }
-            }
-        } else {
-            try {
-                $dob = new DateTime($dob_year . '/' . $dob_month . '/' . $dob_day, new DateTimeZone("UTC"));
-                $dateOfBirth = '/Date(' . ($dob->getTimestamp() * 1000) . ')/';
-                Log::debug('DOB TRY::', (array)$dateOfBirth);
-            } catch (Exception $e) {
-                $dob = strtotime($dob_year . '/' . $dob_month . '/' . $dob_day);
-                $dateOfBirth = '/Date(' . $dob . ')/';
-                Log::debug('DOB CATCH::', (array)$dateOfBirth);
-
-                if ($dob === '') {
-                    $dob = date("U", strtotime($dob_year . '/' . $dob_month . '/' . $dob_day));
-                    $dateOfBirth = '/Date(' . $dob . ')/';
-                    Log::debug('DOB EMPTY::', (array)$dateOfBirth);
-                }
-            }
-        }
-
+        $dob = new DateTime($dob_year . '/' . $dob_month . '/' . $dob_day, new DateTimeZone("UTC"));
+        $dateOfBirth = '/Date(' . ($dob->getTimestamp() * 1000) . ')/';
 
         $next_pay_date_day = $post->Employer->nextPayDateDay;
         $next_pay_date_month = $post->Employer->nextPayDateMonth;

@@ -34,6 +34,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
@@ -114,6 +115,21 @@ class USLeadController extends Controller
         return Response::json(['lead' => $lead, 'recentApplications' => $recentApplications]);
     }
 
+    public function test_response($request)
+    {
+
+        return Http::get('https://jsonplaceholder.typicode.com/todos/1');
+
+//        $test_array = array(
+//            'CorrelationId' => Str::uuid(),
+//            'StatusCheckUrl' => '/application/status/e6e25f77-f090-4c73-984b-d498d00ac975',
+//        );
+//        $eee =  Http::response($test_array);
+//        dd($eee);
+//        return Response::json($test_array);
+//        return Http::get('https://example.com', (array) $request);
+
+    }
 
     /**
      * This function accepts applications and sends it to the job for processing.
@@ -122,11 +138,13 @@ class USLeadController extends Controller
     public function post(LeadPostRequestUS $request)
     {
         Log::debug('LEAD PASSED INITIAL VALIDATION 1');
-//        $validated = (new LeadValidate)->validate_data($request);
+//        $test_response = $this->test_response($request);
+
+        $validated = (new LeadValidate)->validate_data($request);
 //        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
 
         // Is application valid, if not return errors
-//        $this->application_validate($validated);
+        $this->application_validate($validated);
 //        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
 
         // Check Lead Quality
@@ -640,7 +658,7 @@ class USLeadController extends Controller
             ]);
         }
 
-        return $validated;
+        return true;
     }
 
     /**
