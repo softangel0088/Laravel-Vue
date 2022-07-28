@@ -61,6 +61,7 @@ class Status
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
         Log::debug('Status Output1::', (array) $server_output->object());
+        Log::debug('Status Output1::', (array) $server_output);
         $r = $server_output->object();
         Log::debug('Status Output2::', (array) $r);
 
