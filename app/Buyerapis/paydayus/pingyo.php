@@ -291,13 +291,13 @@ class pingyo
                 Log::debug('POST RES :: ', (array) $this->response);
                 Log::debug('RESP3 :: ', (array)$status);
 
-                if ($status['status'] == 'LenderMatchFound') {
+                if ($status->status == 'LenderMatchFound') {
                    $this->response = $this->lender_found($appResponse, $status);
 
-                } elseif ($status['status'] == 'ConditionalLenderMatchFound') {
-                    $this->response = $this->conditional_lender_found($appResponse, $status);
+                } elseif ($status->status == 'ConditionalLenderMatchFound') {
+                    $this->response = $this->conditional_lender_found($appResponse);
 
-                } elseif ($status['status'] == 'NoLenderMatchFound') {
+                } elseif ($status->status == 'NoLenderMatchFound') {
                     $this->response = $this->no_lender_found($appResponse);
                 }
             }
