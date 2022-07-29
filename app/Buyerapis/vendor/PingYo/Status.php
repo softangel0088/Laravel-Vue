@@ -60,30 +60,27 @@ class Status
         Log::debug('Status URL::', (array) $this->statuscheckurl);
 
         $server_output = Http::get("http://leads.pingyo.co.uk" . $this->statuscheckurl);
-        Log::debug('Status Output1::', (array) $server_output->object());
-        Log::debug('Status Output1::', (array) $server_output->json());
+
         Log::debug('Status Output2::', (array) $server_output->body());
-        Log::debug('Status Output4::', (array) $server_output);
-        $r = $server_output->object();
-        Log::debug('Status Output2::', (array) $r);
+        $xml_obj  = $server_output->body();
+        Log::debug('Status Output2::', (array) $xml_obj);
 
 
-//        $r = json_decode($res);
-//        Log::debug('Status RESP::', (array) $r);
+        $r = simplexml_load_string($xml_obj);
 
-        if (isset($r->percentagecomplete)) {
+        if (isset($r->PercentageComplete)) {
             $this->percentagecomplete = $r->percentagecomplete;
         }
-        if (isset($r->redirecturl)) {
+        if (isset($r->RedirectUrl)) {
             $this->redirecturl = $r->redirecturl;
         }
-        if (isset($r->message)) {
+        if (isset($r->Message)) {
             $this->message = $r->message;
         }
-        if (isset($r->status)) {
+        if (isset($r->Status)) {
             $this->status = $r->status;
         }
-        if (isset($r->estimatedcommission)) {
+        if (isset($r->EstimatedCommission)) {
             $this->estimatedcommission = $r->estimatedcommission;
         }
 
