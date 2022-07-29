@@ -75,7 +75,7 @@ class Status
             $this->redirecturl = $r->RedirectUrl;
         }
         if (isset($r->Message)) {
-            $this->message = $r-Message;
+            $this->message = $r->Message;
         }
         if (isset($r->Status)) {
             $this->status = $r->Status;
