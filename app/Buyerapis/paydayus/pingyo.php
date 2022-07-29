@@ -286,7 +286,7 @@ class pingyo
                 $this->response['post_res'] = json_encode($res);
                 $this->response['correlationid'] = $CorrelationId;
 
-                (array) $this['response'];
+//                (array) $this['response'];
 
                 Log::debug('POST RES :: ', (array)$this['response']);
                 Log::debug('RESP3 :: ', (array)$status);
