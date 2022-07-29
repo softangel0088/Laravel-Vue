@@ -288,7 +288,7 @@ class pingyo
 
 //                (array) $this['response'];
 
-                Log::debug('POST RES :: ', (array)$this['response']);
+                Log::debug('POST RES :: ', (array) $this->response);
                 Log::debug('RESP3 :: ', (array)$status);
 
                 if ($status['status'] == 'LenderMatchFound') {
