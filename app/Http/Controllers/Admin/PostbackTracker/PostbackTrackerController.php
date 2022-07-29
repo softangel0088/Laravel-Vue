@@ -405,8 +405,8 @@ class PostbackTrackerController extends Controller
             'aff_sub5' => $data->aff_sub5 ?? ''
         );
 
-        $this->fire_postback($postbackUrl, $params);
-        Log::debug('Postback:: Fired');
+//        $this->fire_postback($postbackUrl, $params);
+//        Log::debug('Postback:: Fired');
 
 
     }
