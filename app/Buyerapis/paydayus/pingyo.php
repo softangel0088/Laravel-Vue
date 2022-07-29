@@ -277,7 +277,6 @@ class pingyo
                     Log::debug('STATUS REFRESH::', (array)$res);
                     $counter++;
                     if ($status['percentagecomplete'] == 100) {
-                        // no interest in this crap
                         break;
                     }
 
