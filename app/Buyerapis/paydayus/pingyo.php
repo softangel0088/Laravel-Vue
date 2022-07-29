@@ -351,7 +351,7 @@ class pingyo
      */
     public function lender_found($appResponse, $status)
     {
-        $response['accept'] = 'ACCEPTED',
+        $response['accept'] = 'ACCEPTED';
         $response['post_price'] = $status['estimatedcommission']['Amount'];
         $response['post_status'] = '1';
         $response['redirect_url'] = $status['redirecturl'];
