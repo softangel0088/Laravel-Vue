@@ -144,7 +144,7 @@ class LeadValidate extends Model
         $fpd = Carbon::createFromDate($employer->followingPayDateYear . '/' . $employer->followingPayDateMonth . '/' . $employer->followingPayDateDay);
 
 
-//        $this->dates_are_in_past($npd, $fpd);
+        $this->dates_are_in_past($npd, $fpd);
         $this->dates_are_weekend($npd, $fpd);
 
         return true;
