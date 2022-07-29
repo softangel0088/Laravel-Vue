@@ -272,7 +272,7 @@ class pingyo
                 Log::debug('RESP STATUS::', (array)$status);
 
 
-                $xmlFile = file_get_contents($status));
+                $xmlFile = file_get_contents($status);
 
                 $xmlObject = simplexml_load_string($xmlFile);
 
