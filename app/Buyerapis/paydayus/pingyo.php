@@ -362,10 +362,9 @@ class pingyo
 
     /**
      * @param $appResponse
-     * @param $status
      * @return array
      */
-    public function conditional_lender_found($appResponse, $status)
+    public function conditional_lender_found($appResponse)
     {
         $response['accept'] = 'ACCEPTED';
         $response['post_status'] = '0';
