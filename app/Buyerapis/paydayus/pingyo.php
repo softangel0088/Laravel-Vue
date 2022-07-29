@@ -285,6 +285,9 @@ class pingyo
 
                 $this->response['post_res'] = json_encode($res);
                 $this->response['correlationid'] = $CorrelationId;
+
+                (array) $this['response'];
+
                 Log::debug('POST RES :: ', (array)$this['response']);
                 Log::debug('RESP3 :: ', (array)$status);
 
@@ -312,7 +315,7 @@ class pingyo
         $response['accept'] = 'Errors';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse['post_time'] ?? '0';
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'Declined';
         return $response;
     }
@@ -326,7 +329,7 @@ class pingyo
         $response['accept'] = 'REJECTED';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse['post_time'] ?? '0';
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'Declined';
 
         return $response;
@@ -341,10 +344,10 @@ class pingyo
     public function lender_found($appResponse, $status)
     {
         $response['accept'] = 'ACCEPTED';
-        $response['post_price'] = $status['estimatedcommission']['Amount'];
+        $response['post_price'] = $status->estimatedcommission->Amount;
         $response['post_status'] = '1';
-        $response['redirect_url'] = $status['redirecturl'];
-        $response['post_time'] = $appResponse['post_time'] ?? '0';
+        $response['redirect_url'] = $status->redirecturl;
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'LenderFound';
         return $response;
     }
@@ -358,7 +361,7 @@ class pingyo
         $response['accept'] = 'ACCEPTED';
         $response['post_status'] = '0';
         $response['post_price'] = '0';
-        $response['post_time'] = $appResponse['post_time'] ?? '0';
+        $response['post_time'] = $appResponse->post_time ?? '0';
         $response['LenderFound'] = 'LenderFound';
 
         return $response;
