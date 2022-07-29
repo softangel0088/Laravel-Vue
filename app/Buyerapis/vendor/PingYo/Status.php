@@ -69,19 +69,19 @@ class Status
         $r = simplexml_load_string($xml_obj);
 
         if (isset($r->PercentageComplete)) {
-            $this->percentagecomplete = $r->percentagecomplete;
+            $this->percentagecomplete = $r->PercentageComplete;
         }
         if (isset($r->RedirectUrl)) {
-            $this->redirecturl = $r->redirecturl;
+            $this->redirecturl = $r->RedirectUrl;
         }
         if (isset($r->Message)) {
-            $this->message = $r->message;
+            $this->message = $r-Message;
         }
         if (isset($r->Status)) {
-            $this->status = $r->status;
+            $this->status = $r->Status;
         }
         if (isset($r->EstimatedCommission)) {
-            $this->estimatedcommission = $r->estimatedcommission;
+            $this->estimatedcommission = $r->EstimatedCommission;
         }
 
         return $r;
