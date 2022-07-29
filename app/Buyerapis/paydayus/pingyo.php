@@ -255,7 +255,7 @@ class pingyo
 
     public function returnresponse()
     {
-        $appResponse = $this->response['application_response'];
+        (object) $appResponse = $this->response['application_response'];
         Log::debug('APP RESP::', (array)$appResponse);
 
 
