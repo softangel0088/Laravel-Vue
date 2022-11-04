@@ -327,25 +327,27 @@ class PostbackTrackerController extends Controller
             die();
         }
 
-        // Check valid post-back
-        if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
-            $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
-            $valid_lead = USLead::where('lead_id', $request->lead_id)->first();
 
-//            $duplicate = collect($duplicate);
-//            if ($duplicate->isNotEmpty()) {
-//                echo 'Duplicate Postback';
-//                Log::debug('DUPLICATE', (array) $duplicate);
+//        // Check valid post-back
+//        if ($offer->id == 2 || $offer->id == 3 || $offer->id == 4 ) {
+//            $duplicate = PostbackLogs::where('lead_id', $request->lead_id)->first();
+//            $valid_lead = USLead::where('lead_id', $request->lead_id)->first();
+//
+////            $duplicate = collect($duplicate);
+////            if ($duplicate->isNotEmpty()) {
+////                echo 'Duplicate Postback';
+////                Log::debug('DUPLICATE', (array) $duplicate);
+////                die();
+////            }
+//            $valid_lead = collect($valid_lead);
+//            if ($valid_lead->isEmpty()) {
+//                echo 'Invalid Lead ID';
+//                Log::debug('Lead ID', (array) $duplicate);
 //                die();
 //            }
-
-            $valid_lead = collect($valid_lead);
-            if ($valid_lead->isEmpty()) {
-                echo 'Invalid Lead ID';
-                Log::debug('Lead ID', (array) $duplicate);
-                die();
-            }
-        }
+//        } else {
+//
+//        }
 
         Log::debug('DEBUG::', (array)$request->input());
         $transaction_id = $request->input('transaction_id');
@@ -407,9 +409,6 @@ class PostbackTrackerController extends Controller
 
         $this->fire_postback($postbackUrl, $params);
         Log::debug('Postback:: Fired');
-//        Log::debug('Postback:: Fired');
-
-
     }
 
 

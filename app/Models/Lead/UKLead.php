@@ -379,8 +379,6 @@ class UKLead extends Model
         } else {
             $search = $post['search'];
             $buyer_list = Mapping::GetBuyer($search, $post);
-
-//            dd($buyer_list);
             $post['buyer_list'] = $buyer_list;
         }
 
