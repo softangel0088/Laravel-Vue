@@ -380,7 +380,6 @@ class UKLead extends Model
             $search = $post['search'];
             $buyer_list = Mapping::GetBuyer($search, $post);
 
-            dd(333);
 //            dd($buyer_list);
             $post['buyer_list'] = $buyer_list;
         }
