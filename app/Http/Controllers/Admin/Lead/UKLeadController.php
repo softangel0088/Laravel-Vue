@@ -110,11 +110,11 @@ class UKLeadController extends Controller
     {
         Log::debug('LEAD PASSED INITIAL VALIDATION 1');
 //        $validated = (new LeadValidate)->validate_data_uk($request);
-        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
+//        Log::debug('LEAD PASSED INITIAL VALIDATION 2');
 
         // Is application valid, if not return errors
 //        $this->application_validate($validated);
-        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
+//        Log::debug('LEAD PASSED INITIAL VALIDATION 3');
 
         // Check Lead Quality
 //        $lead_quality = IPQS::quality_score($request);
@@ -122,6 +122,7 @@ class UKLeadController extends Controller
 
         // Decode the Application
         $post = json_decode($request->getContent());
+        Log::debug('POST::', (array) $post);
 
         // Retrieve Partner Account Status if AFF ID present.
         $this->partner_detail = $this->getPartnerDetails($post->vid, $this->leadtype);
