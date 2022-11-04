@@ -62,7 +62,7 @@ class LeadValidate extends Model
     public function validate_data_uk($post)
     {
         $applicant = $post->applicant;
-        $employer = $post->employer;
+        (object) $employer = $post->employer;
         $postcode = $post->residencepostcode;
 
         $this->check_pay_dates($employer);
