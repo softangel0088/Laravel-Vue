@@ -149,6 +149,7 @@ class PostLeadToBuyers implements ShouldQueue
      */
     public function BuyerPost($post): array
     {
+        Log::debug('JOB () called');
         // Get Buyers
         $post = UKLead::getBuyers($post);
 
