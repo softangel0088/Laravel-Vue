@@ -31,6 +31,8 @@ class PostbackLogs extends Model
         $postback_log = new PostbackLogs();
         $postback_log->lead_id = $request->lead_id ?? '';
 
+        $offer->internal = '1';
+
         if ($offer->internal == "1") {
             $vendor = Partner::where('vendor_id', '=', $request->partner_id)->first();
             $postback_log->partner_id = $vendor->id;

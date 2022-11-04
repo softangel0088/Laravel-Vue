@@ -384,6 +384,7 @@ class PostbackTrackerController extends Controller
             die();
         }
 
+        $internal_offer = '1';
 //         Update IP Quality Score Conversion
 //        $ipqs = IPQS::ipqs_update_conversion($data);
 
