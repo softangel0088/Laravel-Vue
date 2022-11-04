@@ -31,14 +31,14 @@ class PostbackLogs extends Model
         $postback_log = new PostbackLogs();
         $postback_log->lead_id = $request->lead_id ?? '';
 
-        $offer->internal = '1';
+//        $offer->internal = '1';
 
-        if ($offer->internal == "1") {
+//        if ($offer->internal == "1") {
             $vendor = Partner::where('vendor_id', '=', $request->partner_id)->first();
             $postback_log->partner_id = $vendor->id;
-        } else {
-            $postback_log->partner_id = $request->partner_id ?? '1';
-        }
+//        } else {
+//            $postback_log->partner_id = $request->partner_id ?? '1';
+//        }
         Log::debug('PB::', (array) $request->amount);
         $postback_log->offer_id = $request->offer_id ?? $offer->id;
         $postback_log->aff_sub = $request->aff_sub ?? 'NOT PROVIDED';
