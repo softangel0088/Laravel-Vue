@@ -152,6 +152,7 @@ class PostLeadToBuyers implements ShouldQueue
         Log::debug('JOB () called');
         // Get Buyers
         $post = UKLead::getBuyers($post);
+        Log::debug('POST :: ', (array)$post);
 
         // Check for high risk leads
         $post = $this->quality_score_tracker($post);
