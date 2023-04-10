@@ -17,7 +17,7 @@
         "giggsey/libphonenumber-for-php": "^8.12",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/horizon": "^5.9",
+        "laravel/horizon": "^5.10",
         "laravel/passport": "^10.3",
         "laravel/sanctum": "^2.14",
         "laravel/socialite": "^5.5",

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sentry;
 
 use GuzzleHttp\Promise\PromiseInterface;
-use Jean85\PrettyVersions;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Sentry\Integration\IntegrationInterface;
@@ -32,6 +31,11 @@ final class Client implements ClientInterface
      * The identifier of the SDK.
      */
     public const SDK_IDENTIFIER = 'sentry.php';
+
+    /**
+     * The version of the SDK.
+     */
+    public const SDK_VERSION = '3.11.0';
 
     /**
      * @var Options The client options
@@ -102,7 +106,7 @@ final class Client implements ClientInterface
         $this->representationSerializer = $representationSerializer ?? new RepresentationSerializer($this->options);
         $this->stacktraceBuilder = new StacktraceBuilder($options, $this->representationSerializer);
         $this->sdkIdentifier = $sdkIdentifier ?? self::SDK_IDENTIFIER;
-        $this->sdkVersion = $sdkVersion ?? PrettyVersions::getVersion('sentry/sentry')->getPrettyVersion();
+        $this->sdkVersion = $sdkVersion ?? self::SDK_VERSION;
     }
 
     /**
@@ -111,6 +115,30 @@ final class Client implements ClientInterface
     public function getOptions(): Options
     {
         return $this->options;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCspReportUrl(): ?string
+    {
+        $dsn = $this->options->getDsn();
+
+        if (null === $dsn) {
+            return null;
+        }
+
+        $endpoint = $dsn->getCspReportEndpointUrl();
+        $query = array_filter([
+            'sentry_release' => $this->options->getRelease(),
+            'sentry_environment' => $this->options->getEnvironment(),
+        ]);
+
+        if (!empty($query)) {
+            $endpoint .= '&' . http_build_query($query, '', '&');
+        }
+
+        return $endpoint;
     }
 
     /**
@@ -220,7 +248,7 @@ final class Client implements ClientInterface
     {
         if (null !== $hint) {
             if (null !== $hint->exception && empty($event->getExceptions())) {
-                $this->addThrowableToEvent($event, $hint->exception);
+                $this->addThrowableToEvent($event, $hint->exception, $hint);
             }
 
             if (null !== $hint->stacktrace && null === $event->getStacktrace()) {
@@ -310,8 +338,9 @@ final class Client implements ClientInterface
      *
      * @param Event      $event     The event that will be enriched with the exception
      * @param \Throwable $exception The exception that will be processed and added to the event
+     * @param EventHint  $hint      Contains additional information about the event
      */
-    private function addThrowableToEvent(Event $event, \Throwable $exception): void
+    private function addThrowableToEvent(Event $event, \Throwable $exception, EventHint $hint): void
     {
         if ($exception instanceof \ErrorException && null === $event->getLevel()) {
             $event->setLevel(Severity::fromError($exception->getSeverity()));
@@ -323,7 +352,7 @@ final class Client implements ClientInterface
             $exceptions[] = new ExceptionDataBag(
                 $exception,
                 $this->stacktraceBuilder->buildFromException($exception),
-                new ExceptionMechanism(ExceptionMechanism::TYPE_GENERIC, true)
+                $hint->mechanism ?? new ExceptionMechanism(ExceptionMechanism::TYPE_GENERIC, true)
             );
         } while ($exception = $exception->getPrevious());
 

@@ -1,4 +1,5 @@
-const mix = require('laravel-mix')
+const mix = require("laravel-mix");
+const path = require("path");
 
 /*
  |--------------------------------------------------------------------------
@@ -12,51 +13,66 @@ const mix = require('laravel-mix')
  */
 
 mix
-  .js('resources/js/app.js', 'public/js')
+  .js("resources/js/app.js", "public/js").vue()
   .webpackConfig({
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'resources/js/src/'),
-        '@themeConfig': path.resolve(__dirname, 'resources/js/themeConfig.js'),
-        '@core': path.resolve(__dirname, 'resources/js/src/@core'),
-        '@validations': path.resolve(__dirname, 'resources/js/src/@core/utils/validations/validations.js'),
-        '@axios': path.resolve(__dirname, 'resources/js/src/libs/axios')
-      }
+        "@": path.resolve(__dirname, "resources/js/src/"),
+        "@themeConfig": path.resolve(__dirname, "resources/js/themeConfig.js"),
+        "@core": path.resolve(__dirname, "resources/js/src/@core"),
+        "@validations": path.resolve(
+          __dirname,
+          "resources/js/src/@core/utils/validations/validations.js"
+        ),
+        "@axios": path.resolve(__dirname, "resources/js/src/libs/axios"),
+      },
+      fallback: {
+        crypto: require.resolve("crypto-browserify"),
+        "crypto-browserify": require.resolve("crypto-browserify"),
+        stream: require.resolve("stream-browserify"),
+      },
+    },
+    stats: {
+      children: true,
     },
     module: {
       rules: [
         {
           test: /\.s[ac]ss$/i,
           use: [
+            "style-loader",
+            "css-loader",
             {
-              loader: 'sass-loader',
+              loader: "sass-loader",
               options: {
                 sassOptions: {
-                  includePaths: ['node_modules', 'resources/js/src/assets']
-                }
-              }
-            }
-          ]
+                  includePaths: ["node_modules", "resources/js/src/scss"],
+                },
+              },
+            },
+          ],
         },
         {
           test: /(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/,
-          loaders: {
-            loader: 'file-loader',
+          use: {
+            loader: "file-loader",
             options: {
-              name: 'images/[path][name].[ext]',
-              context: '../vuexy-vuejs-bootstrap-vue-template/src/assets/images'
+              name: "images/[path][name].[ext]",
+              context:
+                "../vuexy-vuejs-bootstrap-vue-template/src/assets/images",
               //   context: 'frontend/src/assets/images'
-            }
-          }
-        }
-      ]
-    }
+            },
+          },
+        },
+      ],
+    },
   })
-  .sass('resources/scss/app.scss', 'public/css')
+  .sass("resources/scss/app.scss", "public/css", {})
+
   .options({
-    postCss: [require('autoprefixer'), require('postcss-rtl')]
-  })
-mix.copy('resources/scss/loader.css', 'public/css')
+    postCss: [require("autoprefixer"), require("postcss-rtl")],
+  });
+mix.copy("resources/scss/loader.css", "public/css");
 
 // ------------------------------------------------
 // If you are deploying on subdomain/subfolder. Uncomment below code before running 'yarn prod' or 'npm run production' command.
@@ -82,6 +98,6 @@ mix.copy('resources/scss/loader.css', 'public/css')
 
 mix.webpackConfig({
   output: {
-    chunkFilename: 'js/chunks/[name].[chunkhash].js'
-  }
-})
+    chunkFilename: "js/chunks/[name].[chunkhash].js",
+  },
+});
